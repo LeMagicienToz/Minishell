@@ -6,7 +6,7 @@
 #    By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2022/11/09 13:58:07 by raphaelperr      ###   ########.fr        #
+#    Updated: 2022/11/09 14:55:46 by raphaelperr      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ OBJ=		$(SRC:.c=.o)
 
 CC=			gcc
 
-CFLAGS	+=	-Wall -Wextra -Werror
+CFLAGS	+=	-Wall -Wextra -Werror -lreadline
 
 do:
 			@make $(NAME)
