@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
+/*   By: uteza <uteza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/11/09 15:08:34 by raphaelperr      ###   ########.fr       */
+/*   Updated: 2022/11/09 15:11:21 by uteza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(void)
 
 	while (1)
 	{
-		command_buffer = readline("Minishello 🤌 ");
+		command_buffer = readline("Minishello 🤌 >");
 		if (ft_strlen(command_buffer) > 0)
 			printf("%s\n", command_buffer);
 	}
