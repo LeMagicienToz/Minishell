@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uteza <uteza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/11/09 14:29:22 by uteza            ###   ########.fr       */
+/*   Updated: 2022/11/09 14:35:55 by raphaelperr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int argc, char const **argv)
 {
 	char	*command_buffer;
 
-	printf("aAAAHAHHHAHHAHA");
+	printf("");
 	while (1)
 	{
 		command_buffer = readline("test> ");
