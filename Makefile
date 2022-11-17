@@ -6,13 +6,16 @@
 #    By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2022/11/09 15:38:37 by raphaelperr      ###   ########.fr        #
+#    Updated: 2022/11/15 20:30:08 by raphaelperr      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=		Minishell
 
 SRC=		main.c\
+			utils.c\
+			cmd.c\
+			libft/ft_isalpha.c\
 			libft/ft_strlen.c\
 			libft/ft_putstr_fd.c \
 			libft/ft_putnbr_fd.c \

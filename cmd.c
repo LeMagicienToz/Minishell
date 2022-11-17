@@ -6,7 +6,7 @@
 /*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 20:25:05 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/11/16 11:17:47 by raphaelperr      ###   ########.fr       */
+/*   Updated: 2022/11/16 11:37:51 by raphaelperr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,15 @@ int	get_cmd(char *str)
 {
 	if (!ft_strncmp(str, "history", ft_strlen(str)))
 		cmd_history();
-	if (!ft_strncmp(str, "exit", ft_strlen(str)))
+	else if (!ft_strncmp(str, "exit", ft_strlen(str)))
 		return (1);
 	else
-		return (0);
+	{
+		ft_putstr_fd("msh: command not found: ", 1);
+		ft_putstr_fd(str, 1);
+		ft_putchar_fd('\n', 1);
+	}
+	return (0);
 }
 
 void	cmd_history(void)
