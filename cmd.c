@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 20:25:05 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/11/16 11:37:51 by raphaelperr      ###   ########.fr       */
+/*   Updated: 2022/11/28 16:10:15 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	get_cmd(char *str)
 {
 	if (!ft_strncmp(str, "history", ft_strlen(str)))
 		cmd_history();
+	else if (!ft_strncmp(str, "debug leaks", ft_strlen(str))) //Pour voir les leaks de notre minishello
+		system("leaks Minishell | grep leaks | tail -1"); //just la ligne intéressante
 	else if (!ft_strncmp(str, "exit", ft_strlen(str)))
 		return (1);
 	else
@@ -38,7 +40,7 @@ void	cmd_history(void)
 	while (i < myhist->length)
 	{
 		mylist = history_get(i + 1);
-		ft_putstr_fd(" ", 1);
+		ft_putstr_fd("    ", 1);
 		ft_putnbr_fd(i++ + 1, 1);
 		ft_putstr_fd("  ", 1);
 		ft_putstr_fd((char *)mylist[0].line, 1);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+         #
+#    By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2022/11/15 20:30:08 by raphaelperr      ###   ########.fr        #
+#    Updated: 2022/11/28 14:11:49 by rperrin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ CC=			gcc
 
 LFLAGS=		-l readline
 
-CFLAGS	+=	-Wall -Wextra -Werror 
+CFLAGS	+=	-Wall -Wextra -Werror #-fsanitize=address
 
 do:
 			@make $(NAME)
