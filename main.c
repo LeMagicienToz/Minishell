@@ -3,18 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: uteza <uteza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/11/28 16:08:51 by rperrin          ###   ########.fr       */
+/*   Updated: 2022/11/30 19:24:06 by uteza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/minishell.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
+	(void)argv;
+	(void)argc;
 	char	*command_buffer;
+	char	**input_minishell;
 
 	using_history();
 	while (1)
@@ -24,6 +27,8 @@ int	main(void)
 		{
 			command_buffer = ft_stripwhite(command_buffer);
 			add_history(command_buffer);
+			input_minishell = ft_split(command_buffer, ' ');
+			check_command(input_minishell, envp);
 			if (get_cmd(command_buffer))
 			{	
 				free(command_buffer);

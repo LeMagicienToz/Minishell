@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+         #
+#    By: uteza <uteza@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2022/11/28 14:11:49 by rperrin          ###   ########.fr        #
+#    Updated: 2022/11/30 19:27:13 by uteza            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,11 @@ NAME=		Minishell
 SRC=		main.c\
 			utils.c\
 			cmd.c\
+			check_command.c\
+			libft/ft_bzero.c\
+			libft/ft_strjoin.c\
+			libft/ft_split.c\
+			libft/ft_substr.c\
 			libft/ft_isalpha.c\
 			libft/ft_strlen.c\
 			libft/ft_putstr_fd.c \
