@@ -3,22 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uteza <uteza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/11/30 19:24:06 by uteza            ###   ########.fr       */
+/*   Updated: 2022/12/04 01:05:25 by raphaelperr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+int	main(__attribute__((unused))int argc, \
+__attribute__((unused))char **argv, __attribute__((unused))char **envp)
 {
-	(void)argv;
-	(void)argc;
 	char	*command_buffer;
-	char	**input_minishell;
+	t_data	*data;
+	// int		i;
 
+	// i = 0;
+	data = malloc(sizeof(t_data));
 	using_history();
 	while (1)
 	{
@@ -27,15 +29,20 @@ int	main(int argc, char **argv, char **envp)
 		{
 			command_buffer = ft_stripwhite(command_buffer);
 			add_history(command_buffer);
-			input_minishell = ft_split(command_buffer, ' ');
-			check_command(input_minishell, envp);
-			if (get_cmd(command_buffer))
-			{	
-				free(command_buffer);
-				break ;
-			}
+			data->input = ft_split(command_buffer, ' ');
+			data->cmd = ft_get_cmd(data->input[0]);
+			ft_printf_fd(1, "%s\n", data->cmd);
+			ft_printf_fd(1, "#1 %s\n", ft_get_arg(data->input[1]));
+			
+			//check_command(input_minishell, envp);
+			// if (get_cmd(command_buffer))
+			// {	
+			// 	free(command_buffer);
+			// 	break ;
+			// }
 		}
 		free(command_buffer);
+		free(data->input);
 	}
 	return (0);
 }

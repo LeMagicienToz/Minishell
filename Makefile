@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: uteza <uteza@student.42.fr>                +#+  +:+       +#+         #
+#    By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2022/11/30 19:27:13 by uteza            ###   ########.fr        #
+#    Updated: 2022/12/04 00:53:41 by raphaelperr      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,9 @@ SRC=		main.c\
 			utils.c\
 			cmd.c\
 			check_command.c\
+			built-in/echo.c\
+			parsing/getcmd.c\
+			parsing/getarg.c\
 			libft/ft_bzero.c\
 			libft/ft_strjoin.c\
 			libft/ft_split.c\

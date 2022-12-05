@@ -6,7 +6,7 @@
 /*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 17:20:02 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/11/15 20:10:48 by raphaelperr      ###   ########.fr       */
+/*   Updated: 2022/12/03 14:12:53 by raphaelperr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,49 @@ char	*ft_stripwhite(char *str)
 	result[i] = '\0';
 	free(str);
 	return (result);
+}
+
+void	ft_putnbr_base(int nb, int digit, char *base, int fd)
+{
+	if (nb < 0 && digit == 10)
+	{
+		ft_putchar_fd('-', fd);
+		ft_putnbr_base(-nb, digit, base, fd);
+	}
+	if (nb > 9)
+	{
+		ft_putnbr_base(nb / digit, digit, base, fd);
+		ft_putchar_fd(base[nb % digit], fd);
+	}
+	else
+		ft_putchar_fd(base[nb % digit], fd);
+}
+
+void	ft_printf_fd(int fd, char *str, ...)
+{
+	va_list	lst;
+	int		i;
+
+	va_start(lst, str);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '%' && (str[i + 1] == 'd' || \
+		str[i + 1] == 'x' || str[i + 1] == 's' || str[i + 1] == 'c'))
+		{
+			i++;
+			if (str[i] == 'd')
+				ft_putnbr_base(va_arg(lst, int), 10, "0123456789", fd);
+			if (str[i] == 'x')
+				ft_putnbr_base(va_arg(lst, int), 16, "0123456789abcdef", fd);
+			if (str[i] == 's')
+				ft_putstr_fd(va_arg(lst, char *), fd);
+			if (str[i] == 'c')
+				ft_putchar_fd(va_arg(lst, int), fd);
+			i++;
+		}
+		ft_putchar_fd(str[i], 1);
+		i++;
+	}
+	va_end(lst);
 }
