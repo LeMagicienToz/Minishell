@@ -6,7 +6,7 @@
 /*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:35:58 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/04 01:40:38 by raphaelperr      ###   ########.fr       */
+/*   Updated: 2022/12/05 15:49:02 by raphaelperr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_strlen_without_quote(char *str)
 
 	i = 0;
 	len = 0;
-	while (str[i])
+	while (str[i] != ' ')
 	{
 		if (str[i] == DBQUOTE)
 			i++;
@@ -38,13 +38,10 @@ char	*ft_get_cmd(char *input)
 	res = malloc(sizeof(char) * ft_strlen_without_quote(input) + 1);
 	i = 0;
 	j = 0;
-	while (input[i])
+	while (input[i] != ' ')
 	{
 		while (input[i] == DBQUOTECODE)
-		{
-			ft_printf_fd(2, "test 2 %c\n", input[i]);
 			i++;
-		}
 		res[j] = input[i];
 		i++;
 		j++;
