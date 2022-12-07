@@ -6,17 +6,14 @@
 /*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 23:32:12 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/06 15:55:34 by raphaelperr      ###   ########.fr       */
+/*   Updated: 2022/12/07 00:04:06 by raphaelperr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_get_code(char *str)
+int	ft_get_code(char *str, int i)
 {
-	int	i;
-
-	i = 0;
 	while (str[i])
 	{
 		if (str[i] == DBQUOTECODE)
@@ -28,35 +25,102 @@ int	ft_get_code(char *str)
 	return (0);
 }
 
-int	ft_len_quote(char *str, int code)
+t_data	*ft_len_quote(t_data *data, char *str, int code)
 {
-	int	len;
-	int	i;
+	while (str[data->i] == code)
+		data->i++;
+	while (str[data->i])
+	{
+		if (str[data->i] == code)
+		{
+			while (str[data->i] != code)
+			{
+				data->len++;
+				data->i++;
+			}
+			dprintf(2, "[DEBUG] i(%d) len(%d)\n", data->i, data->len);
+			break ;
+		}
+		data->i++;
+	}
+	return (data);
+}
+
+int	ft_len_remove_quote2(char *str)
+{
+	int		i;
+	int		len;
 
 	i = 0;
 	len = 0;
 	while (str[i])
 	{
-		if (str[i] == code)
-			len++;
+		if (str[i] == DBQUOTECODE)
+		{
+			i++;
+			while (str[i++] != DBQUOTECODE)
+			{
+				len++;
+				i++;
+			}	
+		}
+		else if (str[i] == QUOTECODE)
+		{
+			i++;
+			while (str[i++] != QUOTECODE)
+			{
+				len++;
+				i++;
+			}	
+		}
 		i++;
+
 	}
 	return (len);
 }
 
-char	*ft_remove_quote(char *str)
+char	*ft_remove_quote2(char *str)
+{
+	char	*res;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	res = malloc(sizeof(char) * ft_len_remove_quote2(str) + 1);
+	while (str[i])
+	{
+		if (str[i] == DBQUOTECODE)
+		{
+			i++;
+			while (str[i] != DBQUOTECODE)
+				res[j++] = str[i++];
+		}
+		else if (str[i] == QUOTECODE)
+		{
+			while (str[i] != QUOTECODE)
+				res[j++] = str[i++];	
+		}
+		res[j++] = str[i++];
+	}
+	res[j] = '\0';
+	return (res);
+}
+
+char	*ft_remove_quote(t_data *data, char *str)
 {
 	char	*res;
 	int		i;
 	int		j;
 	int		code;
 
-	code = ft_get_code(str);
-	if (code == 0)
-		return (str);
 	j = 0;
 	i = 0;
-	res = malloc(sizeof(char) * (ft_strlen(str) - ft_len_quote(str, code)) + 1);
+	code = ft_get_code(str, i);
+	if (code == 0)
+		return (str);
+	data = ft_len_quote(data, str, code);
+	res = malloc(sizeof(char) * (ft_strlen(str) - data->len) + 1);
 	while (str[i])
 	{
 		if (str[i] == code)
@@ -134,7 +198,7 @@ char	*ft_get_arg(char *input, int lencmd)
 	tmp = ft_remove_cmd(input, lencmd);
 	res = ft_remove_space(tmp);
 	free (tmp);
-	tmp = ft_remove_quote(res);
+	tmp = ft_remove_quote2(res);
 	free(res);
 	return (tmp);
 }

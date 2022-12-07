@@ -6,7 +6,7 @@
 #    By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2022/12/05 15:41:07 by raphaelperr      ###   ########.fr        #
+#    Updated: 2022/12/06 22:57:28 by raphaelperr      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ CC=			gcc
 
 LFLAGS=		-l readline
 
-CFLAGS	+=	-Wall -Wextra -Werror -fsanitize=address
+CFLAGS	+=	-Wall -Wextra -Werror -g# -fsanitize=address 
 
 do:
 			@make $(NAME)

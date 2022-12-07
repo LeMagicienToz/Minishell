@@ -6,7 +6,7 @@
 /*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/06 15:56:38 by raphaelperr      ###   ########.fr       */
+/*   Updated: 2022/12/07 00:00:37 by raphaelperr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_data
 	char	*cmd;
 	char	*settings;
 	char	*args;
+	int		i;
+	int		len;
 }	t_data;
 
 void	check_command(char **str, char **envp);
@@ -49,12 +51,13 @@ void	ft_echo(char *str);
 //PARSING
 int		ft_strlen_without_quote(char *str);
 char	*ft_get_cmd(char *input);
-char	*ft_get_arg(char *input, int lencmd);
 char	*ft_remove_space(char *str);
-int		ft_get_code(char *str);
-int		ft_len_quote(char *str, int code);
-char	*ft_remove_quote(char *str);
+int		ft_get_code(char *str, int i);
+t_data	*ft_len_quote(t_data *data, char *str, int code);
+char	*ft_remove_quote(t_data *data, char *str);
 int		ft_len_space(char *str);
 char	*ft_remove_cmd(char *input, int lencmd);
 char	*ft_get_arg(char *input, int lencmd);
+int		ft_len_remove_quote2(char *str);
+char	*ft_remove_quote2(char *str);
 #endif
