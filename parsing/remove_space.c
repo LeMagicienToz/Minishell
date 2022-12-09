@@ -1,43 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   getarg.c                                           :+:      :+:    :+:   */
+/*   remove_space.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/03 23:32:12 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/09 02:58:18 by raphaelperr      ###   ########.fr       */
+/*   Created: 2022/12/08 22:47:02 by raphaelperr       #+#    #+#             */
+/*   Updated: 2022/12/08 22:47:56 by raphaelperr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*ft_remove_cmd(char *input, int lencmd)
+int	ft_len_space(char *str)
 {
-	int		i;
-	int		j;
-	char	*tmp;
+	int	i;
+	int	j;
 
-	tmp = malloc(sizeof(char) * (ft_strlen(input) - lencmd));
-	i = lencmd + 1;
+	i = 0;
 	j = 0;
-	while (input[i])
-		tmp[j++] = input[i++];
-	tmp[j] = '\0';
-	return (tmp);
+	while (str[j])
+	{
+		while (str[j] == ' ' && str[j + 1] == ' ')
+		{
+			j++;
+			i++;
+		}
+		j++;
+	}
+	return (j - i);
 }
 
-char	*ft_get_arg(t_utils *u, char *input, int lencmd)
+char	*ft_remove_space(char *str)
 {
 	char	*res;
-	char	*tmp;
+	int		i;
+	int		j;
 
-	tmp = ft_remove_cmd(input, lencmd);
-	res = ft_remove_space(tmp);
-	free (tmp);
-	u->i = 0;
-	u->j = 0;
-	tmp = ft_remove_quote(u, res);
-	free(res);
-	return (tmp);
+	j = 0;
+	i = 0;
+	res = malloc(sizeof(char) * ft_len_space(str) + 1);
+	while (str[i])
+	{
+		while (str[i] == ' ' && str[i + 1] == ' ')
+			i++;
+		res[j++] = str[i++];
+	}
+	res[j] = '\0';
+	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/07 00:00:37 by raphaelperr      ###   ########.fr       */
+/*   Updated: 2022/12/09 02:42:40 by raphaelperr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,20 @@
 # define DBQUOTE 0
 # define QUOTE 1
 
+typedef struct s_utils
+{
+	int		i;
+	int		j;
+	int		len;
+}	t_utils;
+
 typedef struct s_data
 {
 	char	*input;
 	char	*cmd;
 	char	*settings;
 	char	*args;
-	int		i;
-	int		len;
+	t_utils	*u;
 }	t_data;
 
 void	check_command(char **str, char **envp);
@@ -52,12 +58,10 @@ void	ft_echo(char *str);
 int		ft_strlen_without_quote(char *str);
 char	*ft_get_cmd(char *input);
 char	*ft_remove_space(char *str);
-int		ft_get_code(char *str, int i);
-t_data	*ft_len_quote(t_data *data, char *str, int code);
-char	*ft_remove_quote(t_data *data, char *str);
 int		ft_len_space(char *str);
 char	*ft_remove_cmd(char *input, int lencmd);
-char	*ft_get_arg(char *input, int lencmd);
-int		ft_len_remove_quote2(char *str);
-char	*ft_remove_quote2(char *str);
+char	*ft_get_arg(t_utils *u, char *input, int lencmd);
+int		ft_getlen_remove_quote(char *str);
+char	*ft_remove_quote(t_utils *u, char *str);
+char	*ft_check_quote(char *res, char *str, int i, int code);
 #endif

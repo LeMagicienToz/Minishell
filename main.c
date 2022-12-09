@@ -6,7 +6,7 @@
 /*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/07 00:00:08 by raphaelperr      ###   ########.fr       */
+/*   Updated: 2022/12/09 02:40:34 by raphaelperr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,16 @@ __attribute__((unused))char **argv, __attribute__((unused))char **envp)
 {
 	char	*command_buffer;
 	t_data	*data;
+	t_utils	*u;
 	// int		i;
 
 	// i = 0;
 	data = malloc(sizeof(t_data));
+	u = malloc(sizeof(t_utils));
+	data->u = u;
+	data->u->i = 0;
+	data->u->j = 0;
+	data->u->len = 0;
 	using_history();
 	while (1)
 	{
@@ -30,7 +36,7 @@ __attribute__((unused))char **argv, __attribute__((unused))char **envp)
 			add_history(command_buffer);
 			data->input = command_buffer;
 			data->cmd = ft_get_cmd(command_buffer);
-			data->args = ft_get_arg(command_buffer, ft_strlen(data->cmd));
+			data->args = ft_get_arg(data->u, command_buffer, ft_strlen(data->cmd));
 			//ft_printf_fd(1, "%s\n", data->cmd);
 			ft_printf_fd(1, "%s\n", data->args);
 			

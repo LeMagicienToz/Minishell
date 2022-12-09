@@ -6,7 +6,7 @@
 #    By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2022/12/06 22:57:28 by raphaelperr      ###   ########.fr        #
+#    Updated: 2022/12/08 23:05:50 by raphaelperr      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,8 @@ SRC=		main.c\
 			built-in/echo.c\
 			parsing/getcmd.c\
 			parsing/getarg.c\
+			parsing/remove_quote.c\
+			parsing/remove_space.c\
 			libft/ft_bzero.c\
 			libft/ft_strjoin.c\
 			libft/ft_split.c\
