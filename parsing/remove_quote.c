@@ -6,7 +6,7 @@
 /*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:45:01 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/09 02:57:56 by raphaelperr      ###   ########.fr       */
+/*   Updated: 2022/12/09 03:02:09 by raphaelperr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ int	ft_getlen_remove_quote(char *str)
 			i++;
 		}
 		else
+		{
 			len++;
-		i++;
+			i++;
+		}
 	}
 	return (len);
 }
