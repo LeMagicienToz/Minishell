@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uteza <uteza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 15:14:06 by uteza             #+#    #+#             */
-/*   Updated: 2022/11/30 19:25:41 by uteza            ###   ########.fr       */
+/*   Updated: 2022/12/13 21:00:02 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,18 @@ char	*get_path(char **envp, char *arg)
 	return (arg);
 }
 
-void check_command(char **str, char **envp)
+void	fork_init(char **str, char **envp)
 {
-    char *path;
+	pid_t	child_pid;
+	char	*path;
 
-    path = get_path(envp, str[0]);
-    if (execve(path ,str , envp))
-    {
-        perror("Not Work\n");
-    }
-    // printf("%s\n", str);
+	path = get_path(envp, str[0]);
+	child_pid  = fork();
+	if (child_pid == -1)
+		printf("Fork error\n");
+	else if (child_pid == 0)
+		cmd_fork(path, str, envp);
+	else
+		wait_fork(child_pid);
+	//communique de parent à fils avec read(fd[0], );
 }

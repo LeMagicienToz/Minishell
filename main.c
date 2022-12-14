@@ -3,50 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/09 02:40:34 by raphaelperr      ###   ########.fr       */
+/*   Updated: 2022/12/14 13:59:42 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/minishell.h"
 
 int	main(__attribute__((unused))int argc, \
-__attribute__((unused))char **argv, __attribute__((unused))char **envp)
+__attribute__((unused))char **argv, char **envp)
 {
 	char	*command_buffer;
+	char	**str;
 	t_data	*data;
 	t_utils	*u;
-	// int		i;
 
-	// i = 0;
 	data = malloc(sizeof(t_data));
 	u = malloc(sizeof(t_utils));
 	data->u = u;
-	data->u->i = 0;
-	data->u->j = 0;
-	data->u->len = 0;
+	u->i = 0;
+	u->j = 0;
+	u->len = 0;
+	str = NULL;
 	using_history();
 	while (1)
 	{
-		command_buffer = ft_stripwhite(readline("Minishello $"));
+		command_buffer = ft_stripwhite(readline("(Minishell) "));
 		if (ft_strlen(command_buffer) && ft_check_word(command_buffer))
 		{
 			add_history(command_buffer);
 			data->input = command_buffer;
-			data->cmd = ft_get_cmd(command_buffer);
-			data->args = ft_get_arg(data->u, command_buffer, ft_strlen(data->cmd));
-			//ft_printf_fd(1, "%s\n", data->cmd);
-			ft_printf_fd(1, "%s\n", data->args);
-			
-			//check_command(input_minishell, envp);
-			// if (get_cmd(command_buffer))
-			// {	
-			// 	free(command_buffer);
-			// 	break ;
-			// }
+			str = ft_split(data->input, ' ');
+			if ((u->cmd = get_cmd(command_buffer)) < 0)
+			{	
+				if (u->cmd == -2)
+					break ;
+			}
+			else
+				fork_init(str, envp);
 		}
 	}
 	return (0);
 }
+

@@ -3,91 +3,95 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:45:01 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/09 03:02:09 by raphaelperr      ###   ########.fr       */
+/*   Updated: 2022/12/12 17:50:19 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_getlen_remove_quote(char *str)
+void	ft_init_res_normed(t_utils *u, char *str, int code)
 {
-	int		i;
-	int		len;
-
-	i = 0;
-	len = 0;
-	while (str[i])
-	{
-		if (str[i] == DBQUOTECODE)
-		{
-			i++;
-			while (str[i] != DBQUOTECODE && str[i++])
-				len++;
-			i++;
-		}
-		else if (str[i] == QUOTECODE)
-		{
-			i++;
-			while (str[i] != QUOTECODE && str[i++])
-				len++;
-			i++;
-		}
-		else
-		{
-			len++;
-			i++;
-		}
-	}
-	return (len);
+	u->i++;
+	while (str[u->i] != code && str[u->i++])
+		u->len++;
+	u->i++;
 }
 
-char	*ft_check_quote(char *res, char *str, int i, int code)
+char	*ft_init_res(t_utils *u, char *str)
+{
+	while (str[u->i])
+	{
+		if (str[u->i] == DBQUOTECODE || str[u->i++] == QUOTECODE)
+			ft_init_res_normed(u, str, str[u->i]);
+		else
+		{
+			u->len++;
+			u->i++;
+		}
+	}
+	u->res = malloc(sizeof(char) * u->len + 1);
+	return (u->res);
+}
+
+int	ft_check_quote(int i, char *str, int code)
 {
 	while (str[i])
 	{
 		if (str[i] == code)
-			return (res);
+			return (0);
 		i++;
 	}
-	free(res);
-	res = malloc(sizeof(char) * 2);
-	res = ">\0";
-	return (res);
+	return (1);
+}
+
+void	ft_remove_quote_normed(t_utils *u, char *str, int code)
+{
+	u->i++;
+	if (ft_check_quote(u->i, str, code) == 1)
+	{
+		u->i = -1;
+		return ;
+	}
+	while (str[u->i] != code && str[u->i])
+	{
+		dprintf(2, "[%c]\n", str[u->i]);
+		u->res[u->j] = str[u->i];
+		u->i++;
+		u->j++;
+	}
+	// if (u->i == ft_strlen(str) - 1)
+	u->i++;
 }
 
 char	*ft_remove_quote(t_utils *u, char *str)
 {
 	char	*res;
 
-	res = malloc(sizeof(char) * ft_getlen_remove_quote(str) + 1);
+	res = ft_init_res(u, str);
 	while (str[u->i])
 	{
-		if (str[u->i] == DBQUOTECODE)
+		if (str[u->i] == DBQUOTECODE || str[u->i] == QUOTECODE)
 		{
-			u->i++;
-			res = ft_check_quote(res, str, u->i, DBQUOTECODE);
-			while (str[u->i] != DBQUOTECODE && str[u->i])
-				res[u->j++] = str[u->i++];
-			u->i++;
-		}
-		else if (str[u->i] == QUOTECODE)
-		{
-			u->i++;
-			res = ft_check_quote(res, str, u->i, QUOTECODE);
-			while (str[u->i] != QUOTECODE && str[u->i])
-				res[u->j++] = str[u->i++];
-			u->i++;
+			dprintf(2, "1(%c)\n", str[u->i]);
+			ft_remove_quote_normed(u, str, str[u->i]);
+			if (u->i == -1)
+			{
+				free(u->res);
+				u->res = malloc(sizeof(char) * 2);
+				u->res = ">\0";
+				return (u->res);
+			}
 		}
 		else
-			res[u->j++] = str[u->i++];
+		{
+			//dprintf(2, "test(%p)\n", &str[u->i]);
+			u->res[u->j++] = str[u->i++];
+			dprintf(2, "2(%c)\n", u->res[u->j]);
+		}
 	}
-	return (res);
+	u->res[u->i] = '\0';
+	return (u->res);
 }
-
-// char	*tmp;
-
-	// tmp = ft_remove_quote_norme(u, res);
-	// free(res);

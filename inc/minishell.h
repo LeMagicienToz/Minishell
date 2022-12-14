@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/09 02:42:40 by raphaelperr      ###   ########.fr       */
+/*   Updated: 2022/12/13 22:54:32 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
@@ -29,6 +30,8 @@ typedef struct s_utils
 	int		i;
 	int		j;
 	int		len;
+	int		cmd;
+	char	*res;
 }	t_utils;
 
 typedef struct s_data
@@ -40,7 +43,7 @@ typedef struct s_data
 	t_utils	*u;
 }	t_data;
 
-void	check_command(char **str, char **envp);
+void	fork_init(char **str, char **envp);
 char	*ft_stripwhite(char *str);
 int		ft_strlen_white(char *str);
 int		ft_check_word(char *str);
@@ -53,6 +56,8 @@ void	ft_printf_fd(int fd, char *str, ...);
 
 //BUILT IN
 void	ft_echo(char *str);
+void	cmd_fork(char *path, char **str, char **envp);
+void	wait_fork(pid_t child_pid);
 
 //PARSING
 int		ft_strlen_without_quote(char *str);
@@ -61,7 +66,11 @@ char	*ft_remove_space(char *str);
 int		ft_len_space(char *str);
 char	*ft_remove_cmd(char *input, int lencmd);
 char	*ft_get_arg(t_utils *u, char *input, int lencmd);
-int		ft_getlen_remove_quote(char *str);
+char	*ft_init_res(t_utils *u, char *str);
+void	ft_init_res_normed(t_utils *u, char *str, int code);
 char	*ft_remove_quote(t_utils *u, char *str);
-char	*ft_check_quote(char *res, char *str, int i, int code);
+int		ft_check_quote(int i, char *str, int code);
+void	ft_remove_quote_normed(t_utils *u, char *str, int code);
+
+void	lol(int j, int v);
 #endif

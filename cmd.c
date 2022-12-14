@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 20:25:05 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/11/28 16:10:15 by rperrin          ###   ########.fr       */
+/*   Updated: 2022/12/14 14:44:05 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,28 @@
 
 int	get_cmd(char *str)
 {
+	char **args;
+
 	if (!ft_strncmp(str, "history", ft_strlen(str)))
-		cmd_history();
-	else if (!ft_strncmp(str, "debug leaks", ft_strlen(str))) //Pour voir les leaks de notre minishello
-		system("leaks Minishell | grep leaks | tail -1"); //just la ligne intéressante
-	else if (!ft_strncmp(str, "exit", ft_strlen(str)))
-		return (1);
-	else
 	{
-		ft_putstr_fd("msh: command not found: ", 1);
-		ft_putstr_fd(str, 1);
-		ft_putchar_fd('\n', 1);
+		cmd_history();	
+		return (-1);
 	}
-	return (0);
+	else if (!ft_strncmp(str, "debug leaks", ft_strlen(str))) //Pour voir les leaks de notre minishello
+	{
+		system("leaks Minishell | grep leaks | tail -1");
+		return (-1);
+	}
+	else if (str[0] == 'l' && str[1] == 'o' && str[2] == 'l')
+	{
+		args = ft_split(str, ' ');
+		lol(ft_atoi(args[1]), ft_atoi(args[2]));
+		return (-1);
+	}
+	else if (!ft_strncmp(str, "exit", ft_strlen(str)))
+		return (-2);
+	else
+		return (1);
 }
 
 void	cmd_history(void)
@@ -47,4 +56,23 @@ void	cmd_history(void)
 		ft_putchar_fd('\n', 1);
 	}
 	free(myhist);
+}
+
+void	cmd_fork(char *path, char **str, char **envp)
+{
+	int	tid;
+
+	tid = getpid();
+	execve(path, str, envp);
+	exit(0);
+}
+
+void wait_fork(pid_t child_pid)
+{
+	pid_t	tpid;
+	int		status;
+
+	tpid = 0;
+	while(tpid != child_pid)
+		tpid = wait(&status);
 }

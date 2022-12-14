@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+         #
+#    By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2022/12/08 23:05:50 by raphaelperr      ###   ########.fr        #
+#    Updated: 2022/12/13 22:21:34 by rperrin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC=		main.c\
 			parsing/getarg.c\
 			parsing/remove_quote.c\
 			parsing/remove_space.c\
+			lol/lol.c\
 			libft/ft_bzero.c\
 			libft/ft_strjoin.c\
 			libft/ft_split.c\
