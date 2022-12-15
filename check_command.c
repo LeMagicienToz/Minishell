@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 15:14:06 by uteza             #+#    #+#             */
-/*   Updated: 2022/12/13 21:00:02 by rperrin          ###   ########.fr       */
+/*   Updated: 2022/12/15 18:54:42 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,71 @@ char	*get_path(char **envp, char *arg)
 	return (arg);
 }
 
+int	count_pipe(char **str)
+{
+	int	j;
+	int	i;
+	int	count;
+
+	count = 0;
+	i = 0;
+	j = 0;
+	while (str[j++])
+	{
+		while (str[j][i++])
+			if (str[j][i] == '|')
+				count++;
+	}
+	return (count);
+}
+
 void	fork_init(char **str, char **envp)
 {
-	pid_t	child_pid;
-	char	*path;
+	pid_t		child_pid;
+	int			fd[2];
+	char		*path;
+	int			i;
 
-	path = get_path(envp, str[0]);
+	i = 0;
+	if (pipe(fd) == -1)
+	{
+		printf("pipe failed\n");
+		return ;
+	}
 	child_pid  = fork();
 	if (child_pid == -1)
-		printf("Fork error\n");
+	printf("Fork error\n");
 	else if (child_pid == 0)
-		cmd_fork(path, str, envp);
+	{
+		//child
+		path = get_path(envp, str[0]);
+		printf("2 path = %s\n", path);
+		// close(fd[1]);
+		// dup2(fd[0], 0);
+		execve(path, str, envp);
+		//close(fd[0]);
+		exit(0);
+		//cmd_fork(path, str, envp);
+	}
 	else
-		wait_fork(child_pid);
-	//communique de parent à fils avec read(fd[0], );
+	{
+		//parent
+		// path = get_path(envp, str[0]);
+		// printf("1 path = %s\n", path);
+		// close(fd[0]);
+		// dup2(fd[1], 1);
+		// execve(path, str, envp);
+		// close(fd[1]);
+		wait(&child_pid);
+	}
+}
+
+void wait_fork(pid_t child_pid)
+{
+	pid_t	tpid;
+	int		status;
+
+	tpid = 0;
+	while(tpid != child_pid)
+		tpid = wait(&status);
 }

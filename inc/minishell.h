@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/13 22:54:32 by rperrin          ###   ########.fr       */
+/*   Updated: 2022/12/14 19:00:41 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
+# include <fcntl.h>
+# include <sys/stat.h>
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -43,6 +45,7 @@ typedef struct s_data
 	t_utils	*u;
 }	t_data;
 
+void	wait_fork(pid_t child_pid);
 void	fork_init(char **str, char **envp);
 char	*ft_stripwhite(char *str);
 int		ft_strlen_white(char *str);
@@ -56,8 +59,6 @@ void	ft_printf_fd(int fd, char *str, ...);
 
 //BUILT IN
 void	ft_echo(char *str);
-void	cmd_fork(char *path, char **str, char **envp);
-void	wait_fork(pid_t child_pid);
 
 //PARSING
 int		ft_strlen_without_quote(char *str);

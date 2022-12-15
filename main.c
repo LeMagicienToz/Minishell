@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/14 13:59:42 by rperrin          ###   ########.fr       */
+/*   Updated: 2022/12/14 19:02:44 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ __attribute__((unused))char **argv, char **envp)
 			data->input = command_buffer;
 			str = ft_split(data->input, ' ');
 			if ((u->cmd = get_cmd(command_buffer)) < 0)
-			{	
+			{
 				if (u->cmd == -2)
 					break ;
 			}
@@ -47,4 +47,3 @@ __attribute__((unused))char **argv, char **envp)
 	}
 	return (0);
 }
-

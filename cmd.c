@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 20:25:05 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/14 14:44:05 by rperrin          ###   ########.fr       */
+/*   Updated: 2022/12/14 15:39:07 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,4 @@ void	cmd_history(void)
 		ft_putchar_fd('\n', 1);
 	}
 	free(myhist);
-}
-
-void	cmd_fork(char *path, char **str, char **envp)
-{
-	int	tid;
-
-	tid = getpid();
-	execve(path, str, envp);
-	exit(0);
-}
-
-void wait_fork(pid_t child_pid)
-{
-	pid_t	tpid;
-	int		status;
-
-	tpid = 0;
-	while(tpid != child_pid)
-		tpid = wait(&status);
 }
