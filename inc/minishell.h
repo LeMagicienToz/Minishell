@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/14 19:00:41 by rperrin          ###   ########.fr       */
+/*   Updated: 2022/12/16 18:37:32 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@
 # define QUOTECODE 39
 # define DBQUOTE 0
 # define QUOTE 1
+
+typedef struct s_pipe
+{
+	int		fd[2];
+	pid_t	id;
+}	t_pipe;
 
 typedef struct s_utils
 {
@@ -59,6 +65,8 @@ void	ft_printf_fd(int fd, char *str, ...);
 
 //BUILT IN
 void	ft_echo(char *str);
+int		check_builtin(char *command_buffer, char **envp);
+void	ft_cd(char *name);
 
 //PARSING
 int		ft_strlen_without_quote(char *str);

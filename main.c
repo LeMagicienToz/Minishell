@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/14 19:02:44 by rperrin          ###   ########.fr       */
+/*   Updated: 2022/12/16 18:37:08 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ __attribute__((unused))char **argv, char **envp)
 				if (u->cmd == -2)
 					break ;
 			}
-			else
+			else if (check_builtin(command_buffer, envp) == 0)
+			{
 				fork_init(str, envp);
+			}
 		}
 	}
 	return (0);

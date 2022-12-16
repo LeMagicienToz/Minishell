@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 20:25:05 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/14 15:39:07 by rperrin          ###   ########.fr       */
+/*   Updated: 2022/12/16 15:28:40 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	get_cmd(char *str)
 {
-	char **args;
+	char	**args;
 
 	if (!ft_strncmp(str, "history", ft_strlen(str)))
 	{
-		cmd_history();	
+		cmd_history();
 		return (-1);
 	}
 	else if (!ft_strncmp(str, "debug leaks", ft_strlen(str))) //Pour voir les leaks de notre minishello

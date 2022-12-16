@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+         #
+#    By: muteza <muteza@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2022/12/13 22:21:34 by rperrin          ###   ########.fr        #
+#    Updated: 2022/12/16 17:33:16 by muteza           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ SRC=		main.c\
 			cmd.c\
 			check_command.c\
 			built-in/echo.c\
+			built-in/cd.c\
+			built-in/check_builtin.c\
 			parsing/getcmd.c\
 			parsing/getarg.c\
 			parsing/remove_quote.c\

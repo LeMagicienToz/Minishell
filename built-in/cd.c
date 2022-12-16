@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/02 13:29:24 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/16 18:54:39 by muteza           ###   ########.fr       */
+/*   Created: 2022/12/16 16:22:26 by muteza            #+#    #+#             */
+/*   Updated: 2022/12/16 18:27:06 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_echo(char *str)
+void	ft_cd(char *name)
 {
-	ft_printf_fd(1, "%s\n", str);
+	if (name == 0)
+		name = "/Users/muteza";
+	chdir(name);
 }

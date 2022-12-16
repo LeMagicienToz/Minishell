@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 15:14:06 by uteza             #+#    #+#             */
-/*   Updated: 2022/12/15 18:54:42 by rperrin          ###   ########.fr       */
+/*   Updated: 2022/12/16 15:28:12 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,9 @@ char	*get_path(char **envp, char *arg)
 	while (envp[i] && ft_strncmp("PATH=", envp[i], 5))
 		i++;
 	if (!envp[i])
-    {
-        printf("AHAHA");
+	{
 		return (arg);
-    }
+	}
 	path = envp[i] + 5;
 	while (*path)
 	{
