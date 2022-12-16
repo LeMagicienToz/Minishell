@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/16 18:37:08 by muteza           ###   ########.fr       */
+/*   Updated: 2022/12/16 20:07:09 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ __attribute__((unused))char **argv, char **envp)
 	char	**str;
 	t_data	*data;
 	t_utils	*u;
+	t_built	builtin;
 
+	builtin.save = "/Users/muteza/Desktop/Minishell";
 	data = malloc(sizeof(t_data));
 	u = malloc(sizeof(t_utils));
 	data->u = u;
@@ -41,7 +43,7 @@ __attribute__((unused))char **argv, char **envp)
 				if (u->cmd == -2)
 					break ;
 			}
-			else if (check_builtin(command_buffer, envp) == 0)
+			else if (check_builtin(command_buffer, envp, &builtin) == 0)
 			{
 				fork_init(str, envp);
 			}

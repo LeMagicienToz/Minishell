@@ -6,7 +6,7 @@
 #    By: muteza <muteza@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2022/12/16 17:33:16 by muteza           ###   ########.fr        #
+#    Updated: 2022/12/16 19:01:14 by muteza           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRC=		main.c\
 			check_command.c\
 			built-in/echo.c\
 			built-in/cd.c\
+			built-in/pwd.c\
 			built-in/check_builtin.c\
 			parsing/getcmd.c\
 			parsing/getarg.c\

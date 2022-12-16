@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/16 18:37:32 by muteza           ###   ########.fr       */
+/*   Updated: 2022/12/16 20:17:02 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@
 # define DBQUOTE 0
 # define QUOTE 1
 
-typedef struct s_pipe
+typedef struct s_built
 {
-	int		fd[2];
-	pid_t	id;
-}	t_pipe;
+	char	**str;
+	char	*save;
+}	t_built;
 
 typedef struct s_utils
 {
@@ -65,8 +65,9 @@ void	ft_printf_fd(int fd, char *str, ...);
 
 //BUILT IN
 void	ft_echo(char *str);
-int		check_builtin(char *command_buffer, char **envp);
-void	ft_cd(char *name);
+void	ft_pwd(t_built *builtin);
+int		check_builtin(char *command_buffer, char **envp, t_built	*builtin);
+void	ft_cd(char *name, t_built *builtin);
 
 //PARSING
 int		ft_strlen_without_quote(char *str);

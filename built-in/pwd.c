@@ -6,13 +6,21 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:53:37 by muteza            #+#    #+#             */
-/*   Updated: 2022/12/16 18:54:33 by muteza           ###   ########.fr       */
+/*   Updated: 2022/12/16 20:14:13 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_pwd(char **envp)
+void	ft_pwd(t_built *builtin)
 {
-	
+	char	cwd[1025];
+	char	*str;
+
+	str = getcwd(cwd, sizeof(cwd));
+	if (str == NULL)
+		str = builtin->save;
+	else
+		builtin->save = str;
+	printf("%s\n", str);
 }
