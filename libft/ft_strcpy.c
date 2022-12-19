@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/16 18:53:37 by muteza            #+#    #+#             */
-/*   Updated: 2022/12/16 20:23:39 by muteza           ###   ########.fr       */
+/*   Created: 2022/12/17 16:07:09 by muteza            #+#    #+#             */
+/*   Updated: 2022/12/17 16:09:59 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include	"libft.h"
 
-void	ft_pwd(t_built *builtin)
+char	*ft_strcpy(char *dest, char *src)
 {
-	char	cwd[1025];
-	char	*str;
+	int	i;
 
-	str = getcwd(cwd, sizeof(cwd));
-	if (str == NULL)
-		str = builtin->save;
-	printf("%s\n", str);
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }

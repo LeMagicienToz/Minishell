@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/16 18:53:37 by muteza            #+#    #+#             */
-/*   Updated: 2022/12/16 20:23:39 by muteza           ###   ########.fr       */
+/*   Created: 2022/12/19 13:46:19 by muteza            #+#    #+#             */
+/*   Updated: 2022/12/19 14:06:01 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "inc/minishell.h"
 
-void	ft_pwd(t_built *builtin)
+int	check_pipe(char *str)
 {
-	char	cwd[1025];
-	char	*str;
+	int	i;
+	int	k;
 
-	str = getcwd(cwd, sizeof(cwd));
-	if (str == NULL)
-		str = builtin->save;
-	printf("%s\n", str);
+	k = 0;
+	i = ft_strlen(str);
+	while (i != 0)
+	{
+		if (str[i] == '|')
+			k++;
+	}
+	if (k == 0)
+		return (0);
+	else
+		return (1);
+	// 	split_the_pipe(str);
 }

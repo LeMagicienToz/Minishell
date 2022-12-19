@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/16 18:53:37 by muteza            #+#    #+#             */
-/*   Updated: 2022/12/16 20:23:39 by muteza           ###   ########.fr       */
+/*   Created: 2022/12/17 11:17:12 by muteza            #+#    #+#             */
+/*   Updated: 2022/12/17 11:29:53 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_pwd(t_built *builtin)
+void	ft_env(t_built *builtin, char **envp)
 {
-	char	cwd[1025];
-	char	*str;
+	int	i;
+	(void)builtin;
 
-	str = getcwd(cwd, sizeof(cwd));
-	if (str == NULL)
-		str = builtin->save;
-	printf("%s\n", str);
+	i = 0;
+	while (envp[i])
+	{
+		printf("%s\n", envp[i]);
+		i++;
+	}
 }

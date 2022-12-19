@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/16 20:07:09 by muteza           ###   ########.fr       */
+/*   Updated: 2022/12/19 14:09:07 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ __attribute__((unused))char **argv, char **envp)
 	using_history();
 	while (1)
 	{
-		command_buffer = ft_stripwhite(readline("(Minishell) "));
+		command_buffer = ft_stripwhite(readline("$Minishell -> "));
 		if (ft_strlen(command_buffer) && ft_check_word(command_buffer))
 		{
 			add_history(command_buffer);
@@ -43,7 +43,7 @@ __attribute__((unused))char **argv, char **envp)
 				if (u->cmd == -2)
 					break ;
 			}
-			else if (check_builtin(command_buffer, envp, &builtin) == 0)
+			else if (check_builtin(command_buffer, envp, &builtin) == 0 || check_pipe(command_buffer) == 0)
 			{
 				fork_init(str, envp);
 			}

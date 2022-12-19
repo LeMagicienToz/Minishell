@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/16 20:17:02 by muteza           ###   ########.fr       */
+/*   Updated: 2022/12/19 14:06:41 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,18 @@
 # define DBQUOTE 0
 # define QUOTE 1
 
+typedef struct s_lst
+{
+	char			*content;
+	struct s_list	*next;
+}	t_lst;
+
 typedef struct s_built
 {
+	char	**tab_exp;
 	char	**str;
 	char	*save;
+	t_lst	*lst;
 }	t_built;
 
 typedef struct s_utils
@@ -59,6 +67,9 @@ int		ft_check_word(char *str);
 int		get_cmd(char *str);
 void	cmd_history(void);
 
+//PIPE
+int		check_pipe(char *str);
+
 //UTILS
 void	ft_putnbr_base(int nb, int digit, char *base, int fd);
 void	ft_printf_fd(int fd, char *str, ...);
@@ -66,6 +77,8 @@ void	ft_printf_fd(int fd, char *str, ...);
 //BUILT IN
 void	ft_echo(char *str);
 void	ft_pwd(t_built *builtin);
+void	ft_export(t_built *builtin, char **envp);
+void	ft_env(t_built *builtin, char **envp);
 int		check_builtin(char *command_buffer, char **envp, t_built	*builtin);
 void	ft_cd(char *name, t_built *builtin);
 

@@ -6,7 +6,7 @@
 #    By: muteza <muteza@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2022/12/16 19:01:14 by muteza           ###   ########.fr        #
+#    Updated: 2022/12/19 14:06:57 by muteza           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,16 +15,20 @@ NAME=		Minishell
 SRC=		main.c\
 			utils.c\
 			cmd.c\
+			pipe.c\
 			check_command.c\
 			built-in/echo.c\
 			built-in/cd.c\
+			built-in/export.c\
 			built-in/pwd.c\
+			built-in/env.c\
 			built-in/check_builtin.c\
 			parsing/getcmd.c\
 			parsing/getarg.c\
 			parsing/remove_quote.c\
 			parsing/remove_space.c\
 			lol/lol.c\
+			libft/ft_strcpy.c\
 			libft/ft_bzero.c\
 			libft/ft_strjoin.c\
 			libft/ft_split.c\

@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+         #
+#    By: muteza <muteza@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/19 15:49:30 by rperrin           #+#    #+#              #
-#    Updated: 2021/11/03 15:35:18 by rperrin          ###   ########.fr        #
+#    Updated: 2022/12/17 16:08:01 by muteza           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= libft.a
 
 SRCS	= ft_atoi.c \
+ft_strcpy.c\
 ft_bzero.c \
 ft_calloc.c \
 ft_isalnum.c \

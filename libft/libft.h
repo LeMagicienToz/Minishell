@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 19:28:05 by rperrin           #+#    #+#             */
-/*   Updated: 2022/11/04 17:01:02 by raphaelperr      ###   ########.fr       */
+/*   Updated: 2022/12/17 16:10:13 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_list
 	struct s_list		*next;
 }						t_list;
 
+char	*ft_strcpy(char *dest, char *src);
 int		ft_isdigit(int c);
 int		ft_isascii(int c);
 int		ft_isalpha(int c);
