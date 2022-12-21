@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/19 14:06:41 by muteza           ###   ########.fr       */
+/*   Updated: 2022/12/21 23:14:19 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,11 @@
 # include "../libft/libft.h"
 # define DBQUOTECODE 34
 # define QUOTECODE 39
+# define SPACECODE 32
+# define HYPHENCODE 45
+# define QUOTECODE 39
 # define DBQUOTE 0
 # define QUOTE 1
-
-typedef struct s_lst
-{
-	char			*content;
-	struct s_list	*next;
-}	t_lst;
-
-typedef struct s_built
-{
-	char	**tab_exp;
-	char	**str;
-	char	*save;
-	t_lst	*lst;
-}	t_built;
-
 typedef struct s_utils
 {
 	int		i;
@@ -50,6 +38,14 @@ typedef struct s_utils
 	char	*res;
 }	t_utils;
 
+typedef struct s_lst	t_lst;
+struct s_lst
+{
+	char	*content;
+	t_lst	*next;
+	t_lst	*prev;
+};
+
 typedef struct s_data
 {
 	char	*input;
@@ -57,7 +53,16 @@ typedef struct s_data
 	char	*settings;
 	char	*args;
 	t_utils	*u;
+	t_lst	*first;
+	t_lst	*last;
 }	t_data;
+
+typedef struct s_built
+{
+	char	**tab_exp;
+	char	**str;
+	char	*save;
+}	t_built;
 
 void	wait_fork(pid_t child_pid);
 void	fork_init(char **str, char **envp);
@@ -94,6 +99,13 @@ void	ft_init_res_normed(t_utils *u, char *str, int code);
 char	*ft_remove_quote(t_utils *u, char *str);
 int		ft_check_quote(int i, char *str, int code);
 void	ft_remove_quote_normed(t_utils *u, char *str, int code);
+
+//LEXER
+t_lst	*detect_token(t_lst *lst, char *str);
+void	create_token(t_lst **lst, char *str);
+void	addback(t_lst *node, t_lst **lst);
+t_lst	*create_node(char *str);
+int		check_separator(char c);
 
 void	lol(int j, int v);
 #endif
