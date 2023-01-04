@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:46:19 by muteza            #+#    #+#             */
-/*   Updated: 2023/01/04 18:50:34 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/04 20:12:42 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,33 @@
 
 void	one_command(t_lst *lst, t_data *data)
 {
-	(void)data;
-	char	**command = NULL;
+	char	**command;
 	t_lst	*tmp;
+	int		i;
+	int		k;
 
 	tmp = lst;
-	if (ft_lstsize(lst) == 1)
+	k = 0;
+	i = ft_lstsize(lst);
+	command = malloc((sizeof(char**)) * (i + 1));
+	if (data->maxindex == 0)
 	{
-		command[0] = lst->content;
-		
+		if (i == 1)
+		{
+			command[0] = ft_strdup(tmp->content);
+			command[1] = NULL;
+		}
+		else
+		{
+			while (tmp)
+			{
+				command[k++] =  ft_strdup(tmp->content);
+				tmp = tmp->next;
+			}
+				command[k] = NULL;
+		}
 	}
-	else
-	{
-		command = ft_split(tmp->content, ' ');
-		printf("%s\n", tmp->content);
-	}
+	fork_init(command, data->envp);
 }
 
 char	**check_pipe(t_lst *lst, t_data *data)

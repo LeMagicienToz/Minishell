@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/04 18:46:36 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/04 19:04:55 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_data
 	char	*settings;
 	char	*args;
 	int		maxindex;
+	char	**envp;
 	t_utils	*u;
 	t_lst	*first;
 	t_lst	*last;

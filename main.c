@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/04 17:33:28 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/04 19:05:45 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void deleteList(t_lst** head_ref)
 }
 
 int	main(__attribute__((unused))int argc, \
-__attribute__((unused))char **argv, __attribute__((unused))char **envp)
+__attribute__((unused))char **argv,	char **envp)
 {
 	// char	**str;
 	// t_utils	*u;
@@ -58,6 +58,7 @@ __attribute__((unused))char **argv, __attribute__((unused))char **envp)
 	t_lst	*lst;
 
 	lst = NULL;
+	data.envp = envp;
 	builtin.save = "/Users/muteza/Desktop/Minishell";
 	// u = malloc(sizeof(t_utils));
 	// data->u = u;
