@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/04 15:51:00 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/04 16:50:03 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ __attribute__((unused))char **argv, __attribute__((unused))char **envp)
 	// char	**str;
 	// t_utils	*u;
 	t_built	builtin;
+	t_data	data;
 	t_lst	*lst;
 
 	lst = NULL;
@@ -72,9 +73,10 @@ __attribute__((unused))char **argv, __attribute__((unused))char **envp)
 	// return (1);
 	while (1)
 	{
-		lst = detect_token(lst, ft_stripwhite(readline("$Minishell -> ")));
+		lst = detect_token(&data, lst, ft_stripwhite(readline("$Minishell -> ")));
 		tiensmax(lst);
 		deleteList(&lst);
+		data.maxindex = 0;
 		// data->input = command_buffer;
 		// str = ft_split(data->input, ' ');
 		// if (str[0][0] == 'l')

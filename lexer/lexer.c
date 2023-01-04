@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 19:13:27 by rperrin           #+#    #+#             */
-/*   Updated: 2023/01/02 23:43:37 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/04 16:50:42 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,22 @@ int	check_separator(char c)
 		return (DBQUOTECODE);
 	else if (c == QUOTECODE)
 		return (QUOTECODE);
-	else if (c == HYPHENCODE)
-		return (HYPHENCODE);
 	else if (c == SPACECODE)
 		return (SPACECODE);
 	else
 		return (-1);
 }
 
-t_lst	*create_node(char *str, int separator)
+t_lst	*create_node(t_data *data, char *str, int separator)
 {
 	t_lst		*node;
-	static int	index;
 
-	if (!index)
-		index = 0;
 	node = malloc(sizeof(t_lst));
 	node->content = ft_strdup(str);
 	node->separator = separator;
 	if (ft_strchr(str, '|'))
-		index++;
-	node->index = index;
+		data->maxindex++;
+	node->index = data->maxindex;
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);
@@ -55,17 +50,17 @@ void	addback(t_lst *node, t_lst **lst)
 	node->prev = tmp;
 }
 
-void	create_token(t_lst **lst, char *str, int separator)
+void	create_token(t_data *data, t_lst **lst, char *str, int separator)
 {
 	t_lst	*node;
 	int		i;
 
 	i = 0;
 	if ((*lst) == NULL)
-		(*lst) = create_node(str, separator);
+		(*lst) = create_node(data, str, separator);
 	else
 	{
-		node = create_node(str, separator);
+		node = create_node(data, str, separator);
 		addback(node, lst);
 	}
 }
@@ -86,7 +81,7 @@ int	get_len_token(char *str, int i, int last)
 	return (len);
 }
 
-t_lst	*detect_token(t_lst *lst, char *str)
+t_lst	*detect_token(t_data *data, t_lst *lst, char *str)
 {
 	int		i;
 	int		j;
@@ -117,7 +112,7 @@ t_lst	*detect_token(t_lst *lst, char *str)
 				tmp[j++] = str[i++];
 		}
 		tmp[j] = '\0';
-		create_token(&lst, tmp, last);
+		create_token(data, &lst, tmp, last);
 		free(tmp);
 		j = 0;
 		// if (str[i] == '>')

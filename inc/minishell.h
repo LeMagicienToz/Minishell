@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/04 15:26:53 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/04 16:49:11 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_data
 	char	*cmd;
 	char	*settings;
 	char	*args;
+	int		maxindex;
 	t_utils	*u;
 	t_lst	*first;
 	t_lst	*last;
@@ -105,10 +106,10 @@ int		ft_check_quote(int i, char *str, int code);
 void	ft_remove_quote_normed(t_utils *u, char *str, int code);
 
 //LEXER
-t_lst	*detect_token(t_lst *lst, char *str);
-void	create_token(t_lst **lst, char *str, int separator);
+t_lst	*detect_token(t_data *data, t_lst *lst, char *str);
+void	create_token(t_data *data, t_lst **lst, char *str, int separator);
 void	addback(t_lst *node, t_lst **lst);
-t_lst	*create_node(char *str, int separator);
+t_lst	*create_node(t_data *data, char *str, int separator);
 int		check_separator(char c);
 
 void	lol(int j, int v);
