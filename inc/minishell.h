@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/04 16:49:11 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/04 17:32:15 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_built
 
 void	wait_fork(pid_t child_pid);
 void	fork_init(char **str, char **envp);
-void	tiensmax(t_lst *lst);
+void	tiensmax(t_lst *lst, t_data *data);
 char	*ft_stripwhite(char *str);
 int		ft_strlen_white(char *str);
 int		ft_check_word(char *str);
@@ -78,7 +78,7 @@ int		get_cmd(char *str);
 void	cmd_history(void);
 
 //PIPE
-int		check_pipe(char *str);
+char	**check_pipe(t_lst *lst, t_data *data);
 
 //UTILS
 void	ft_putnbr_base(int nb, int digit, char *base, int fd);

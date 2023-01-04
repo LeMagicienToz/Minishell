@@ -6,27 +6,37 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:46:19 by muteza            #+#    #+#             */
-/*   Updated: 2022/12/19 14:06:01 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/04 17:34:05 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/minishell.h"
 
-int	check_pipe(char *str)
-{
-	int	i;
-	int	k;
+// void	one_command(t_lst *lst)
+// {
+	
+// }
 
-	k = 0;
-	i = ft_strlen(str);
-	while (i != 0)
+char	**check_pipe(t_lst *lst, t_data *data)
+{
+	int		i;
+	(void)data;
+	// int		index;
+	t_lst	*tmp;
+	char	**command = NULL;
+
+	i = 0;
+	tmp = lst;
+	// if (index_max == 0)
+	// 	one_command(lst);
+	printf("%s\n", tmp->content);
+	while (tmp)
 	{
-		if (str[i] == '|')
-			k++;
+	printf("AAAAAAa\n");
+		tmp = tmp->next;
+		// ft_strcpy(command[i], tmp->content);
+		i++;
+		printf("%s\n", command[i]);
 	}
-	if (k == 0)
-		return (0);
-	else
-		return (1);
-	// 	split_the_pipe(str);
+	return (NULL);
 }

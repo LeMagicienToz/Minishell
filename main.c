@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/04 16:50:03 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/04 17:33:28 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/minishell.h"
 
-void	tiensmax(t_lst *lst)
+void	tiensmax(t_lst *lst, t_data *data)
 {
 	t_lst	*tmp;
 	int		last;
@@ -29,6 +29,7 @@ void	tiensmax(t_lst *lst)
 		printf("[%d] - %s\n", tmp->index, tmp->content);
 		tmp = tmp->next;
 	}
+	check_pipe(lst, data);
 }
 
 void deleteList(t_lst** head_ref)
@@ -74,7 +75,7 @@ __attribute__((unused))char **argv, __attribute__((unused))char **envp)
 	while (1)
 	{
 		lst = detect_token(&data, lst, ft_stripwhite(readline("$Minishell -> ")));
-		tiensmax(lst);
+		tiensmax(lst, &data);
 		deleteList(&lst);
 		data.maxindex = 0;
 		// data->input = command_buffer;
