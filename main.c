@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/04 15:31:36 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/04 15:51:00 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,22 @@ void	tiensmax(t_lst *lst)
 		printf("[%d] - %s\n", tmp->index, tmp->content);
 		tmp = tmp->next;
 	}
+}
+
+void deleteList(t_lst** head_ref)
+{
+ 
+    /* deref head_ref to get the real head */
+    t_lst* current = *head_ref;
+    t_lst* next = NULL;
+ 
+    while (current != NULL)
+    {
+        next = current->next;
+        free(current);
+        current = next;
+    }
+    *head_ref = NULL;
 }
 
 int	main(__attribute__((unused))int argc, \
@@ -57,6 +73,8 @@ __attribute__((unused))char **argv, __attribute__((unused))char **envp)
 	while (1)
 	{
 		lst = detect_token(lst, ft_stripwhite(readline("$Minishell -> ")));
+		tiensmax(lst);
+		deleteList(&lst);
 		// data->input = command_buffer;
 		// str = ft_split(data->input, ' ');
 		// if (str[0][0] == 'l')
@@ -65,7 +83,6 @@ __attribute__((unused))char **argv, __attribute__((unused))char **envp)
 		// 	if (u->cmd == -2)
 		// 		break ;
 		// }
-		tiensmax(lst);
 	}
 	return (0);
 }
