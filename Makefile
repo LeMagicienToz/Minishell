@@ -6,7 +6,7 @@
 #    By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2022/12/21 18:31:16 by rperrin          ###   ########.fr        #
+#    Updated: 2023/01/02 23:41:05 by rperrin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRC=		main.c\
 			libft/ft_putchar_fd.c \
 			libft/ft_isdigit.c \
 			libft/ft_strdup.c \
+			libft/ft_strchr.c \
 			libft/ft_atoi.c \
 			libft/ft_itoa.c
 

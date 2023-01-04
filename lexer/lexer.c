@@ -6,13 +6,13 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 19:13:27 by rperrin           #+#    #+#             */
-/*   Updated: 2022/12/21 23:14:14 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/02 23:43:37 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int		check_separator(char c)
+int	check_separator(char c)
 {
 	if (c == DBQUOTECODE)
 		return (DBQUOTECODE);
@@ -26,12 +26,19 @@ int		check_separator(char c)
 		return (-1);
 }
 
-t_lst	*create_node(char *str)
+t_lst	*create_node(char *str, int separator)
 {
-	t_lst	*node;
+	t_lst		*node;
+	static int	index;
 
+	if (!index)
+		index = 0;
 	node = malloc(sizeof(t_lst));
 	node->content = ft_strdup(str);
+	node->separator = separator;
+	if (ft_strchr(str, '|'))
+		index++;
+	node->index = index;
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);
@@ -48,34 +55,20 @@ void	addback(t_lst *node, t_lst **lst)
 	node->prev = tmp;
 }
 
-void	create_token(t_lst **lst, char *str)
+void	create_token(t_lst **lst, char *str, int separator)
 {
 	t_lst	*node;
 	int		i;
 
 	i = 0;
 	if ((*lst) == NULL)
-		(*lst) = create_node(str);
+		(*lst) = create_node(str, separator);
 	else
 	{
-		node = create_node(str);
-		addback(node, lst);	
+		node = create_node(str, separator);
+		addback(node, lst);
 	}
 }
-
-// int	main(void)
-// {
-// 	t_lst *lst;
-// 	t_lst *tmp;
-// 	lst = NULL;
-// 	create_token(&lst, "test test2");
-// 	tmp = lst;
-// 	while (tmp)
-// 	{
-// 		printf("%s\n", tmp->content);
-// 		tmp = tmp->next;
-// 	}
-// }
 
 int	get_len_token(char *str, int i, int last)
 {
@@ -105,7 +98,8 @@ t_lst	*detect_token(t_lst *lst, char *str)
 	j = 0;
 	while (str[i])
 	{
-		if ((last = check_separator(str[i])) > 0)
+		last = check_separator(str[i]);
+		if (last > 0)
 		{
 			i++;
 			len = get_len_token(str, i, last);
@@ -123,9 +117,11 @@ t_lst	*detect_token(t_lst *lst, char *str)
 				tmp[j++] = str[i++];
 		}
 		tmp[j] = '\0';
-		create_token(&lst, tmp);
+		create_token(&lst, tmp, last);
 		free(tmp);
 		j = 0;
+		// if (str[i] == '>')
+		// 	create_token(&lst, "|");
 	}
-	return lst;
+	return (lst);
 }

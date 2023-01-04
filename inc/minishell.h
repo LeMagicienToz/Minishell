@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/21 23:14:19 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/04 15:26:53 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define QUOTECODE 39
 # define DBQUOTE 0
 # define QUOTE 1
+
 typedef struct s_utils
 {
 	int		i;
@@ -42,6 +43,8 @@ typedef struct s_lst	t_lst;
 struct s_lst
 {
 	char	*content;
+	int		index;
+	int		separator;
 	t_lst	*next;
 	t_lst	*prev;
 };
@@ -66,6 +69,7 @@ typedef struct s_built
 
 void	wait_fork(pid_t child_pid);
 void	fork_init(char **str, char **envp);
+void	tiensmax(t_lst *lst);
 char	*ft_stripwhite(char *str);
 int		ft_strlen_white(char *str);
 int		ft_check_word(char *str);
@@ -102,9 +106,9 @@ void	ft_remove_quote_normed(t_utils *u, char *str, int code);
 
 //LEXER
 t_lst	*detect_token(t_lst *lst, char *str);
-void	create_token(t_lst **lst, char *str);
+void	create_token(t_lst **lst, char *str, int separator);
 void	addback(t_lst *node, t_lst **lst);
-t_lst	*create_node(char *str);
+t_lst	*create_node(char *str, int separator);
 int		check_separator(char c);
 
 void	lol(int j, int v);

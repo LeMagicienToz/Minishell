@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:26:29 by rperrin           #+#    #+#             */
-/*   Updated: 2022/12/14 00:29:15 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/02 23:25:41 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	lol(int j, int v)
 {
-	int 	fd;
+	int		fd;
 	char	c;
 	int		i;
 	int		x;
