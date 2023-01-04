@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   remove_pipe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/24 19:28:05 by rperrin           #+#    #+#             */
-/*   Updated: 2023/01/04 18:17:35 by muteza           ###   ########.fr       */
+/*   Created: 2023/01/04 17:42:26 by rperrin           #+#    #+#             */
+/*   Updated: 2023/01/04 18:50:41 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_lstsize(t_lst *lst)
-{
-	int	i;
+// void	remove_pipe(t_lst **lst)
+// {
+// 	t_lst *tmp;
 
-	i = 0;
-	while (lst)
-	{
-		lst = lst->next;
-		i++;
-	}
-	return (i);
-}
+// 	t_lst* current = *lst;
+//     t_lst* next = NULL;
+// 	tmp = (*lst);
+// 	while (tmp)
+// 	{
+// 		printf("%s\n", tmp->content);
+// 		if (ft_strchr(tmp->content, '|'))
+// 			free(tmp);
+// 		tmp = tmp->next;
+// 	}
+// }

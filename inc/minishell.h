@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/04 17:32:15 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/04 18:46:36 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int		ft_strlen_white(char *str);
 int		ft_check_word(char *str);
 int		get_cmd(char *str);
 void	cmd_history(void);
+int		ft_lstsize(t_lst *lst);
 
 //PIPE
 char	**check_pipe(t_lst *lst, t_data *data);
@@ -111,6 +112,7 @@ void	create_token(t_data *data, t_lst **lst, char *str, int separator);
 void	addback(t_lst *node, t_lst **lst);
 t_lst	*create_node(t_data *data, char *str, int separator);
 int		check_separator(char c);
+void	remove_pipe(t_lst **lst);
 
 void	lol(int j, int v);
 #endif
