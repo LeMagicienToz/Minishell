@@ -6,7 +6,7 @@
 #    By: muteza <muteza@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2023/01/04 18:20:23 by muteza           ###   ########.fr        #
+#    Updated: 2023/01/05 16:29:12 by muteza           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ NAME=		Minishell
 SRC=		main.c\
 			utils.c\
 			cmd.c\
-			pipe.c\
+			pipe/pipe.c\
+			pipe/pipe_com.c\
 			check_command.c\
 			built-in/echo.c\
 			built-in/cd.c\

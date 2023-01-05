@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/04 19:04:55 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/05 17:16:30 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,13 @@ struct s_lst
 typedef struct s_data
 {
 	char	*input;
+	char	**command;
+	int		fd[2];
+	int		f1;
+	int		f2;
+	pid_t	id;
+	char	*path_uno;
+	char	*path_sec;
 	char	*cmd;
 	char	*settings;
 	char	*args;
@@ -81,6 +88,7 @@ int		ft_lstsize(t_lst *lst);
 
 //PIPE
 char	**check_pipe(t_lst *lst, t_data *data);
+void	pipe_com(t_lst *lst, t_data *data);
 
 //UTILS
 void	ft_putnbr_base(int nb, int digit, char *base, int fd);
