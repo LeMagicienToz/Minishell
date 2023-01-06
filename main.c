@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/04 19:05:45 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/06 16:54:54 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ __attribute__((unused))char **argv,	char **envp)
 	// return (1);
 	while (1)
 	{
-		lst = detect_token(&data, lst, ft_stripwhite(readline("$Minishell -> ")));
+		lst = detect_token(&data, lst, readline("$Minishell -> "));
 		tiensmax(lst, &data);
 		deleteList(&lst);
 		data.maxindex = 0;

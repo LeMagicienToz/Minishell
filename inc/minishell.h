@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/05 17:16:30 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/06 18:11:31 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <stdarg.h>
 # include <fcntl.h>
+# include <signal.h>
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <readline/readline.h>
@@ -54,9 +55,6 @@ typedef struct s_data
 	char	*input;
 	char	**command;
 	int		fd[2];
-	int		f1;
-	int		f2;
-	pid_t	id;
 	char	*path_uno;
 	char	*path_sec;
 	char	*cmd;
