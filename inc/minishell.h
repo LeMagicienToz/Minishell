@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/06 18:11:31 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/06 23:58:05 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # define SPACECODE 32
 # define HYPHENCODE 45
 # define QUOTECODE 39
-# define DBQUOTE 0
-# define QUOTE 1
+# define PIPE 124
+# define OUT 62
 
 typedef struct s_utils
 {
@@ -45,7 +45,8 @@ struct s_lst
 {
 	char	*content;
 	int		index;
-	int		separator;
+	char	*out;
+	char	*in;
 	t_lst	*next;
 	t_lst	*prev;
 };
@@ -60,7 +61,12 @@ typedef struct s_data
 	char	*cmd;
 	char	*settings;
 	char	*args;
+	char	*errorlexer;
+	char	**lexer;
+	char	*out;
+	char	*in;
 	int		maxindex;
+	int		pipe;
 	char	**envp;
 	t_utils	*u;
 	t_lst	*first;
@@ -91,6 +97,8 @@ void	pipe_com(t_lst *lst, t_data *data);
 //UTILS
 void	ft_putnbr_base(int nb, int digit, char *base, int fd);
 void	ft_printf_fd(int fd, char *str, ...);
+int		ft_is_space(char c);
+void	print_lst(t_lst *lst);
 
 //BUILT IN
 void	ft_echo(char *str);
@@ -101,8 +109,6 @@ int		check_builtin(char *command_buffer, char **envp, t_built	*builtin);
 void	ft_cd(char *name, t_built *builtin);
 
 //PARSING
-int		ft_strlen_without_quote(char *str);
-char	*ft_get_cmd(char *input);
 char	*ft_remove_space(char *str);
 int		ft_len_space(char *str);
 char	*ft_remove_cmd(char *input, int lencmd);
@@ -115,11 +121,24 @@ void	ft_remove_quote_normed(t_utils *u, char *str, int code);
 
 //LEXER
 t_lst	*detect_token(t_data *data, t_lst *lst, char *str);
-void	create_token(t_data *data, t_lst **lst, char *str, int separator);
+t_lst	*detect_token_split(t_data *data, t_lst *lst, int *i);
+int		get_len_token(char *str, int i, char last, t_data *data);
+int		get_len_token_spacecode(char *str, int i, char last, t_data *data);
+int		get_len_token_quote(char *str, int i, char last);
+int		get_len_token_arg(char *str, int i, t_data *data);
+void	create_token(t_data *data, t_lst **lst, char *str, int i);
 void	addback(t_lst *node, t_lst **lst);
-t_lst	*create_node(t_data *data, char *str, int separator);
+t_lst	*create_node(t_data *data, char *str);
 int		check_separator(char c);
-void	remove_pipe(t_lst **lst);
+int		check_redirection(char *str, int i, t_data *data);
+char	*fill_in(char *str, int i);
+char	*fill_out(char *str, int i);
+int		check_pipe_lexer(char **lexer, t_data *data);
+void	fill_data_in(char *str, int i, char last, t_data *data);
+char	*fill_token(char *str, int *i, int len, char last);
+int		check_lexer_error(char *error);
+int		check_no_space(char *str, int i, t_data *data);
+char	**ft_split_pipe(const char *s, char c, t_data *data);
 
 void	lol(int j, int v);
 #endif

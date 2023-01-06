@@ -3,121 +3,87 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 19:13:27 by rperrin           #+#    #+#             */
-/*   Updated: 2023/01/04 18:50:37 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/06 21:38:32 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	check_separator(char c)
+char	*fill_token(char *str, int *i, int len, char last)
 {
-	if (c == DBQUOTECODE)
-		return (DBQUOTECODE);
-	else if (c == QUOTECODE)
-		return (QUOTECODE);
-	else if (c == SPACECODE)
-		return (SPACECODE);
-	else
-		return (-1);
-}
+	char	*res;
+	int		j;
 
-t_lst	*create_node(t_data *data, char *str, int separator)
-{
-	t_lst		*node;
-
-	node = malloc(sizeof(t_lst));
-	node->content = ft_strdup(str);
-	node->separator = separator;
-	if (ft_strchr(str, '|'))
-		data->maxindex++;
-	node->index = data->maxindex;
-	node->next = NULL;
-	node->prev = NULL;
-	return (node);
-}
-
-void	addback(t_lst *node, t_lst **lst)
-{
-	t_lst	*tmp;
-
-	tmp = (*lst);
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = node;
-	node->prev = tmp;
-}
-
-void	create_token(t_data *data, t_lst **lst, char *str, int separator)
-{
-	t_lst	*node;
-	int		i;
-
-	i = 0;
-	if ((*lst) == NULL)
-		(*lst) = create_node(data, str, separator);
-	else
+	j = 0;
+	if (len == 0)
+		return (NULL);
+	res = malloc(sizeof(char) * (len + 1));
+	if (last == SPACECODE)
 	{
-		node = create_node(data, str, separator);
-		addback(node, lst);
+		while (str[*i] == SPACECODE)
+			(*i)++;
 	}
+	while (j != len)
+	{
+		res[j] = str[(*i)++];
+		j++;
+	}
+	res[j] = '\0';
+	return (res);
 }
 
-int	get_len_token(char *str, int i, int last)
+t_lst	*detect_token_split(t_data *data, t_lst *lst, int *i)
 {
-	int	len;
+	char	last;
+	char	*tmp;
+	int		j;
+	int		len;
 
-	len = 0;
-	if (last < 0)
+	j = 0;
+	while (data->lexer[*i][j])
 	{
-		while (check_separator(str[i]) < 0 && str[i++])
-			len++;
-		return (len);
+		last = check_separator(data->lexer[*i][j]);
+		len = get_len_token(data->lexer[*i], j, last, data);
+		if (len > 0)
+		{
+			tmp = fill_token(data->lexer[*i], &j, len, last);
+			create_token(data, &lst, tmp, *i);
+			free(tmp);
+		}
+		else
+			break ;
 	}
-	while (check_separator(str[i]) != last && str[i++])
-		len++;
-	return (len);
+	return (lst);
 }
 
 t_lst	*detect_token(t_data *data, t_lst *lst, char *str)
 {
 	int		i;
-	int		j;
-	int		len;
-	int		last;
-	char	*tmp;
 
 	i = 0;
-	j = 0;
-	while (str[i])
+	data->lexer = ft_split_pipe(str, '|', data);
+	if (!data->lexer || check_lexer_error(data->errorlexer))
+		return (NULL);
+	while (data->lexer[i])
 	{
-		last = check_separator(str[i]);
-		if (last > 0)
-		{
-			i++;
-			len = get_len_token(str, i, last);
-			tmp = malloc(sizeof(char) * len + 1);
-			while (check_separator(str[i]) != last && str[i])
-				tmp[j++] = str[i++];
-			if (str[i] == last)
-				i++;
-		}
-		else
-		{
-			len = get_len_token(str, i, last);
-			tmp = malloc(sizeof(char) * len + 1);
-			while (check_separator(str[i]) < 0 && str[i])
-				tmp[j++] = str[i++];
-		}
-		tmp[j] = '\0';
-		create_token(data, &lst, tmp, last);
-		free(tmp);
-		j = 0;
-		// if (str[i] == '>')
-		// 	create_token(&lst, "|");
+		lst = detect_token_split(data, lst, &i);
+		i++;
 	}
-	// remove_pipe(&lst);
+	if (check_lexer_error(data->errorlexer))
+		return (NULL);
 	return (lst);
+}
+
+int	check_lexer_error(char *error)
+{
+	if (error)
+	{
+		ft_printf_fd(1, "Erreur: %s\n", error);
+		return (1);
+	}
+	else
+		return (0);
 }
