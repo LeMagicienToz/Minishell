@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 14:16:36 by muteza            #+#    #+#             */
-/*   Updated: 2023/01/06 18:34:52 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/09 15:56:21 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,31 @@
 // 	data->fd;
 // }
 
-void	fork_maker(t_lst *lst, t_data *data)
+void	init_pipe(t_lst *lst, t_data *data)
 {
 	int	i;
-	int	id[data->maxindex];
-	int	fd[data->maxindex][2];
 
+	i = 0;
 	(void)lst;
+	data->fd = malloc((sizeof (int *)) * data->maxindex);
+	while (i != data->maxindex)
+	{
+		data->fd[i] = malloc(2);
+		i++;
+	}
 	i = 0;
 	while (i != data->maxindex)
 	{
-		if (pipe(fd[i]))
-			exit(0);
+		if (pipe(data->fd[i]) == -1)
+			exit (0);
 		i++;
 	}
-	while (i != data->maxindex)
-	{
-		id[i] = fork();
-		if (id[i] == -1)
-			exit (0);
-	}
-	
+}
+
+void	fork_maker(t_lst *lst, t_data *data)
+{
+	init_pipe(lst, data);
+	// init_fork(lst, data);
 }
 
 // void	get_path_in_struct(t_data *data)
