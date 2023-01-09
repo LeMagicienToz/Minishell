@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/06 16:54:54 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/09 17:55:07 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,16 @@ void	tiensmax(t_lst *lst, t_data *data)
 
 void deleteList(t_lst** head_ref)
 {
- 
-    /* deref head_ref to get the real head */
-    t_lst* current = *head_ref;
-    t_lst* next = NULL;
- 
-    while (current != NULL)
-    {
-        next = current->next;
-        free(current);
-        current = next;
-    }
-    *head_ref = NULL;
+	/* deref head_ref to get the real head */
+	t_lst* current = *head_ref;
+	t_lst* next = NULL;
+	while (current != NULL)
+	{
+		next = current->next;
+		free(current);
+		current = next;
+	}
+	*head_ref = NULL;
 }
 
 int	main(__attribute__((unused))int argc, \

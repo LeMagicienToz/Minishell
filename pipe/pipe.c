@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:46:19 by muteza            #+#    #+#             */
-/*   Updated: 2023/01/05 16:44:49 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/09 16:58:19 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	one_command(t_lst *lst, t_data *data)
 		{
 			while (tmp)
 			{
-				data->command[k++] =  ft_strdup(tmp->content);
+				data->command[k++] = ft_strdup(tmp->content);
 				tmp = tmp->next;
 			}
 				data->command[k] = NULL;
