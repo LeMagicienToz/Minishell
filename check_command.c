@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 15:14:06 by uteza             #+#    #+#             */
-/*   Updated: 2023/01/04 16:15:23 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/09 01:31:46 by raphaelperr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,9 @@ void	fork_init(char **str, char **envp)
 	pid_t		child_pid;
 	int			fd[2];
 	char		*path;
-	int			i;
+	// int			i;
 
-	i = 0;
+	// i = 0;
 	if (pipe(fd) == -1)
 	{
 		printf("pipe failed\n");

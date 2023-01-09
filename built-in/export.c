@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 11:44:53 by muteza            #+#    #+#             */
-/*   Updated: 2022/12/17 16:22:50 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/09 01:31:04 by raphaelperr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	triller(char **envp, t_built *builtin, int v)
 {
 	int	i;
-	int	k;
+	// int	k;
 
-	k = 0;
+	// k = 0;
 	i = 0;
 	printf("%d\n", v);
 	while (envp[i])
@@ -48,8 +48,8 @@ int	triable(t_built *builtin, char **envp)
 
 void	ft_export(t_built *builtin, char **envp)
 {
-	int	i;
+	// int	i;
 
-	i = 0;
+	// i = 0;
 	triable(builtin, envp);
 }

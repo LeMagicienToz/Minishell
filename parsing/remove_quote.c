@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:45:01 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/12 17:50:19 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/09 01:31:38 by raphaelperr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,7 @@ void	ft_remove_quote_normed(t_utils *u, char *str, int code)
 
 char	*ft_remove_quote(t_utils *u, char *str)
 {
-	char	*res;
-
-	res = ft_init_res(u, str);
+	u->res = ft_init_res(u, str);
 	while (str[u->i])
 	{
 		if (str[u->i] == DBQUOTECODE || str[u->i] == QUOTECODE)

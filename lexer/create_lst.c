@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 17:07:29 by rperrin           #+#    #+#             */
-/*   Updated: 2023/01/06 21:42:00 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/09 01:32:08 by raphaelperr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,8 @@ void	addback(t_lst *node, t_lst **lst)
 void	create_token(t_data *data, t_lst **lst, char *str, int x)
 {
 	t_lst	*node;
-	int		i;
 
 	data->maxindex = x;
-	i = 0;
 	if ((*lst) == NULL)
 		(*lst) = create_node(data, str);
 	else
