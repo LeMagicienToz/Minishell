@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 15:14:06 by uteza             #+#    #+#             */
-/*   Updated: 2023/01/09 13:37:58 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/10 18:24:37 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void	fork_init(char **str, char **envp)
 		//child
 		path = get_path(envp, str[0]);
 		printf("2 path = %s\n", path);
+		printf("%s %s\n", str[0], str[1]);
 		// close(fd[1]);
 		// dup2(fd[0], 0);
 		execve(path, str, envp);

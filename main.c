@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/09 17:55:07 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/10 18:35:57 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	tiensmax(t_lst *lst, t_data *data)
 		printf("[%d] - %s\n", tmp->index, tmp->content);
 		tmp = tmp->next;
 	}
+		// printf("dhwaudhwadjkamw\n");
 	check_pipe(lst, data);
 }
 
