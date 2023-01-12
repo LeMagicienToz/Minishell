@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+         #
+#    By: muteza <muteza@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2023/01/06 23:56:28 by rperrin          ###   ########.fr        #
+#    Updated: 2023/01/12 11:22:00 by muteza           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC=		main.c\
 			lexer/lexer_len.c\
 			lexer/ft_split_pipe.c\
 			lol/lol.c\
+			libft/ft_memcpy.c\
 			libft/ft_isprint.c\
 			libft/ft_lstsize.c\
 			libft/ft_strcpy.c\

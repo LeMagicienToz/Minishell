@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/09 19:48:08 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/12 13:03:29 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
+# define FTSTDOUT 1
+# define FTSTDIN 0
 # define DBQUOTECODE 34
 # define QUOTECODE 39
 # define SPACECODE 32
@@ -56,7 +58,7 @@ typedef struct s_data
 	char	*input;
 	char	**str;
 	char	**command;
-	int		**fd;
+	int		fd[2][2];
 	pid_t	*id;
 	char	*path;
 	char	*path_sec;
@@ -98,7 +100,9 @@ void	init_pipe(t_lst *lst, t_data *data);
 void	fork_maker(t_lst *lst, t_data *data);
 char	**check_pipe(t_lst *lst, t_data *data);
 void	pipe_com(t_lst *lst, t_data *data);
+void	pipex_mod(t_data *data, int i, t_lst *lst);
 char	*get_path(char **envp, char *arg);
+void	put_lst_in_tab(t_data *data, int i, t_lst *lst);
 
 //UTILS
 void	ft_putnbr_base(int nb, int digit, char *base, int fd);

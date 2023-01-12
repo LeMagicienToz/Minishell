@@ -6,102 +6,115 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 14:16:36 by muteza            #+#    #+#             */
-/*   Updated: 2023/01/10 19:18:44 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/12 13:02:59 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	get_command_in_tab(t_data *data, t_lst *lst, int i)
+int make_pipe(int i, t_data *data)
 {
-	int		k;
-	t_lst	*tmp;
-
-	//here
-	k = 1;
-	tmp = lst;
-	data->str = malloc(sizeof(char *) * 3);
-	data->str[k + 1] = NULL;
-	while (tmp && (tmp->index == i))
+	if ((i % 2) == 0)
 	{
-		if (tmp->next != NULL && tmp->next->index == tmp->index)
-		{
-			data->str[i] = ft_strdup(tmp->content);
-			data->str[k] = ft_strdup(tmp->next->content);
-		}
-		else if (tmp->next->index == tmp->index)
-		{
-			// printf("HERERE\n");
-			data->str[i] = ft_strdup(tmp->content);
-		}
-		tmp = tmp->next;
-	}
-}
-
-void	pipex_mod(t_data *data, int i, t_lst *lst)
-{
-	pid_t	id;
-	// char *const lol = "ls";
-
-	get_command_in_tab(data, lst, i);
-	// printf("%s\n", data->envp[1]);
-	// printf("%s\n", data->path);
-	init_pipe(lst, data);
-	id = fork();
-	// printf("aaahah\n");
-	if (id == 0)
-	{
-		data->path = get_path(data->envp, data->str[i]);
-		printf("path = %s\n", data->path);
-		// printf("1 ere ligne env = %s\n", data->envp[0]);
-		// printf("command = %s %s\n", data->str[0], data->str[1]);
-		// close(data->fd[i][1]);
-		// dup2(data->fd[i][0], 0);
-		// printf("%s\n %s\n", data->str[0],data->str[1]);
-		// close(data->fd[i + 1][0]);
-		// dup2(data->fd[i + 1][1], 1);
-		execve(data->path, data->str, data->envp);
-		exit(0);
+		if (pipe(data->fd[0]) == -1)
+			perror("pipe does not work");
+		return (0);
 	}
 	else
-		wait(&id);
-		// printf("dhwaudhwadjkamw\n");
+	{
+		if (pipe(data->fd[1]) == -1)
+			perror("pipe does not work");
+		return (1);
+	}
 }
 
-void	init_fork_pipe(t_lst *lst, t_data *data)
+void get_command_in_tab(t_data *data, t_lst *lst, int i)
 {
-	int	i;
+	int	k;
 
-	i = 0;
-	// while (i <= data->maxindex)
-	// {
+	k = make_pipe(i, data);
+	data->id = malloc(sizeof(int) * data->maxindex);
+	data->id[i] = fork();
+	printf("bouuuuh\n");
+	if (i >= 1 && k == 0)
+	{
+		printf("bouuuuh1\n");
+		close(data->fd[1][0]);
+		close(data->fd[1][1]);
 		pipex_mod(data, i, lst);
+	}
+	else if (i >= 1 && k == 1)
+	{
+		printf("bouuuuh2\n");
+		close(data->fd[0][0]);
+		close(data->fd[0][1]);
+		pipex_mod(data, i, lst);
+	}
+	else
+	{
+		printf("bouuuuh3\n");
+		data->path = get_path(data->envp, data->str[0]);
+		execve(data->path, data->str, data->envp);
+	}
+}
+
+void pipex_mod(t_data *data, int i, t_lst *lst)
+{
+	(void)lst;
+	if (data->id[i] == 0)
+	{
+		data->path = get_path(data->envp, data->str[i]);
+		// dup2(data->fd[0][0], data->fd[1][0]);
+		// dup2(data->fd[1][1], data->fd[0][1]);
+		execve(data->path, data->str, data->envp);
+	}
+	wait(&data->id[i]);
+}
+
+void init_fork_pipe(t_lst *lst, t_data *data)
+{
+	int i;
+	t_lst *tmp;
+
+	tmp = lst;
+	i = 1;
+	// while (data->str[i])
+	// {
+	put_lst_in_tab(data, i, lst);
+	get_command_in_tab(data, lst, i);
+	// data->str[i] = ft_strdup("ls");
+	pipex_mod(data, i, lst);
 	// 	i++;
 	// }
 }
 
-void	init_pipe(t_lst *lst, t_data *data)
+void put_lst_in_tab(t_data *data, int i, t_lst *lst)
 {
-	int	i;
+	t_lst	*tmp;
+	int		k;
 
-	i = 0;
-	(void)lst;
-	data->fd = malloc((sizeof (int *)) * data->maxindex);
-	while (i != data->maxindex)
+	k = 0;
+	tmp = lst;
+	while (tmp->next && tmp->index != i)
 	{
-		data->fd[i] = malloc(2);
+		tmp = tmp->next;
 		i++;
 	}
-	i = 0;
-	while (i != data->maxindex)
-	{
-		if (pipe(data->fd[i]) == -1)
-			exit (0);
-		i++;
-	}
+	// printf("%s\n", tmp->content);
+	data->str = ft_split("ls -l", ' ');
+	// while (data->str[k])
+	// {
+	// 	printf("%s\n", data->str[k]);
+	// 	k++;
+	// }
 }
 
-void	pipe_com(t_lst *lst, t_data *data)
+// void	init_pipe(t_lst *lst, t_data *data)
+// {
+//
+// }
+
+void pipe_com(t_lst *lst, t_data *data)
 {
 	init_fork_pipe(lst, data);
 	// printf("AAAAa \n");
