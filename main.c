@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/10 18:35:57 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/12 17:38:15 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,11 @@ __attribute__((unused))char **argv,	char **envp)
 	// 	tmp = tmp->next;
 	// }
 	// return (1);
+	create_token(&data, &lst, "ls", 0);
+	create_token(&data, &lst, "wc", 1);
 	while (1)
 	{
-		lst = detect_token(&data, lst, readline("$Minishell -> "));
+		// lst = detect_token(&data, lst, readline("$Minishell -> "));
 		tiensmax(lst, &data);
 		deleteList(&lst);
 		data.maxindex = 0;
