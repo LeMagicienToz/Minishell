@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 14:16:36 by muteza            #+#    #+#             */
-/*   Updated: 2023/01/12 13:02:59 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/12 13:34:04 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,29 +33,33 @@ void get_command_in_tab(t_data *data, t_lst *lst, int i)
 	int	k;
 
 	k = make_pipe(i, data);
-	data->id = malloc(sizeof(int) * data->maxindex);
+	data->id = malloc(sizeof(pid_t) * (data->maxindex ));
 	data->id[i] = fork();
 	printf("bouuuuh\n");
-	if (i >= 1 && k == 0)
+	if (data->id[i] == 0)
 	{
-		printf("bouuuuh1\n");
-		close(data->fd[1][0]);
-		close(data->fd[1][1]);
-		pipex_mod(data, i, lst);
+		if (i >= 1 && k == 0)
+		{
+			printf("bouuuuh1\n");
+			close(data->fd[1][0]);
+			close(data->fd[1][1]);
+			pipex_mod(data, i, lst);
+		}
+		else if (i >= 1 && k == 1)
+		{
+			printf("bouuuuh2\n");
+			close(data->fd[0][0]);
+			close(data->fd[0][1]);
+			pipex_mod(data, i, lst);
+		}
+		else
+		{
+			printf("bouuuuh3\n");
+			data->path = get_path(data->envp, data->str[0]);
+			execve(data->path, data->str, data->envp);
+		}
 	}
-	else if (i >= 1 && k == 1)
-	{
-		printf("bouuuuh2\n");
-		close(data->fd[0][0]);
-		close(data->fd[0][1]);
-		pipex_mod(data, i, lst);
-	}
-	else
-	{
-		printf("bouuuuh3\n");
-		data->path = get_path(data->envp, data->str[0]);
-		execve(data->path, data->str, data->envp);
-	}
+	wait(&data->id[i]);
 }
 
 void pipex_mod(t_data *data, int i, t_lst *lst)
@@ -64,10 +68,11 @@ void pipex_mod(t_data *data, int i, t_lst *lst)
 	if (data->id[i] == 0)
 	{
 		data->path = get_path(data->envp, data->str[i]);
-		// dup2(data->fd[0][0], data->fd[1][0]);
-		// dup2(data->fd[1][1], data->fd[0][1]);
+		dup2(data->fd[0][0], data->fd[1][0]);
+		dup2(data->fd[1][1], data->fd[0][1]);
 		execve(data->path, data->str, data->envp);
 	}
+	exit(0);
 	wait(&data->id[i]);
 }
 
@@ -77,15 +82,15 @@ void init_fork_pipe(t_lst *lst, t_data *data)
 	t_lst *tmp;
 
 	tmp = lst;
-	i = 1;
-	// while (data->str[i])
-	// {
+	i = 0;
 	put_lst_in_tab(data, i, lst);
-	get_command_in_tab(data, lst, i);
-	// data->str[i] = ft_strdup("ls");
-	pipex_mod(data, i, lst);
-	// 	i++;
-	// }
+	while (data->str[i])
+	{
+		get_command_in_tab(data, lst, i);
+		// data->str[i] = ft_strdup("ls");
+		pipex_mod(data, i, lst);
+		i++;
+	}
 }
 
 void put_lst_in_tab(t_data *data, int i, t_lst *lst)
@@ -101,7 +106,7 @@ void put_lst_in_tab(t_data *data, int i, t_lst *lst)
 		i++;
 	}
 	// printf("%s\n", tmp->content);
-	data->str = ft_split("ls -l", ' ');
+	data->str = ft_split("ls", ' ');
 	// while (data->str[k])
 	// {
 	// 	printf("%s\n", data->str[k]);
