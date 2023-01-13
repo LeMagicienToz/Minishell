@@ -6,7 +6,7 @@
 #    By: muteza <muteza@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2023/01/12 11:22:00 by muteza           ###   ########.fr        #
+#    Updated: 2023/01/13 14:54:18 by muteza           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRC=		main.c\
 			cmd.c\
 			pipe/pipe.c\
 			pipe/pipe_com.c\
+			pipe/pipe_com_two.c\
 			check_command.c\
 			built-in/echo.c\
 			built-in/cd.c\

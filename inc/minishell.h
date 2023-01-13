@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/12 13:20:00 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/13 14:54:35 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,15 @@ int		ft_lstsize(t_lst *lst);
 
 //PIPE
 
+void	last_pipe_command(t_data *data, t_lst *tmp, int i);
 void	init_pipe(t_lst *lst, t_data *data);
 void	fork_maker(t_lst *lst, t_data *data);
 char	**check_pipe(t_lst *lst, t_data *data);
 void	pipe_com(t_lst *lst, t_data *data);
-void	pipex_mod(t_data *data, int i, t_lst *lst);
+void	pipex_mod(t_data *data, int i, t_lst *lst, int k);
 char	*get_path(char **envp, char *arg);
 void	put_lst_in_tab(t_data *data, int i, t_lst *lst);
+int 	make_pipe(int i, t_data *data);
 
 //UTILS
 void	ft_putnbr_base(int nb, int digit, char *base, int fd);
