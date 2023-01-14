@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 17:07:29 by rperrin           #+#    #+#             */
-/*   Updated: 2023/01/09 01:32:08 by raphaelperr      ###   ########.fr       */
+/*   Updated: 2023/01/13 16:46:28 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ t_lst	*create_node(t_data *data, char *str)
 	node = malloc(sizeof(t_lst));
 	node->content = ft_strdup(str);
 	node->index = data->maxindex;
-	if (data->pipe == PIPE)
-		data->maxindex++;
 	node->in = data->in;
 	node->out = data->out;
 	node->next = NULL;

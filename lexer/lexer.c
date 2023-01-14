@@ -6,84 +6,81 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 19:13:27 by rperrin           #+#    #+#             */
-/*   Updated: 2023/01/06 21:38:32 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/13 22:11:37 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*fill_token(char *str, int *i, int len, char last)
+char	*strdup_token(int len)
 {
 	char	*res;
-	int		j;
 
-	j = 0;
-	if (len == 0)
-		return (NULL);
 	res = malloc(sizeof(char) * (len + 1));
-	if (last == SPACECODE)
-	{
-		while (str[*i] == SPACECODE)
-			(*i)++;
-	}
-	while (j != len)
-	{
-		res[j] = str[(*i)++];
-		j++;
-	}
-	res[j] = '\0';
+	res[len] = '\0';
 	return (res);
 }
 
-t_lst	*detect_token_split(t_data *data, t_lst *lst, int *i)
+char	*fill_token(char *str)
 {
-	char	last;
-	char	*tmp;
+	int		i;
 	int		j;
-	int		len;
+	int		last;
+	char	*res;
 
 	j = 0;
-	while (data->lexer[*i][j])
+	i = 0;
+	res = strdup_token(get_len_token(str));
+	if (!res)
+		return (NULL);
+	while (str[i])
 	{
-		last = check_separator(data->lexer[*i][j]);
-		len = get_len_token(data->lexer[*i], j, last, data);
-		if (len > 0)
+		last = check_separator(str[i]);
+		if (last > 0)
 		{
-			tmp = fill_token(data->lexer[*i], &j, len, last);
-			create_token(data, &lst, tmp, *i);
-			free(tmp);
+			i++;
+			while (str[i] != last && str[i])
+				res[j++] = str[i++];
+			if (str[i] == last)
+				i++;
 		}
 		else
-			break ;
+			res[j++] = str[i++];
 	}
+	return (res);
+}
+
+t_lst	*detect_token_split(t_data *data, t_lst *lst)
+{
+	int		j;
+	char	*tmp;
+
+	j = 0;
+	while (data->lexer[j])
+	{
+		tmp = fill_token(data->lexer[j]);
+		create_token(data, &lst, tmp, j);
+		free(tmp);
+		j++;
+	}
+	j = 0;
+	while (data->lexer[j])
+		free(data->lexer[j++]);
+	free(data->lexer);
 	return (lst);
 }
 
 t_lst	*detect_token(t_data *data, t_lst *lst, char *str)
 {
 	int		i;
+	char	**tmp;
 
 	i = 0;
-	data->lexer = ft_split_pipe(str, '|', data);
-	if (!data->lexer || check_lexer_error(data->errorlexer))
-		return (NULL);
-	while (data->lexer[i])
-	{
-		lst = detect_token_split(data, lst, &i);
-		i++;
-	}
-	if (check_lexer_error(data->errorlexer))
-		return (NULL);
+	tmp = ft_split(str, '|');
+	data->lexer = ft_remove_space_lexer(tmp);
+	while (tmp[i])
+		free(tmp[i++]);
+	free(tmp);
+	lst = detect_token_split(data, lst);
 	return (lst);
-}
-
-int	check_lexer_error(char *error)
-{
-	if (error)
-	{
-		ft_printf_fd(1, "Erreur: %s\n", error);
-		return (1);
-	}
-	else
-		return (0);
 }

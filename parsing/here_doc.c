@@ -1,46 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/06 13:27:26 by rperrin           #+#    #+#             */
-/*   Updated: 2023/01/13 19:20:07 by rperrin          ###   ########.fr       */
+/*   Created: 2023/01/13 19:22:16 by rperrin           #+#    #+#             */
+/*   Updated: 2023/01/13 19:39:29 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	print_2str(char **str)
-{
-	int	j;
+// void	here_doc(t_data *data)
+// {
+	
+// }
 
-	j = 0;
-	while (str[j])
+int	check_here_doc(char *str, t_data *data)
+{
+	int	i;
+	int	x;
+
+	x = 0;
+	i = 0;
+	while (str[i])
 	{
-		printf("%s\n", str[j]);
-		j++;
+		if (str[i] == IN && str[i + 1] == IN)
+		{
+			i += 2;
+			printf("(%c)", str[i]);
+			x = 1;
+			while (str[i] == SPACECODE)
+				i++;
+			while (str[i] != IN && str[i] != SPACECODE)
+				x = 0;
+		}
+		i++;
 	}
-}
-
-void	print_lst(t_lst *lst)
-{
-	t_lst	*tmp;
-
-	tmp = lst;
-	ft_printf_fd(1, "[PRINT-LST]\n");
-	while (tmp)
-	{
-		ft_printf_fd(1, "[%d] - (%s)\n", tmp->index, tmp->content);
-		tmp = tmp->next;
-	}
-	ft_printf_fd(1, "[PRINT-LST]\n");
-}
-
-int	ft_is_space(char c)
-{
-	if (c == ' ')
-		return (1);
-	return (0);
+	if (x == 1)
+		data->errorlexer = ft_strdup("syntax error near unexpected token `<<'");
+	return (x);
 }

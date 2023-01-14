@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/13 15:24:25 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/14 14:13:33 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,45 +50,36 @@ void deleteList(t_lst** head_ref)
 int	main(__attribute__((unused))int argc, \
 __attribute__((unused))char **argv,	char **envp)
 {
-	// char	**str;
-	// t_utils	*u;
 	t_built	builtin;
 	t_data	data;
 	t_lst	*lst;
+	char	*input;
 
 	lst = NULL;
 	data.envp = envp;
 	builtin.save = "/Users/muteza/Desktop/Minishell";
-	// u = malloc(sizeof(t_utils));
-	// data->u = u;
-	// u->i = 0;
-	// u->j = 0;
-	// u->len = 0;
-	// using_history();
-	// tmp = lst;
-	// while (tmp)
-	// {
-	// 	printf("[%d] - %s\n", tmp->index, tmp->content);
-	// 	tmp = tmp->next;
-	// }
-	// return (1);
-	create_token(&data, &lst, "ls", 0);
-	create_token(&data, &lst, "pwd", 1);
-	create_token(&data, &lst, "wc", 2);
+	data.maxindex = 0;
 	while (1)
 	{
-		// lst = detect_token(&data, lst, readline("$Minishell -> "));
-		tiensmax(lst, &data);
-		deleteList(&lst);
-		data.maxindex = 0;
-		// data->input = command_buffer;
-		// str = ft_split(data->input, ' ');
-		// if (str[0][0] == 'l')
-		// if ((u->cmd = get_cmd(command_buffer)) < 0)
-		// {
-		// 	if (u->cmd == -2)
-		// 		break ;
-		// }
+		input = readline("$Minishell -> ");
+		add_history(input);
+		// if (!ft_strncmp(input, "debug leaks", ft_strlen(input)))
+		// 	system("leaks Minishell | grep leak |tail -1");
+		// else if (!ft_strncmp(input, "debug leaks all", ft_strlen(input)))
+		// 	system("leaks Minishell");
+		if (check_lexer_error(input, &data) == 1)
+			data.errorlexer = NULL;
+		else
+		{
+			lst = detect_token(&data, lst, input);
+			print_lst(lst);
+			system("leaks Minishell | grep leak | tail -1");
+			// tiensmax(lst, &data);
+			deleteList(&lst);
+			data.maxindex = 0;
+		}
+		if (input)
+			free(input);
 	}
 	return (0);
 }
