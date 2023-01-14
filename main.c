@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/14 14:13:33 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/14 15:35:33 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,24 @@ __attribute__((unused))char **argv,	char **envp)
 	{
 		input = readline("$Minishell -> ");
 		add_history(input);
-		// if (!ft_strncmp(input, "debug leaks", ft_strlen(input)))
-		// 	system("leaks Minishell | grep leak |tail -1");
+		if (!ft_strncmp(input, "debug leaks", ft_strlen(input)))
+			system("leaks Minishell");
 		// else if (!ft_strncmp(input, "debug leaks all", ft_strlen(input)))
 		// 	system("leaks Minishell");
-		if (check_lexer_error(input, &data) == 1)
-			data.errorlexer = NULL;
-		else
-		{
+		// if (check_lexer_error(input, &data) == 1)
+		// {
+		// 	data.errorlexer = NULL;
+		// 	printf("ERREUR\n");
+		// }
+		// else
+		// {
 			lst = detect_token(&data, lst, input);
 			print_lst(lst);
-			system("leaks Minishell | grep leak | tail -1");
+			// system("leaks Minishell | grep leak | tail -1");
 			// tiensmax(lst, &data);
 			deleteList(&lst);
 			data.maxindex = 0;
-		}
+		// }
 		if (input)
 			free(input);
 	}
