@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/14 15:35:33 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/15 14:48:38 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	tiensmax(t_lst *lst, t_data *data)
 		printf("[%d] - %s\n", tmp->index, tmp->content);
 		tmp = tmp->next;
 	}
-		// printf("dhwaudhwadjkamw\n");
 	check_pipe(lst, data);
 }
 
@@ -77,7 +76,7 @@ __attribute__((unused))char **argv,	char **envp)
 			lst = detect_token(&data, lst, input);
 			print_lst(lst);
 			// system("leaks Minishell | grep leak | tail -1");
-			// tiensmax(lst, &data);
+			tiensmax(lst, &data);
 			deleteList(&lst);
 			data.maxindex = 0;
 		// }

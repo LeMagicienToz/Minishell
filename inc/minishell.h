@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/14 13:26:41 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/16 14:48:45 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,11 @@ typedef struct s_data
 	char	*input;
 	char	**str;
 	char	**command;
-	int		fd[2][2];
-	pid_t	*id;
+	int		ret;
+	int		save_in;
+	int		save_out;
+	int		fd[2];
+	pid_t	id;
 	char	*path;
 	char	*path_sec;
 	char	*cmd;
@@ -100,6 +103,8 @@ int		ft_lstsize(t_lst *lst);
 void	last_pipe_command(t_data *data, t_lst *tmp, int i);
 void	init_pipe(t_lst *lst, t_data *data);
 void	fork_maker(t_lst *lst, t_data *data);
+void	more_pipe(t_data *data, t_lst *lst);
+void	no_more_command(t_data *data, t_lst *lst);
 char	**check_pipe(t_lst *lst, t_data *data);
 void	pipe_com(t_lst *lst, t_data *data);
 void	pipex_mod(t_data *data, int i, t_lst *lst, int k);

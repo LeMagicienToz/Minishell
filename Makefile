@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+         #
+#    By: muteza <muteza@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2023/01/14 14:13:56 by rperrin          ###   ########.fr        #
+#    Updated: 2023/01/16 14:46:19 by muteza           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRC=		main.c\
 			utils.c\
 			cmd.c\
 			pipe/pipe.c\
+			pipe/new_pipe.c\
 			pipe/pipe_com.c\
 			pipe/pipe_com_two.c\
 			check_command.c\
