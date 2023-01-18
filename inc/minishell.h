@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/16 14:48:45 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/18 11:19:32 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ typedef struct s_data
 	char	**str;
 	char	**command;
 	int		ret;
-	int		save_in;
-	int		save_out;
+	int		save;
 	int		fd[2];
 	pid_t	id;
 	char	*path;

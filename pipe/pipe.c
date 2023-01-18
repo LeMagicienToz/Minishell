@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:46:19 by muteza            #+#    #+#             */
-/*   Updated: 2023/01/11 17:00:56 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/17 15:17:10 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	one_command(t_lst *lst, t_data *data)
 
 char	**check_pipe(t_lst *lst, t_data *data)
 {
-	if (data->maxindex == 0)
-		one_command(lst, data);
-	else
+	// if (data->maxindex == 0)
+	// 	one_command(lst, data);
+	// else
 		pipe_com(lst, data);
 	return (NULL);
 }

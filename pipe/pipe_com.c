@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 14:16:36 by muteza            #+#    #+#             */
-/*   Updated: 2023/01/16 17:28:20 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/18 11:57:42 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,23 @@ void	init_fork_pipe(t_lst *lst, t_data *data)
 {
 	int		i;
 	t_lst	*tmp;
-	int		k;
 
 	tmp = lst;
 	i = 0;
-	data->save_out = dup(1);
-	data->save_in = dup(0);
+	data->save = 0;
 	while (tmp)
 	{
-		if (!tmp->next)
-		{
-			k = 1;
-			printf("ADSDA\n");
-			put_lst_in_tab(data, i, tmp);
-			no_more_command(data, tmp);
-			break ;
-		}
-		else
-		{
-			k = 0;
-			put_lst_in_tab(data, i, tmp);
-			more_pipe(data, tmp);
-			i++;
-			tmp = tmp->next;
-		}
+		put_lst_in_tab(data, i, tmp);
+		more_pipe(data, tmp);
+		i++;
+		tmp = tmp->next;
 	}
-	close(1);
-	close(0);
-		// while(1);
-	exit (0);
+	if (data->save != 0)
+		close(data->save);
+	close(data->fd[0]);
+	close(data->fd[1]);
+	while (waitpid(-1, NULL, 0) > 0)
+		;
 }
 
 void	put_lst_in_tab(t_data *data, int i, t_lst *tmp)
@@ -64,5 +52,4 @@ void	put_lst_in_tab(t_data *data, int i, t_lst *tmp)
 void	pipe_com(t_lst *lst, t_data *data)
 {
 	init_fork_pipe(lst, data);
-	// printf("AAA\n");
 }
