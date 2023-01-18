@@ -6,21 +6,20 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 11:17:12 by muteza            #+#    #+#             */
-/*   Updated: 2022/12/17 11:29:53 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/18 16:12:53 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_env(t_built *builtin, char **envp)
+void	ft_env(t_data *data)
 {
 	int	i;
-	(void)builtin;
 
 	i = 0;
-	while (envp[i])
+	while (data->envp[i])
 	{
-		printf("%s\n", envp[i]);
+		printf("%s\n", data->envp[i]);
 		i++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 11:44:53 by muteza            #+#    #+#             */
-/*   Updated: 2023/01/09 01:31:04 by raphaelperr      ###   ########.fr       */
+/*   Updated: 2023/01/18 17:11:19 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 int	triller(char **envp, t_built *builtin, int v)
 {
 	int	i;
-	// int	k;
 
-	// k = 0;
 	i = 0;
 	printf("%d\n", v);
 	while (envp[i])

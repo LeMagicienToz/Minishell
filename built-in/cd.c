@@ -6,18 +6,18 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 16:22:26 by muteza            #+#    #+#             */
-/*   Updated: 2022/12/16 20:17:42 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/18 15:11:03 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_cd(char *name, t_built *builtin)
+void	ft_cd(t_data *data)
 {
 	char	cwd[1025];
 
-	if (name == 0)
-		name = "/Users/muteza";
-	chdir(name);
-	builtin->save = getcwd(cwd, sizeof(cwd));
+	if (data->str[1] == 0)
+		data->str[1] = "/Users/muteza";
+	chdir(data->str[1]);
+	data->save_builtin = getcwd(cwd, sizeof(cwd));
 }

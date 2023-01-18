@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/18 11:19:32 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/18 16:13:14 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_data
 	char	**command;
 	int		ret;
 	int		save;
+	char	*save_builtin;
 	int		fd[2];
 	pid_t	id;
 	char	*path;
@@ -119,11 +120,11 @@ void	print_lst(t_lst *lst);
 
 //BUILT IN
 void	ft_echo(char *str);
-void	ft_pwd(t_built *builtin);
+void	ft_pwd(t_data *data);
 void	ft_export(t_built *builtin, char **envp);
-void	ft_env(t_built *builtin, char **envp);
-int		check_builtin(char *command_buffer, char **envp, t_built	*builtin);
-void	ft_cd(char *name, t_built *builtin);
+void	ft_env(t_data *data);
+int		check_builtin(t_data *data, t_lst *lst);
+void	ft_cd(t_data *data);
 
 //PARSING
 int		ft_strlen_without_quote(char *str);
