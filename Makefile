@@ -6,7 +6,7 @@
 #    By: muteza <muteza@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2023/01/16 14:46:19 by muteza           ###   ########.fr        #
+#    Updated: 2023/01/18 19:11:19 by muteza           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRC=		main.c\
 			lexer/lexer_len.c\
 			lexer/ft_substr_redirection.c\
 			lol/lol.c\
+			libft/ft_strcmp.c\
 			libft/ft_memcpy.c\
 			libft/ft_isprint.c\
 			libft/ft_lstsize.c\

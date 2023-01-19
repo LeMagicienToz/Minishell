@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/18 16:13:14 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/19 19:22:24 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
+# define CYGREEN "\001\e[44;97m\002"
+# define CYBLUE "\001\e[44;97m\002"
+# define CYRED "\001\e[45;97m\002"
+# define CYELLOW "\001\e[43;97m\002"
+# define RESET   "\001\e[0m\002"
 # define FTSTDOUT 1
 # define FTSTDIN 0
 # define DBQUOTECODE 34
@@ -65,6 +70,7 @@ typedef struct s_data
 	int		fd[2];
 	pid_t	id;
 	char	*path;
+	char	**exp;
 	char	*path_sec;
 	char	*cmd;
 	char	*settings;
@@ -96,6 +102,7 @@ int		ft_strlen_white(char *str);
 int		ft_check_word(char *str);
 int		get_cmd(char *str);
 void	cmd_history(void);
+int		ft_strcmp(char *s1, char *s2);
 int		ft_lstsize(t_lst *lst);
 
 //PIPE
@@ -121,7 +128,7 @@ void	print_lst(t_lst *lst);
 //BUILT IN
 void	ft_echo(char *str);
 void	ft_pwd(t_data *data);
-void	ft_export(t_built *builtin, char **envp);
+void	ft_export(t_data *data);
 void	ft_env(t_data *data);
 int		check_builtin(t_data *data, t_lst *lst);
 void	ft_cd(t_data *data);

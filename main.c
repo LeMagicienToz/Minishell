@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/15 14:48:38 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/19 19:22:06 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ __attribute__((unused))char **argv,	char **envp)
 	data.maxindex = 0;
 	while (1)
 	{
-		input = readline("$Minishell -> ");
+		input = readline(CYRED "$" RESET CYBLUE "M" RESET CYGREEN "i" RESET CYELLOW "n" RESET "ishell ->" RESET);
 		add_history(input);
 		if (!ft_strncmp(input, "debug leaks", ft_strlen(input)))
 			system("leaks Minishell");
