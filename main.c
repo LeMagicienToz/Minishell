@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/19 19:22:06 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/20 16:34:37 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ __attribute__((unused))char **argv,	char **envp)
 	data.maxindex = 0;
 	while (1)
 	{
-		input = readline(CYRED "$" RESET CYBLUE "M" RESET CYGREEN "i" RESET CYELLOW "n" RESET "ishell ->" RESET);
+		input = readline("\e[48;2;158;64;155m\e[1m $ ""\e[48;2;0;0;255m M ""\e[48;2;71;169;14m i " \
+		"\e[48;2;237;253;0m n ""\e[48;2;253;171;0m i ""\e[48;2;255;0;0m s " "\e[48;2;158;64;155m h ""\e[48;2;0;0;255m e ""\e[48;2;71;169;14m l ""\e[48;2;237;253;0m l "RESET" 🏳️‍🌈" "\n----->" );
 		add_history(input);
 		if (!ft_strncmp(input, "debug leaks", ft_strlen(input)))
 			system("leaks Minishell");
