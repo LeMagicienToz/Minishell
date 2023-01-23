@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/19 19:26:03 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/23 16:10:13 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_data
 	int		maxindex;
 	int		pipe;
 	char	**envp;
+	t_lst	*export;
 	t_utils	*u;
 	t_lst	*first;
 	t_lst	*last;
