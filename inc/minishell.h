@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/26 13:52:13 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/26 16:14:11 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,8 @@ int		check_builtin(t_data *data, t_lst *lst);
 void	ft_cd(t_data *data);
 
 //PARSING
+
+char	*get_env(t_data *data, char	*str);
 int		ft_strlen_without_quote(char *str);
 char	*ft_get_cmd(char *input);
 char	**ft_remove_space_lexer(char **str);

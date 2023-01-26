@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:13:30 by muteza            #+#    #+#             */
-/*   Updated: 2023/01/26 14:57:54 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/26 15:42:44 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	add_to_export(t_data *data)
 	while (tmp)
 	{
 		data->ex_ind++;
-		while (tmp->content[i] != '=' && dec[i] != '=')
+		while (tmp->content[i] != '=' && dec[i] != '=' )
 		{
 			if (tmp->content[i] == dec[i])
 			{

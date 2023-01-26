@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:18:39 by muteza            #+#    #+#             */
-/*   Updated: 2023/01/23 17:53:26 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/26 15:46:00 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ void	more_pipe(t_data *data, t_lst *lst)
 			close(data->save);
 		close(data->fd[0]);
 		close(data->fd[1]);
-		if (check_builtin(data, lst) == 0)
-			execve(data->path, data->str, data->envp);
+		execve(data->path, data->str, data->envp);
 	}
 	// if (data->id == 0)
 	// 	kill(data->id, SIGKILL);

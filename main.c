@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/25 19:01:20 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/26 16:53:30 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	tiensmax(t_lst *lst, t_data *data)
 		printf("[%d] - %s\n", tmp->index, tmp->content);
 		tmp = tmp->next;
 	}
+	
 	check_pipe(lst, data);
 }
 
@@ -70,6 +71,7 @@ __attribute__((unused))char **argv,	char **envp)
 			system("leaks Minishell");
 		// else if (!ft_strncmp(input, "debug leaks all", ft_strlen(input)))
 		// 	system("leaks Minishell");
+		printf("%s\n", get_env(&data,"a"));
 		// if (check_lexer_error(input, &data) == 1)
 		// {
 		// 	data.errorlexer = NULL;

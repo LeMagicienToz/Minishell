@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 14:16:36 by muteza            #+#    #+#             */
-/*   Updated: 2023/01/25 17:10:05 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/26 15:46:24 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ void	init_fork_pipe(t_lst *lst, t_data *data)
 	while (tmp)
 	{
 		put_lst_in_tab(data, i, tmp);
-		more_pipe(data, tmp);
+		if (check_builtin(data, lst) == 1)
+		{
+			more_pipe(data, tmp);
+		}
 		i++;
 		tmp = tmp->next;
 	}
