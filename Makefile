@@ -6,7 +6,7 @@
 #    By: muteza <muteza@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2023/01/18 19:11:19 by muteza           ###   ########.fr        #
+#    Updated: 2023/01/25 11:13:28 by muteza           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRC=		main.c\
 			check_command.c\
 			built-in/echo.c\
 			built-in/cd.c\
-			built-in/export.c\
+			built-in/export/export.c\
+			built-in/export/add_to_env.c\
 			built-in/pwd.c\
 			built-in/env.c\
 			built-in/check_builtin.c\

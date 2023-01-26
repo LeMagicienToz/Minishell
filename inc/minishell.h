@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/23 16:10:13 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/25 18:38:05 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ struct s_lst
 typedef struct s_data
 {
 	char	*input;
+	int		sv;
 	char	**str;
 	char	**command;
 	int		ret;
@@ -127,8 +128,11 @@ int		ft_is_space(char c);
 void	print_lst(t_lst *lst);
 
 //BUILT IN
+
+int		put_tab_in_lst(t_data *data);
 void	ft_echo(char *str);
 void	ft_pwd(t_data *data);
+int		check_equal(t_data *data);
 void	ft_export(t_data *data);
 void	ft_env(t_data *data);
 int		check_builtin(t_data *data, t_lst *lst);

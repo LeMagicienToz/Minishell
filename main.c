@@ -6,11 +6,12 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/23 18:24:58 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/25 19:01:20 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/minishell.h"
+#include <signal.h>
 
 void	tiensmax(t_lst *lst, t_data *data)
 {
@@ -56,6 +57,8 @@ __attribute__((unused))char **argv,	char **envp)
 
 	lst = NULL;
 	data.envp = envp;
+	data.exp = envp;
+	put_tab_in_lst(&data);
 	builtin.save = "/Users/muteza/Desktop/Minishell";
 	data.maxindex = 0;
 	while (1)
