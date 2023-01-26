@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/25 18:38:05 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/26 13:52:13 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ struct s_lst
 
 typedef struct s_data
 {
+	int		ex_ind;
 	char	*input;
 	int		sv;
 	char	**str;

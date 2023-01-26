@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 11:44:53 by muteza            #+#    #+#             */
-/*   Updated: 2023/01/25 19:25:49 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/26 14:00:11 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	put_tab_in_lst(t_data *data)
 	t_lst	*node;
 
 	k = 1;
+	data->maxindex = 0;
 	str = malloc(sizeof(char) * (ft_strlen(data->exp[0]) + 11));
 	str = ft_strjoin("declare -x ", data->exp[0]);
 	data->export = create_node(data, str);
@@ -74,6 +75,7 @@ int	put_tab_in_lst(t_data *data)
 		i++;
 	while (k < i)
 	{
+		data->maxindex++;
 		str = malloc(sizeof(char) * (ft_strlen(data->exp[k]) + 11));
 		str = ft_strjoin("declare -x ", data->exp[k]);
 		node = create_node(data, str);
@@ -95,6 +97,7 @@ void	ft_export(t_data *data)
 		k = check_equal(data);
 	else
 	{
+		// printf("print\n");
 		while (tmp)
 		{
 			printf("%s\n", tmp->content);
