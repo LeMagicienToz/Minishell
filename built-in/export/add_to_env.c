@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:13:30 by muteza            #+#    #+#             */
-/*   Updated: 2023/01/26 15:42:44 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/27 13:21:53 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	add_export_to_export(t_data *data, char *dec)
 	int		i = 0;
 	int		k = 0;
 
-	str = malloc(sizeof(char) * (ft_strlen(dec) + 2));
+	str = malloc(sizeof(char) * (ft_strlen(dec) + 3));
 	while (dec[i] != '=')
 	{
 		str[i] = dec[i];
@@ -37,6 +37,9 @@ void	add_export_to_export(t_data *data, char *dec)
 		i++;
 	}
 	str[i] = '"';
+	i++;
+	str[i] = '\0';
+	printf("%s\n", str);
 	tmp = create_node(data, str);
 	addback(tmp, &data->export);
 	free(str);
@@ -70,18 +73,13 @@ void	replace_in_two(t_data *data, char *dec)
 		i++;
 	}
 	str[i] = '"';
-	// printf("\n\n\n\n\n%s\n\n\n\n", str);
 	while (data->ex_ind - 1 != 0)
 	{
 		tmp = tmp->next;
 		data->ex_ind--;
 	}
-	// printf("test %s\n", tmp->content);
-	free(tmp->content);
-	tmp->content = ft_strdup(str);
-	// tmp->content = ft_strcpy(tmp->content, str);
-	// tmp = create_node(data, str);
-	// addback(tmp, &data->export);
+	ft_bzero(tmp->content, ft_strlen(tmp->content));
+	ft_strcpy(tmp->content, str);
 	free(str);
 }
 
@@ -98,21 +96,30 @@ void	add_to_export(t_data *data)
 	tmp = data->export;
 	data->ex_ind = 0;
 	dec = ft_strjoin(dec, data->str[1]);
+	if (parc_export(data, dec) == 1)
+	{
+		printf("error");
+		exit(0);
+	}
 	while (tmp)
 	{
 		data->ex_ind++;
-		while (tmp->content[i] != '=' && dec[i] != '=' )
+		while (tmp->content[i] != '=' && dec[i] != '=')
 		{
 			if (tmp->content[i] == dec[i])
 			{
+				k = 1;
 				i++;
 			}
 			else
+			{
+				k = 0;
 				break ;
+			}
 		}
-		if (tmp->content[i] == dec[i])
+		if (tmp->content[i] == dec[i] && k == 1)
 		{
-			k = 1;
+			printf("go for replace\n");
 			replace_in_two(data, dec);
 			free(dec);
 			break ;

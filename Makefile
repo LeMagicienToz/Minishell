@@ -6,7 +6,7 @@
 #    By: muteza <muteza@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2023/01/26 16:40:15 by muteza           ###   ########.fr        #
+#    Updated: 2023/01/27 14:15:28 by muteza           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ CC=			gcc
 
 LFLAGS=		-l readline
 
-CFLAGS	+=	-Wall -Wextra -Werror #-g -fsanitize=address 
+CFLAGS	+=	-Wall -Wextra -Werror -g3 #-fsanitize=address 
 
 do:
 			@make $(NAME)

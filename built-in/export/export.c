@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 11:44:53 by muteza            #+#    #+#             */
-/*   Updated: 2023/01/26 14:00:11 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/27 14:19:11 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,11 @@ void	ft_export(t_data *data)
 
 	k = 0;
 	tmp = data->export;
+	printf("%s\n", data->export->content);
 	if (data->str[1])
 		k = check_equal(data);
 	else
 	{
-		// printf("print\n");
 		while (tmp)
 		{
 			printf("%s\n", tmp->content);

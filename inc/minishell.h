@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/26 16:14:11 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/26 18:46:00 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,8 @@ void	print_lst(t_lst *lst);
 
 //BUILT IN
 
+//WIFEXIT waitpid
+
 int		put_tab_in_lst(t_data *data);
 void	ft_echo(char *str);
 void	ft_pwd(t_data *data);
@@ -141,6 +143,7 @@ void	ft_cd(t_data *data);
 
 //PARSING
 
+int		parc_export(t_data *data, char *str);
 char	*get_env(t_data *data, char	*str);
 int		ft_strlen_without_quote(char *str);
 char	*ft_get_cmd(char *input);
