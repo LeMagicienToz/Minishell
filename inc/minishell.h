@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/27 17:07:49 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/27 17:17:18 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,8 +209,8 @@ int		check_token_normed(char c, char d);
 int		check_token(char c, char d);
 void	print_lexer(t_lexer	*lexer);
 t_lst	*get_parsed(t_lexer	*lexer, t_data *data);
-char	*fill_quote(t_lexer **lexer, char *res);
-char	*fill_dollar(t_lexer **lexer, char *res);
+char	*fill_quote(t_lexer **lexer, t_data *data, char *res);
+char	*fill_dollar(t_lexer **lexer, t_data *data, char *res);
 char	*fill_simple_quote(t_lexer **lexer, char *res);
 void	fill_rout(t_lexer **lexer, t_data *data);
 void	fill_rin(t_lexer **lexer, t_data *data);

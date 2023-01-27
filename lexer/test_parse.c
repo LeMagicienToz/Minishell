@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 00:30:13 by rperrin           #+#    #+#             */
-/*   Updated: 2023/01/27 17:07:31 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/27 17:18:37 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,17 @@ t_lst	*get_parsed(t_lexer	*lexer, t_data *data)
 		while (tmp->type == SPACE && tmp->next && tmp->next->type == SPACE)
 			tmp = tmp->next;
 		if (tmp->type == DBQUOTE)
-			res = fill_quote(&tmp, res);
+			res = fill_quote(&tmp, data, res);
 		else if (tmp->type == QUOTE)
 			res = fill_simple_quote(&tmp, res);
 		else if (tmp->type == DOLLAR && tmp->next)
-			res = fill_dollar(&tmp, res);
+			res = fill_dollar(&tmp, data, res);
 		else if (tmp->type == ROUT || tmp->type == DBROUT)
 			fill_rout(&tmp, data);
 		else if (tmp->type == RIN || tmp->type == DBRIN)
 			fill_rin(&tmp, data);
-		else if (tmp->type == EQUAL && tmp->prev && tmp->prev->type == TEXT)
-			res = fill_export(&tmp, data, res);
+		// else if (tmp->type == EQUAL && tmp->prev && tmp->prev->type == TEXT)
+		// 	res = fill_export(&tmp, data, res);
 		else if (res && tmp->content)
 		{
 			join = ft_strdup(res);
@@ -68,7 +68,7 @@ t_lst	*get_parsed(t_lexer	*lexer, t_data *data)
 	return (lst);
 }
 
-char	*fill_quote(t_lexer **lexer, char *res)
+char	*fill_quote(t_lexer **lexer, t_data *data, char *res)
 {
 	char	*tmp;
 	t_lexer	*lex;
@@ -81,7 +81,7 @@ char	*fill_quote(t_lexer **lexer, char *res)
 		while (lex && lex->type != DBQUOTE)
 		{
 			if (lex->type == DOLLAR && lex->next->type != DBQUOTE)
-				res = fill_dollar(&lex, res);
+				res = fill_dollar(&lex, data, res);
 			else if (res && lex->content && lex->type != DBQUOTE)
 			{
 				tmp = ft_strdup(res);
@@ -128,7 +128,7 @@ char	*fill_simple_quote(t_lexer **lexer, char *res)
 	return (res);
 }
 
-char	*fill_dollar(t_lexer **lexer, char *res)
+char	*fill_dollar(t_lexer **lexer, t_data *data, char *res)
 {
 	char	*tmp;
 	t_lexer	*lex;
@@ -152,12 +152,12 @@ char	*fill_dollar(t_lexer **lexer, char *res)
 	{
 		lex = lex->next;
 		if (!res)
-			res = getenv(lex->content);
-		else if (lex->type == TEXT && getenv(lex->content))
+			res = get_env(data, lex->content);
+		else if (lex->type == TEXT && get_env(data, lex->content))
 		{
 			tmp = ft_strdup(res);
 			free(res);
-			res = ft_strjoin(tmp, getenv(lex->content));
+			res = ft_strjoin(tmp, get_env(data, lex->content));
 			free(tmp);
 		}
 	}
@@ -193,11 +193,11 @@ void	fill_rout(t_lexer **lexer, t_data *data)
 	while (lex->type == SPACE && lex->next)
 		lex = lex->next;
 	if (lex->type == DBQUOTE)
-		res = fill_quote(&lex, res);
+		res = fill_quote(&lex, data, res);
 	else if (lex->type == QUOTE)
 		res = fill_simple_quote(&lex, res);
 	else if (lex->type == DOLLAR && lex->next)
-		res = fill_dollar(&lex, res);
+		res = fill_dollar(&lex, data, res);
 	else if (lex->type == TEXT)
 	{
 		if (!res)
@@ -233,11 +233,11 @@ void	fill_rin(t_lexer **lexer, t_data *data)
 	while (lex->type == SPACE && lex->next)
 		lex = lex->next;
 	if (lex->type == DBQUOTE)
-		res = fill_quote(&lex, res);
+		res = fill_quote(&lex, data, res);
 	else if (lex->type == QUOTE)
 		res = fill_simple_quote(&lex, res);
 	else if (lex->type == DOLLAR && lex->next)
-		res = fill_dollar(&lex, res);
+		res = fill_dollar(&lex, data, res);
 	else if (lex->type == TEXT)
 	{
 		if (!res)
@@ -267,11 +267,11 @@ char	*fill_export(t_lexer **lexer, t_data *data, char *res)
 	{
 		lex = lex->next;
 		if (lex->type == DBQUOTE)
-			res = fill_quote(&lex, res);
+			res = fill_quote(&lex, data, res);
 		else if (lex->type == QUOTE)
 			res = fill_simple_quote(&lex, res);
 		else if (lex->type == DOLLAR && lex->next)
-			res = fill_dollar(&lex, res);
+			res = fill_dollar(&lex, data, res);
 		else if (lex->type == TEXT || lex->type == EQUAL)
 		{
 			if (!res)
