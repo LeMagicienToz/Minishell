@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/27 14:21:46 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/27 17:02:39 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/minishell.h"
-#include <signal.h>
 
 void	tiensmax(t_lst *lst, t_data *data)
 {
@@ -33,63 +32,48 @@ void	tiensmax(t_lst *lst, t_data *data)
 	check_pipe(lst, data);
 }
 
-void deleteList(t_lst** head_ref)
-{
-	/* deref head_ref to get the real head */
-	t_lst* current = *head_ref;
-	t_lst* next = NULL;
-	while (current != NULL)
-	{
-		next = current->next;
-		free(current);
-		current = next;
-	}
-	*head_ref = NULL;
-}
-
 int	main(__attribute__((unused))int argc, \
 __attribute__((unused))char **argv,	char **envp)
 {
 	t_built	builtin;
 	t_data	data;
 	t_lst	*lst;
-	char	*input;
+	t_lexer	*lexer;
 
+	lexer = NULL;
 	lst = NULL;
 	data.envp = envp;
 	data.exp = envp;
-	put_tab_in_lst(&data);
-	printf("%s\n", data.envp[0]);
-	builtin.save = "/Users/muteza/Desktop/Minishell";
 	data.maxindex = 0;
+	put_tab_in_lst(&data);
+	builtin.save = "/Users/muteza/Desktop/Minishell";
 	while (1)
 	{
-		printf("AAA\n");
-		system("lsof -w -c minishell");
-		input = readline("\e[48;2;158;64;155m\e[1m $ ""\e[48;2;0;0;255m M ""\e[48;2;71;169;14m i " \
-		"\e[48;2;237;253;0m n ""\e[48;2;253;171;0m i ""\e[48;2;255;0;0m s " "\e[48;2;158;64;155m h ""\e[48;2;0;0;255m e ""\e[48;2;71;169;14m l ""\e[48;2;237;253;0m l "RESET "  ----->" );
-		add_history(input);
-		// if (!ft_strncmp(input, "debug leaks", ft_strlen(input)))
-		// 	system("leaks Minishell");
-		// else if (!ft_strncmp(input, "debug leaks all", ft_strlen(input)))
-		// 	system("leaks Minishell");
-		// printf("%s\n", get_env(&data,"a"));
-		// if (check_lexer_error(input, &data) == 1)
+		data.input = readline("Minishell >");
+		// if (ft_strlen(data.input) != 0)
+		// // if (data.input)
 		// {
-		// 	data.errorlexer = NULL;
-		// 	printf("ERREUR\n");
-		// }
-		// else
-		// {
-			lst = detect_token(&data, lst, input);
+		add_history(data.input);
+			// if (!ft_strncmp(data.input, "debug leaks", ft_strlen(data.input)))
+			// 	system("leaks Minishell");
+		if (check_lexer_error(data.input, &data) != 1)
+		{
+			lst = get_parsed(create_lexer(lexer, data.input), &data);
 			print_lst(lst);
-			// system("leaks Minishell | grep leak | tail -1");
 			tiensmax(lst, &data);
-			deleteList(&lst);
-			data.maxindex = 0;
-		// }
-		if (input)
-			free(input);
+			free_all(&data, &lexer, &lst);
+		}
+		else
+		{
+			free(data.input);
+			data.errorlexer = NULL;	
+		}
+		// if (lst)
+		// 	free_lst(&lst);
+		// if (lexer)
+		// 	free_lex(&lexer);
+		// if (data.errorlexer)
+		// 	free_data(&data);
+		// system("leaks Minishell");
 	}
-	return (0);
 }

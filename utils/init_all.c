@@ -1,23 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   init_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 19:08:50 by muteza            #+#    #+#             */
-/*   Updated: 2023/01/27 16:04:26 by rperrin          ###   ########.fr       */
+/*   Created: 2023/01/26 15:16:40 by rperrin           #+#    #+#             */
+/*   Updated: 2023/01/26 17:24:30 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_strcmp(char *s1, char *s2)
+void	init_data(t_data	*data)
 {
-	int	i;
+	printf("%s:%d\n", __FILE__, __LINE__);
+	data->maxindex = 0;
+	data->export = 0;
+	data->errorlexer = NULL;
+}
 
-	i = 0;
-	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
-		i++;
-	return (s1[i] - s2[i]);
+void	init_lst(t_lst	**lst)
+{
+	t_lst	*tmp;
+
+	printf("%s:%d\n", __FILE__, __LINE__);
+	tmp = (*lst);
+	tmp = NULL;
+}
+
+void	init_lex(t_lexer	**lex)
+{
+	t_lexer	*tmp;
+
+	printf("%s:%d\n", __FILE__, __LINE__);
+	tmp = (*lex);
+	tmp = NULL;
 }

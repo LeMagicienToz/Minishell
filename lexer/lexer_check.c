@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:26:23 by rperrin           #+#    #+#             */
-/*   Updated: 2023/01/14 15:30:38 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/26 17:22:17 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	check_pipe_lexer(char *lexer, t_data *data)
 	i = 0;
 	while (lexer[i])
 	{
-		if (lexer[i] == PIPE)
+		if (lexer[i] == PIPECODE)
 			x++;
 		else
 			x = 0;
@@ -69,36 +69,39 @@ int	check_quote(char *str, t_data *data)
 	}
 	if (x == 1)
 	{
-		data->errorlexer = "QUOTE SANS FERMETURE";
+		data->errorlexer = ft_strdup("QUOTE SANS FERMETURE");
 		return (1);
 	}
 	return (0);
 }
 
+int	check_redirection(char c)
+{
+	if (c == OUTCODE)
+		return (OUTCODE);
+	else if (c == INCODE)
+		return (INCODE);
+	else if (c == DBQUOTECODE)
+		return (DBQUOTECODE);
+	else if (c == QUOTECODE)
+		return (QUOTECODE);
+	return (-1);
+}
+
 int	check_lexer_error(char *str, t_data *data)
 {
 	if (!str)
-	{
-		printf("coucou\n");
 		return (1);
-	}
 	if (ft_strlen(str) == 0)
-	{
-		printf("coucou\n");
 		return (1);
-	}
 	if (check_pipe_lexer(str, data))
 		ft_printf_fd(1, "Erreur: %s\n", data->errorlexer);
-	// else if (check_here_doc(str, data))
-	// 	ft_printf_fd(1, "Erreur: %s\n", data->errorlexer);
+	else if (check_here_doc(str, data))
+		ft_printf_fd(1, "Erreur: %s\n", data->errorlexer);
 	else if (check_quote(str, data))
 		ft_printf_fd(1, "Erreur: %s\n", data->errorlexer);
 	if (data->errorlexer)
-	{
-		printf("%s", data->errorlexer);
-		printf("coucou2\n");
 		return (1);
-	}
 	else
 		return (0);
 }

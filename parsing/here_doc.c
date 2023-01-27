@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 19:22:16 by rperrin           #+#    #+#             */
-/*   Updated: 2023/01/13 19:39:29 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/18 21:25:23 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ int	check_here_doc(char *str, t_data *data)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == IN && str[i + 1] == IN)
+		if (str[i] == INCODE && str[i + 1] == INCODE)
 		{
 			i += 2;
 			printf("(%c)", str[i]);
 			x = 1;
 			while (str[i] == SPACECODE)
 				i++;
-			while (str[i] != IN && str[i] != SPACECODE)
+			while (str[i] != INCODE && str[i] != SPACECODE)
 				x = 0;
 		}
 		i++;

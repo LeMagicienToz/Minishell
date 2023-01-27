@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:29:55 by rperrin           #+#    #+#             */
-/*   Updated: 2023/01/14 17:22:46 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/17 21:18:06 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ int	get_len_token(char *str)
 		{
 			i++;
 			while (str[i] != last && str[i++])
+			{
+				if (str[i] == DOLLARCODE)
+				{
+					while (str[i++] != SPACECODE)
+						len++;
+				}
+			}
 				len++;
 			if (str[i] == last)
 				i++;

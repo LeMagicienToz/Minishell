@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 18:34:11 by rperrin           #+#    #+#             */
-/*   Updated: 2021/10/25 12:36:14 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/27 15:54:43 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_neg(const char *str)
 	return (neg);
 }
 
-static int	ft_strcmp(const char *s1, const char *s2)
+static int	ft_strcompare(const char *s1, const char *s2)
 {
 	int	i;
 
@@ -42,9 +42,9 @@ static int	ft_strcmp(const char *s1, const char *s2)
 
 static int	int_max_or_min(const char *str)
 {
-	if (ft_strcmp(str, "-2147483648") == 0)
+	if (ft_strcompare(str, "-2147483648") == 0)
 		return (INT_MIN);
-	else if (ft_strcmp(str, "2147483647") == 0)
+	else if (ft_strcompare(str, "2147483647") == 0)
 		return (INT_MAX);
 	else
 		return (0);
@@ -58,9 +58,9 @@ int	ft_atoi(const char *str)
 
 	n = 0;
 	i = 0;
-	if ((ft_strcmp(str, "-2147483648") == 0))
+	if ((ft_strcompare(str, "-2147483648") == 0))
 		return (int_max_or_min(str));
-	else if ((ft_strcmp(str, "2147483647") == 0))
+	else if ((ft_strcompare(str, "2147483647") == 0))
 		return (int_max_or_min(str));
 	neg = (ft_neg(str));
 	while (str[i] && ((str[i] > 8 && str[i] < 14) || str[i] == ' '))

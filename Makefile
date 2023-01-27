@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: muteza <muteza@student.42.fr>              +#+  +:+       +#+         #
+#    By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2023/01/27 14:15:28 by muteza           ###   ########.fr        #
+#    Updated: 2023/01/27 16:07:40 by rperrin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,12 +35,15 @@ SRC=		main.c\
 			lexer/lexer_redirection.c\
 			lexer/lexer.c\
 			lexer/create_lst.c\
+			lexer/create_lst_lexer.c\
 			lexer/lexer_utils.c\
 			lexer/lexer_check.c\
 			lexer/lexer_len.c\
-			lexer/ft_substr_redirection.c\
+			lexer/test.c\
+			lexer/test_parse.c\
+			utils/free_all.c\
+			utils/init_all.c\
 			lol/lol.c\
-			libft/ft_strcmp.c\
 			libft/ft_memcpy.c\
 			libft/ft_isprint.c\
 			libft/ft_lstsize.c\
@@ -57,6 +60,8 @@ SRC=		main.c\
 			libft/ft_strncmp.c \
 			libft/ft_putchar_fd.c \
 			libft/ft_isdigit.c \
+			libft/ft_isalnum.c \
+			libft/ft_strcmp.c \
 			libft/ft_strdup.c \
 			libft/ft_strchr.c \
 			libft/ft_atoi.c \
@@ -68,7 +73,7 @@ CC=			gcc
 
 LFLAGS=		-l readline
 
-CFLAGS	+=	-Wall -Wextra -Werror -g3 #-fsanitize=address 
+CFLAGS	+=	-Wall -Wextra -Werror -g #-fsanitize=address 
 
 do:
 			@make $(NAME)

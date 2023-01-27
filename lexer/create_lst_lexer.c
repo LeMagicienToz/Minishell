@@ -1,36 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_lst.c                                       :+:      :+:    :+:   */
+/*   create_lst_lexer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/05 17:07:29 by rperrin           #+#    #+#             */
-/*   Updated: 2023/01/27 15:53:28 by rperrin          ###   ########.fr       */
+/*   Created: 2023/01/17 19:25:55 by rperrin           #+#    #+#             */
+/*   Updated: 2023/01/25 23:38:13 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-t_lst	*create_node(t_data *data, char *str)
+t_lexer	*create_node_lexer(char *str, int type)
 {
-	t_lst		*node;
+	t_lexer		*node;
+	static int	i = 0;
 
-	node = malloc(sizeof(t_lst));
+	node = malloc(sizeof(t_lexer));
 	node->content = ft_strdup(str);
-	node->index = data->maxindex;
-	node->fdin = data->in;
-	node->fdout = data->out;
-	node->typeout = data->typeout;
-	node->export = data->checkexport;
+	node->index = i++;
+	node->type = type;
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);
 }
 
-void	addback(t_lst *node, t_lst **lst)
+void	addback_lexer(t_lexer *node, t_lexer **lst)
 {
-	t_lst	*tmp;
+	t_lexer	*tmp;
 
 	tmp = (*lst);
 	while (tmp->next)
@@ -39,16 +37,15 @@ void	addback(t_lst *node, t_lst **lst)
 	node->prev = tmp;
 }
 
-void	create_token(t_data *data, t_lst **lst, char *str, int x)
+void	create_token_lexer(t_lexer **lst, char *str, int type)
 {
-	t_lst	*node;
+	t_lexer	*node;
 
-	data->maxindex = x;
 	if ((*lst) == NULL)
-		(*lst) = create_node(data, str);
+		(*lst) = create_node_lexer(str, type);
 	else
 	{
-		node = create_node(data, str);
-		addback(node, lst);
+		node = create_node_lexer(str, type);
+		addback_lexer(node, lst);
 	}
 }
