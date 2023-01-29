@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/27 17:02:39 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/29 10:22:19 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ __attribute__((unused))char **argv,	char **envp)
 	builtin.save = "/Users/muteza/Desktop/Minishell";
 	while (1)
 	{
-		data.input = readline("Minishell >");
+		data.input = readline("\e[48;2;158;64;155m\e[1m $ ""\e[48;2;0;0;255m M ""\e[48;2;71;169;14m i " \
+		"\e[48;2;237;253;0m n ""\e[48;2;253;171;0m i ""\e[48;2;255;0;0m s " "\e[48;2;158;64;155m h ""\e[48;2;0;0;255m e ""\e[48;2;71;169;14m l ""\e[48;2;237;253;0m l "RESET "  ----->" );
 		// if (ft_strlen(data.input) != 0)
 		// // if (data.input)
 		// {
@@ -66,7 +67,7 @@ __attribute__((unused))char **argv,	char **envp)
 		else
 		{
 			free(data.input);
-			data.errorlexer = NULL;	
+			data.errorlexer = NULL;
 		}
 		// if (lst)
 		// 	free_lst(&lst);

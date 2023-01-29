@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:13:30 by muteza            #+#    #+#             */
-/*   Updated: 2023/01/27 13:21:53 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/27 20:00:59 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	add_to_export(t_data *data)
 		}
 		if (tmp->content[i] == dec[i] && k == 1)
 		{
-			printf("go for replace\n");
+			// printf("go for replace\n");
 			replace_in_two(data, dec);
 			free(dec);
 			break ;

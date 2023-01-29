@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 11:44:53 by muteza            #+#    #+#             */
-/*   Updated: 2023/01/27 14:19:11 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/27 19:06:48 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	put_tab_in_lst(t_data *data)
 	str = ft_strjoin("declare -x ", data->exp[0]);
 	data->export = create_node(data, str);
 	node = data->export;
+	free(str);
 	i = 0;
 	while (data->exp[i])
 		i++;
@@ -80,6 +81,7 @@ int	put_tab_in_lst(t_data *data)
 		str = ft_strjoin("declare -x ", data->exp[k]);
 		node = create_node(data, str);
 		addback(node, &data->export);
+		free(str);
 		k++;
 	}
 	sort_node(&data->export);
