@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:17:07 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/01 14:47:32 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/01 19:28:35 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	free_data(t_data *data)
 	// printf("%s:%d\n", __FILE__, __LINE__);
 	data->maxindex = 0;
 	data->checkexport = 0;
-	data->out = 0;
+ 	data->out = 0;
 	data->in = 0;
 	data->typeout = 0;
 	if (data->input)

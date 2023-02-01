@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:51:29 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/01 13:17:46 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/01 19:30:54 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ t_lst	*get_parsed(t_lexer	*lexer, t_data *data)
 		tmp = tmp->next;
 	while (tmp)
 	{
+		data->out = 0;
+		data->in = 0;
+		data->typeout = 0;
 		if (tmp->type == PIPE)
 		{
 			if (tmp->next)
