@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 17:07:29 by rperrin           #+#    #+#             */
-/*   Updated: 2023/01/27 15:53:28 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/31 17:00:18 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_lst	*create_node(t_data *data, char *str)
 	node->fdin = data->in;
 	node->fdout = data->out;
 	node->typeout = data->typeout;
-	node->export = data->checkexport;
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);

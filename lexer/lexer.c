@@ -6,81 +6,109 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 19:13:27 by rperrin           #+#    #+#             */
-/*   Updated: 2023/01/14 17:22:50 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/31 17:01:05 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*strdup_token(int len)
+int	check_token_normed(char c, char d)
 {
-	char	*res;
-
-	res = malloc(sizeof(char) * (len + 1));
-	res[len] = '\0';
-	return (res);
+	if (c == OUTCODE)
+	{
+		if (d && d == OUTCODE)
+			return (DBROUT);
+		else
+			return (ROUT);
+	}
+	else if (c == INCODE)
+	{
+		if (d && d == INCODE)
+			return (DBRIN);
+		else
+			return (RIN);
+	}
+	else
+		return (0);
 }
 
-char	*fill_token(char *str)
+int	check_token(char c, char d)
 {
-	int		i;
-	int		j;
-	int		last;
-	char	*res;
+	if (c == DBQUOTECODE)
+		return (DBQUOTE);
+	else if (c == QUOTECODE)
+		return (QUOTE);
+	else if (c == SPACECODE)
+		return (SPACE);
+	else if (c == PIPECODE)
+		return (PIPE);
+	else if (c == DOLLARCODE)
+		return (DOLLAR);
+	else if (c == HYPHENCODE)
+		return (HYPHEN);
+	else if (check_token_normed(c, d))
+		return (check_token_normed(c, d));
+	else
+		return (TEXT);
+}
+
+char	*fill_token_lexer_normed(char *str, int *i, int type, char *ret)
+{
+	int	j;
 
 	j = 0;
+	if (type == TEXT)
+	{
+		while (str[*i] && type == TEXT)
+		{
+			ret[j++] = str[(*i)++];
+			type = check_token(str[*i], str[*i + 1]);
+		}
+	}
+	return (ret);
+}
+
+char	*fill_token_lexer(char *str, int *i, int type)
+{
+	int		j;
+	char	*ret;
+
+	j = 0;
+	ret = malloc(sizeof(char) * get_len_token_lexer(str, *i, type) + 1);
+	ret[get_len_token_lexer(str, *i, type)] = '\0';
+	if (type == TEXT)
+		ret = fill_token_lexer_normed(str, i, type, ret);
+	else if (type == DBROUT)
+	{
+		while (str[*i] && str[*i] == OUTCODE)
+			ret[j++] = str[(*i)++];
+	}
+	else if (type == DBRIN)
+	{
+		while (str[*i] && str[*i] == INCODE)
+			ret[j++] = str[(*i)++];
+	}
+	else
+		ret[j++] = str[(*i)++];
+	return (ret);
+}
+
+t_lexer	*create_lexer(t_lexer *lex, char *str)
+{
+	int		i;
+	int		type;
+	char	*ret;
+	int		j;
+
 	i = 0;
-	res = strdup_token(get_len_token(str));
-	if (!res)
-		return (NULL);
+	j = 0;
 	while (str[i])
 	{
-		last = check_separator(str[i]);
-		if (last > 0)
-		{
-			i++;
-			while (str[i] != last && str[i])
-				res[j++] = str[i++];
-			if (str[i] == last)
-				i++;
-		}
-		else
-			res[j++] = str[i++];
+		type = check_token(str[i], str[i + 1]);
+		ret = fill_token_lexer(str, &i, type);
+		create_token_lexer(&lex, ret, type);
+		free(ret);
 	}
-	return (res);
-}
-
-t_lst	*detect_token_split(t_data *data, t_lst *lst)
-{
-	int		j;
-	char	*tmp;
-
-	j = 0;
-	while (data->lexer[j])
-	{
-		tmp = fill_token(data->lexer[j]);
-		create_token(data, &lst, tmp, j);
-		free(tmp);
-		j++;
-	}
-	j = 0;
-	while (data->lexer[j])
-		free(data->lexer[j++]);
-	free(data->lexer);
-	return (lst);
-}
-
-t_lst	*detect_token(t_data *data, t_lst *lst, char *str)
-{
-	int		i;
-	char	**tmp;
-
-	i = 0;
-	tmp = ft_split(str, '|');
-	data->lexer = ft_remove_space_lexer(tmp);
-	while (tmp[i])
-		free(tmp[i++]);
-	free(tmp);
-	lst = detect_token_split(data, lst);
-	return (lst);
+	print_lexer(lex);
+	return (lex);
 }

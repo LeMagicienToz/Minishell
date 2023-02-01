@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 17:08:15 by muteza            #+#    #+#             */
-/*   Updated: 2023/01/31 12:57:28 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/01 16:57:02 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_is_builtin(char *str)
 
 int	builtin_pipe(t_data *data, t_lst *lst)
 {
-	(void)lst;
+	// (void)lst;
 	data->k = 0;
 	// printf("dawdiouawdhauwohdajowhdjkwah\n");
 	if (ft_strncmp(data->str[0], "export", 6) == 0)

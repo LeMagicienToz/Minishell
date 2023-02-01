@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:18:39 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/01 16:08:29 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/01 17:12:20 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 void	get_all(int fd, int fdout)
 {
-	char	*buff;
-
-	while (read(fd, &buff, 1) > 0)
-		write(fdout, buff, 1);
+	// char	*buff;
+	(void)fd;
+	write(fdout, "a", 1);
+	// while (read(fd, &buff, 1) > 0)
+	// {
+	// 	printf("inf\n");
+	// 	write(fdout, buff, 1);
+	// }
 }
 
 void	redir(t_data *data, t_lst *lst)
@@ -27,7 +31,10 @@ void	redir(t_data *data, t_lst *lst)
 	data->k = 1;
 	dup2(data->save, 0);
 	if (lst->fdout)
+	{
+		dup2(data->fd[1], 1);
 		get_all(data->fd[1], lst->fdout);
+	}
 	if (data->save != 0)
 		close(data->save);
 	close(data->fd[0]);
@@ -40,8 +47,8 @@ void	redir(t_data *data, t_lst *lst)
 
 int	check_redir(t_data *data)
 {
-	printf("%d\n", data->out);
-	printf("%d\n", data->in);
+	// printf("%d\n", data->out);
+	// printf("%d\n", data->in);
 	if (data->out == 0 && data->in == 0)
 		return (1);
 	return (0);
