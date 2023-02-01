@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:13:30 by muteza            #+#    #+#             */
-/*   Updated: 2023/01/27 20:00:59 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/01 14:29:26 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,14 @@ void	add_export_to_export(t_data *data, char *dec)
 	str[i] = '"';
 	i++;
 	str[i] = '\0';
-	printf("%s\n", str);
+	// printf("%s\n", str);
 	tmp = create_node(data, str);
 	addback(tmp, &data->export);
+	// while (data->export)
+	// {
+	// 	printf("%s\n", data->export->content);
+	// 	data->export = data->export->next;
+	// }
 	free(str);
 }
 
@@ -161,9 +166,8 @@ int	check_equal(t_data *data)
 			i = 1;
 			add_to_env(data);
 			add_to_export(data);
-			// print_lst(data->export);
 		}
 		k++;
 	}
-	return (i);
+	return (1);
 }

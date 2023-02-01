@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 11:44:53 by muteza            #+#    #+#             */
-/*   Updated: 2023/01/27 19:06:48 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/01 13:24:24 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,24 +88,22 @@ int	put_tab_in_lst(t_data *data)
 	return (0);
 }
 
-void	ft_export(t_data *data)
+void	ft_export(t_data *data, t_lst *lst)
 {
 	int		k;
 	t_lst	*tmp;
 
+	(void)lst;
 	k = 0;
 	tmp = data->export;
-	printf("%s\n", data->export->content);
 	if (data->str[1])
 		k = check_equal(data);
-	else
+	if (k == 0)
 	{
-		while (tmp)
+		while (data->export)
 		{
-			printf("%s\n", tmp->content);
-			tmp = tmp->next;
+			printf("%s\n", data->export->content);
+			data->export = data->export->next;
 		}
 	}
-	// if (k == 1)
-	// 	add_path_back(data);
 }

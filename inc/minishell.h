@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/01/29 10:22:56 by muteza           ###   ########.fr       */
+/*   Updated: 2023/01/31 12:57:06 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_data
 	int		save;
 	char	*save_builtin;
 	int		fd[2];
+	int		k;
 	pid_t	id;
 	char	*path;
 	char	**exp;
@@ -130,10 +131,12 @@ void	cmd_history(void);
 int		ft_lstsize(t_lst *lst);
 //PIPE
 
+int		builtin_pipe(t_data *data, t_lst *lst);
+int		check_pipe_builtin(t_data *data, t_lst *lst, int i);
 void	last_pipe_command(t_data *data, t_lst *tmp, int i);
 void	init_pipe(t_lst *lst, t_data *data);
 void	fork_maker(t_lst *lst, t_data *data);
-void	more_pipe(t_data *data, t_lst *lst);
+void	more_pipe(t_data *data, t_lst *lst, int i);
 void	no_more_command(t_data *data, t_lst *lst);
 char	**check_pipe(t_lst *lst, t_data *data);
 void	pipe_com(t_lst *lst, t_data *data);
@@ -155,11 +158,13 @@ void	init_data(t_data	*data);
 void	init_lst(t_lst	**lst);
 void	init_lex(t_lexer	**lex);
 //BUILT IN
+
+int		check_is_builtin(char *str);
 int		put_tab_in_lst(t_data *data);
 void	ft_echo(char *str);
 void	ft_pwd(t_data *data);
 int		check_equal(t_data *data);
-void	ft_export(t_data *data);
+void	ft_export(t_data *data, t_lst *lst);
 void	ft_env(t_data *data);
 int		check_builtin(t_data *data, t_lst *lst);
 void	ft_cd(t_data *data);

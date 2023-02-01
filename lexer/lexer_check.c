@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:26:23 by rperrin           #+#    #+#             */
-/*   Updated: 2023/01/26 17:22:17 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/01/30 15:49:58 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,18 +90,18 @@ int	check_redirection(char c)
 
 int	check_lexer_error(char *str, t_data *data)
 {
-	if (!str)
-		return (1);
-	if (ft_strlen(str) == 0)
-		return (1);
+	// if (!str)
+	// 	return (1);
+	// if (ft_strlen(str) == 0)
+	// 	return (1);
 	if (check_pipe_lexer(str, data))
 		ft_printf_fd(1, "Erreur: %s\n", data->errorlexer);
 	else if (check_here_doc(str, data))
 		ft_printf_fd(1, "Erreur: %s\n", data->errorlexer);
 	else if (check_quote(str, data))
 		ft_printf_fd(1, "Erreur: %s\n", data->errorlexer);
-	if (data->errorlexer)
-		return (1);
-	else
+	// if (data->errorlexer)
+	// 	return (1);
+	// else
 		return (0);
 }
