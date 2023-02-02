@@ -6,22 +6,11 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:18:39 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/02 13:22:32 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/02 16:37:21 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	get_all(int fd, int fdout)
-{
-	char	*buff;
-	write(fdout, "a", 1);
-	while (read(fd, &buff, 1) > 0)
-	{
-		printf("inf\n");
-		write(fdout, buff, 1);
-	}
-}
 
 void	redir(t_data *data, t_lst *lst)
 {
@@ -31,6 +20,8 @@ void	redir(t_data *data, t_lst *lst)
 	dup2(data->save, 0);
 	if (lst->fdout)
 		dup2(lst->fdout, 1);
+	else
+		dup2(lst->fdin, 0);
 	if (data->save != 0)
 		close(data->save);
 	close(data->fd[0]);
@@ -69,7 +60,7 @@ void	more_pipe(t_data *data, t_lst *lst, int i)
 		close(data->fd[1]);
 		if (builtin_pipe(data, lst) == 0)
 			exit(0);
-		else
+		else if (builtin_pipe(data, lst) != 2)
 			execve(data->path, data->str, data->envp);
 	}
 	else if (data->id == 0)

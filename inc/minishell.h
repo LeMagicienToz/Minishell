@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/02/01 16:58:22 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/02 18:24:20 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ struct s_lst
 {
 	char	*content;
 	int		index;
+	int		n;
 	int		fdout;
 	int		fdin;
 	int		typeout;
@@ -158,7 +159,7 @@ void	init_lex(t_lexer	**lex);
 int		builtin_pipe(t_data *data, t_lst *lst);
 int		check_is_builtin(char *str);
 int		put_tab_in_lst(t_data *data);
-void	ft_echo(char *str);
+void	ft_echo(t_data *data, t_lst *lst);
 void	ft_pwd(t_data *data);
 int		check_equal(t_data *data);
 void	ft_export(t_data *data, t_lst *lst);

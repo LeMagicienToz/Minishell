@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:51:29 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/01 19:30:54 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/02 16:05:48 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ t_lst	*get_parsed(t_lexer	*lexer, t_data *data)
 		tmp = tmp->next;
 	while (tmp)
 	{
-		data->out = 0;
-		data->in = 0;
-		data->typeout = 0;
 		if (tmp->type == PIPE)
 		{
 			if (tmp->next)
 			{
 				tmp = tmp->next;
 				create_token(data, &lst, res, x++);
+				data->out = 0;
+				data->in = 0;
+				data->typeout = 0;
 				free(res);
 				res = NULL;
 			}

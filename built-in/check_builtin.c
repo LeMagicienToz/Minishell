@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 17:08:15 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/01 16:57:02 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/02 18:21:04 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,13 @@ int	builtin_pipe(t_data *data, t_lst *lst)
 		ft_pwd(data);
 	else if (ft_strncmp(data->str[0], "env", 3) == 0)
 		ft_env(data);
+	else if (ft_strncmp(data->str[0], "echo", 3) == 0)
+		ft_echo(data, lst);
+	else if (ft_strncmp(data->str[0], "cd", 2) == 0)
+	{
+		ft_cd(data);
+		return (2);
+	}
 	else
 		return (1);
 	return (0);
