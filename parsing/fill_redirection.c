@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:57:33 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/01 18:11:33 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/02 11:52:13 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	fill_rout(t_lexer **lexer, t_data *data)
 	if (res)
 	{
 		data->typeout = ok;
-		if (data->typeout == 412)
+		if (data->typeout  == 412)
 			data->out = open(res, O_RDWR | O_CREAT, S_IRUSR + \
 			S_IWUSR + S_IRGRP + S_IROTH);
 		else if (data->typeout == 413)
