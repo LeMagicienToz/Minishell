@@ -1,8 +1,5 @@
-3
-Makefile
-Minishell
-README.md
-built-in
+/Users/muteza/Desktop/Minishell
+uilt-in
 check_command.c
 check_command.o
 cmd.c

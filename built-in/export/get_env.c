@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:00:05 by muteza            #+#    #+#             */
-/*   Updated: 2023/01/27 11:10:28 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/03 10:43:21 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,14 @@ char	*get_env(t_data *data, char	*str)
 	{
 		while ((str[i] && tmp->content[i]) && tmp->content[i] != '=')
 		{
-			// printf("%c==%c\n", tmp->content[i + 11], str[i]);
 			if (tmp->content[i + 11] == str[i])
 				k = 1;
 			else
 				k = 0;
 			i++;
 		}
-		// printf("\n");
 		if (k == 1)
 		{
-			// printf("CACA\n");
 			res = ft_substr(tmp->content, i + 12, len_breson(tmp->content, i));
 			break ;
 		}

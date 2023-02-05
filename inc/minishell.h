@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/02/02 18:24:20 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/05 17:28:24 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ typedef struct s_data
 	int		status;
 	int		k;
 	t_lst	*export;
+	t_lst	*tomp;
 	t_utils	*u;
 }	t_data;
 
@@ -119,6 +120,7 @@ typedef struct s_built
 	char	*save;
 }	t_built;
 
+void	sort_node(t_lst **export);
 void	wait_fork(pid_t child_pid);
 void	fork_init(char **str, char **envp);
 void	tiensmax(t_lst *lst, t_data *data);
@@ -155,10 +157,12 @@ void	free_all(t_data *data, t_lexer **lex, t_lst **lst);
 void	init_data(t_data *data, char **envp);
 void	init_lst(t_lst	**lst);
 void	init_lex(t_lexer	**lex);
+void	init_exp(t_data *data);
+
 //BUILT IN
 int		builtin_pipe(t_data *data, t_lst *lst);
 int		check_is_builtin(char *str);
-int		put_tab_in_lst(t_data *data);
+// int		put_tab_in_lst(t_data *data);
 void	ft_echo(t_data *data, t_lst *lst);
 void	ft_pwd(t_data *data);
 int		check_equal(t_data *data);

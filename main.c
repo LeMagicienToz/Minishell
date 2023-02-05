@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/02/01 19:33:42 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/05 17:28:14 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ __attribute__((unused))char **argv,	char **envp)
 	lexer = NULL;
 	lst = NULL;
 	init_data(&data, envp);
-	put_tab_in_lst(&data);
+	put_tab
+	sort_node(&data);
+	init_exp(&data);
+	// put_tab_in_lst(&data);
 	builtin.save = "/Users/muteza/Desktop/Minishell";
 	while (1)
 	{

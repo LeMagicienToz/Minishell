@@ -6,136 +6,39 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:13:30 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/01 14:29:26 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/05 16:49:36 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	add_export_to_export(t_data *data, char *dec)
+int	parcing_export(t_data *data)
 {
-	t_lst	*tmp;
-	char	*str;
-	int		i = 0;
-	int		k = 0;
+	int	i;
 
-	str = malloc(sizeof(char) * (ft_strlen(dec) + 3));
-	while (dec[i] != '=')
+	i = 0;
+	if (ft_isdigit(data->str[1][0]))
+		return (0);
+	while (data->str[1][i] != '=')
 	{
-		str[i] = dec[i];
-		i++;
+		if ((ft_isalpha(data->str[1][i]) || ft_isdigit(data->str[1][i])))
+			i++;
+		else
+			return (0);
 	}
-	str[i] = dec[i];
-	i++;
-	k = i;
-	str[i] = '"';
-	i++;
-	while (dec[k])
-	{
-		str[i] = dec[k];
-		k++;
-		i++;
-	}
-	str[i] = '"';
-	i++;
-	str[i] = '\0';
-	// printf("%s\n", str);
-	tmp = create_node(data, str);
-	addback(tmp, &data->export);
-	// while (data->export)
-	// {
-	// 	printf("%s\n", data->export->content);
-	// 	data->export = data->export->next;
-	// }
-	free(str);
-}
-
-void	replace_in_two(t_data *data, char *dec)
-{
-	t_lst	*tmp;
-	t_lst	**tmp1;
-	char	*str;
-	int		i = 0;
-	int		k = 0;
-
-	tmp1 = &data->export;
-	tmp = (*tmp1);
-	str = malloc(sizeof(char) * (ft_strlen(dec) + 2));
-	while (dec[i] != '=')
-	{
-		str[i] = dec[i];
-		i++;
-	}
-	str[i] = dec[i];
-	i++;
-	k = i;
-	str[i] = '"';
-	i++;
-	while (dec[k])
-	{
-		str[i] = dec[k];
-		k++;
-		i++;
-	}
-	str[i] = '"';
-	while (data->ex_ind - 1 != 0)
-	{
-		tmp = tmp->next;
-		data->ex_ind--;
-	}
-	ft_bzero(tmp->content, ft_strlen(tmp->content));
-	ft_strcpy(tmp->content, str);
-	free(str);
+	return (1);
 }
 
 void	add_to_export(t_data *data)
 {
+	char	*str;
 	int		i;
-	int		k;
-	t_lst	*tmp;
-	char	*dec;
 
-	k = 0;
 	i = 0;
-	dec = "declare -x ";
-	tmp = data->export;
-	data->ex_ind = 0;
-	dec = ft_strjoin(dec, data->str[1]);
-	if (parc_export(data, dec) == 1)
-	{
-		printf("error");
+	if (!parcing_export(data))
 		exit(0);
-	}
-	while (tmp)
-	{
-		data->ex_ind++;
-		while (tmp->content[i] != '=' && dec[i] != '=')
-		{
-			if (tmp->content[i] == dec[i])
-			{
-				k = 1;
-				i++;
-			}
-			else
-			{
-				k = 0;
-				break ;
-			}
-		}
-		if (tmp->content[i] == dec[i] && k == 1)
-		{
-			// printf("go for replace\n");
-			replace_in_two(data, dec);
-			free(dec);
-			break ;
-		}
-		tmp = tmp->next;
-	}
-	if (k == 0)
-	{
-		add_export_to_export(data, dec);
-		free(dec);
-	}
+	str = ft_strjoin("declare -x ", data->str[1]);
+	
 }
 
 void	add_to_env(t_data *data)
@@ -169,5 +72,5 @@ int	check_equal(t_data *data)
 		}
 		k++;
 	}
-	return (1);
+	return (i);
 }
