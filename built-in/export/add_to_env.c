@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:13:30 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/08 04:53:14 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/08 20:36:25 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	replace_export(t_data *data, int x, char *add)
 {
-	t_lst 	**lst;
-	t_lst 	*tmp;
+	t_lst	**lst;
+	t_lst	*tmp;
 	int		i;
 
 	i = 0;
@@ -48,7 +48,6 @@ int	check_exicting(t_data *data, char *str)
 	i = 0;
 	while (str[i] && str[i] != '=')
 		i++;
-	printf("i %d == %d\n\n", i, (int)ft_strlen(str));
 	if (i == (int)ft_strlen(str))
 	{
 		noleaks = ft_strdup(str);
@@ -57,7 +56,6 @@ int	check_exicting(t_data *data, char *str)
 	}
 	else
 		check = ft_substr(str, 0, i + 1);
-	printf("check[%s]\n", check);
 	tmp = data->export;
 	i = 0;
 	while (tmp)
@@ -80,7 +78,8 @@ int	parcing_export(t_data *data)
 		return (0);
 	while (data->str[1][i] && data->str[1][i] != '=')
 	{
-		if ((ft_isalpha(data->str[1][i]) || ft_isdigit(data->str[1][i])))
+		if ((ft_isalpha(data->str[1][i]) || ft_isdigit(data->str[1][i]) || \
+		data->str[1][i] == '_'))
 			i++;
 		else
 			return (0);
@@ -149,6 +148,9 @@ int	check_equal(t_data *data)
 		add_to_export(data);
 	}
 	else
+	{
+		add_to_env(data);
 		add_to_export(data);
+	}
 	return (i);
 }

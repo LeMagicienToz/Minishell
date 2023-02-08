@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 11:44:53 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/08 03:51:14 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/08 19:41:35 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	print_export_in_pipe(t_data *data, t_lst *tmp)
 			write(data->fd[1], "declare -x ", 11);
 			write(data->fd[1], tmp->content, ft_strlen(tmp->content));
 		}
-		else if(tmp->typeout == 0)
+		else if (tmp->typeout == 0)
 		{
 			write(data->fd[1], (char *)DBQUOTE, 1);
 			write(data->fd[1], tmp->content, ft_strlen(tmp->content));

@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:18:39 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/07 21:22:35 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/08 19:40:32 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	more_pipe(t_data *data, t_lst *lst, int i)
 {
 	(void)i;
 	data->id = fork();
-	// printf("fesfes\n");
 	if (data->id == 0 && check_redir(data, lst) == 1)
 	{
 		data->path = get_path(data->envp, data->str[0]);

@@ -6,7 +6,7 @@
 #    By: muteza <muteza@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2023/02/08 03:23:11 by muteza           ###   ########.fr        #
+#    Updated: 2023/02/08 05:33:44 by muteza           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRC=		main.c\
 			built-in/pwd.c\
 			built-in/env.c\
 			built-in/check_builtin.c\
+			built-in/unset.c\
 			parsing/getarg.c\
 			parsing/create_lst.c\
 			parsing/fill.c\

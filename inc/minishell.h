@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/02/08 03:33:34 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/08 19:56:12 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,11 +164,13 @@ void	init_exp(t_data *data);
 int		builtin_pipe(t_data *data, t_lst *lst);
 int		check_is_builtin(char *str);
 // int		put_tab_in_lst(t_data *data);
+void	add_to_env(t_data *data);
 void	ft_echo(t_data *data, t_lst *lst);
-void	ft_pwd(t_data *data);
+void	ft_pwd(t_data *data, t_lst *lst);
+int		ft_unset(t_data *data);
 int		check_equal(t_data *data);
 void	ft_export(t_data *data, t_lst *lst);
-void	ft_env(t_data *data);
+void	ft_env(t_data *data, t_lst *lst);
 int		check_builtin(t_data *data, t_lst *lst);
 void	ft_cd(t_data *data);
 int		check_exicting(t_data *data, char *str);
