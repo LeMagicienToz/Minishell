@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/02/05 17:28:24 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/08 03:33:34 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/uio.h>
@@ -82,6 +83,7 @@ struct s_lst
 
 typedef struct s_data
 {
+	int		dd;
 	int		ex_ind;
 	char	*input;
 	int		sv;
@@ -109,7 +111,6 @@ typedef struct s_data
 	int		status;
 	int		k;
 	t_lst	*export;
-	t_lst	*tomp;
 	t_utils	*u;
 }	t_data;
 
@@ -170,6 +171,10 @@ void	ft_export(t_data *data, t_lst *lst);
 void	ft_env(t_data *data);
 int		check_builtin(t_data *data, t_lst *lst);
 void	ft_cd(t_data *data);
+int		check_exicting(t_data *data, char *str);
+void	replace_export(t_data *data, int x, char *add);
+void	add_with_no_egual(t_data *data);
+int		parcing_export(t_data *data);
 
 //PARSING
 int		parc_export(t_data *data, char *str);

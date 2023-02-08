@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_lst.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:24:52 by rperrin           #+#    #+#             */
-/*   Updated: 2023/01/31 17:02:32 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/08 04:07:07 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	print_lst(t_lst *lst)
 	ft_printf_fd(1, "[PRINT-LST]\n");
 	while (tmp)
 	{
-		printf(" out[%d] | in[%d] | [%d] - (%s)\n", tmp->fdout, tmp->fdin, tmp->index, tmp->content);
+		printf("typeout[%d] | out[%d] | in[%d] | [%d] - (%s)\n", tmp->typeout, tmp->fdout, tmp->fdin, tmp->index, tmp->content);
 		tmp = tmp->next;
 	}
 	ft_printf_fd(1, "[PRINT-LST]\n");

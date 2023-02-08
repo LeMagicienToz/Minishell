@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+         #
+#    By: muteza <muteza@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2023/02/01 17:01:08 by rperrin          ###   ########.fr        #
+#    Updated: 2023/02/08 03:23:11 by muteza           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC=		main.c\
 			built-in/export/get_env.c\
 			built-in/export/export.c\
 			built-in/export/add_to_env.c\
+			built-in/export/add_to_env_two.c\
 			built-in/pwd.c\
 			built-in/env.c\
 			built-in/check_builtin.c\
@@ -69,7 +70,7 @@ CC=			gcc
 
 LFLAGS=		-l readline
 
-CFLAGS	+=	-Wall -Wextra -Werror #-g #-fsanitize=address 
+CFLAGS	+=	-Wall -Wextra -Werror -g #-fsanitize=address 
 
 do:
 			@make $(NAME)

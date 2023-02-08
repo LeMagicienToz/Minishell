@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/02/05 17:28:14 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/07 21:46:33 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,7 @@ __attribute__((unused))char **argv,	char **envp)
 	lexer = NULL;
 	lst = NULL;
 	init_data(&data, envp);
-	put_tab
-	sort_node(&data);
 	init_exp(&data);
-	// put_tab_in_lst(&data);
 	builtin.save = "/Users/muteza/Desktop/Minishell";
 	while (1)
 	{
@@ -56,6 +53,7 @@ __attribute__((unused))char **argv,	char **envp)
 		{
 			lst = get_parsed(create_lexer(lexer, data.input), &data);
 			print_lst(lst);
+			// print_lst(data.export);
 			tiensmax(lst, &data);
 			free_all(&data, &lexer, &lst);
 		}

@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:18:39 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/02 16:37:21 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/07 21:22:35 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ void	redir(t_data *data, t_lst *lst)
 		close(data->save);
 	close(data->fd[0]);
 	close(data->fd[1]);
-	if (builtin_pipe(data, lst) == 0)
-		exit(0);
-	else
-		execve(data->path, data->str, data->envp);
+	execve(data->path, data->str, data->envp);
 }
 
 int	check_redir(t_data *data, t_lst *lst)
@@ -43,13 +40,11 @@ int	check_redir(t_data *data, t_lst *lst)
 void	more_pipe(t_data *data, t_lst *lst, int i)
 {
 	(void)i;
-	if (pipe(data->fd) == -1)
-		perror("pipe blem\n");
 	data->id = fork();
+	// printf("fesfes\n");
 	if (data->id == 0 && check_redir(data, lst) == 1)
 	{
-		if (check_is_builtin(data->str[0]) == 1)
-			data->path = get_path(data->envp, data->str[0]);
+		data->path = get_path(data->envp, data->str[0]);
 		data->k = 1;
 		dup2(data->save, 0);
 		if (lst->next)
@@ -58,15 +53,8 @@ void	more_pipe(t_data *data, t_lst *lst, int i)
 			close(data->save);
 		close(data->fd[0]);
 		close(data->fd[1]);
-		if (builtin_pipe(data, lst) == 0)
-			exit(0);
-		else if (builtin_pipe(data, lst) != 2)
-			execve(data->path, data->str, data->envp);
+		execve(data->path, data->str, data->envp);
 	}
 	else if (data->id == 0)
 		redir(data, lst);
-	if (data->save != 0)
-		close(data->save);
-	data->save = data->fd[0];
-	close(data->fd[1]);
 }
