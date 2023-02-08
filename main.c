@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/02/07 21:46:33 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/08 22:32:12 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,26 @@ __attribute__((unused))char **argv,	char **envp)
 	lst = NULL;
 	init_data(&data, envp);
 	init_exp(&data);
+	// put_tab_in_lst(&data);
 	builtin.save = "/Users/muteza/Desktop/Minishell";
 	while (1)
 	{
-		data.input = readline("8-----> ");
+		if (!data.input)
+			data.input = readline("8-----> ");
 		add_history(data.input);
-		if (check_lexer_error(data.input, &data) != 1)
+		data.check = check_lexer_error(data.input, &data);
+		if (data.check == 0)
 		{
 			lst = get_parsed(create_lexer(lexer, data.input), &data);
 			print_lst(lst);
-			// print_lst(data.export);
 			tiensmax(lst, &data);
 			free_all(&data, &lexer, &lst);
 		}
 		else
 		{
+			printf("env = %s\n", get_env(&data, "USER"));
 			free(data.input);
+			data.input = NULL;
 			data.errorlexer = NULL;
 		}
 	}

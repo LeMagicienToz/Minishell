@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 15:14:06 by uteza             #+#    #+#             */
-/*   Updated: 2023/01/11 17:01:35 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/07 22:55:29 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,12 +125,12 @@ void	fork_init(char **str, char **envp)
 	}
 }
 
-void wait_fork(pid_t child_pid)
+void	wait_fork(pid_t child_pid)
 {
 	pid_t	tpid;
 	int		status;
 
 	tpid = 0;
-	while(tpid != child_pid)
+	while (tpid != child_pid)
 		tpid = wait(&status);
 }

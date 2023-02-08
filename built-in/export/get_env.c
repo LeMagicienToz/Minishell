@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:00:05 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/03 10:43:21 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/08 21:55:54 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,31 +51,20 @@ int	len_breson(char *str, int i)
 char	*get_env(t_data *data, char	*str)
 {
 	int		i;
-	int		k;
+	int		x;
 	t_lst	*tmp;
 	char	*res;
 
-	k = 0;
 	i = 0;
 	res = NULL;
 	tmp = data->export;
+	x = check_exicting(data, str);
 	while (tmp)
 	{
-		while ((str[i] && tmp->content[i]) && tmp->content[i] != '=')
-		{
-			if (tmp->content[i + 11] == str[i])
-				k = 1;
-			else
-				k = 0;
-			i++;
-		}
-		if (k == 1)
-		{
-			res = ft_substr(tmp->content, i + 12, len_breson(tmp->content, i));
-			break ;
-		}
-		i = 0;
+		if (i == x)
+			res = ft_strdup(tmp->next->content);
 		tmp = tmp->next;
+		i++;
 	}
 	return (res);
 }

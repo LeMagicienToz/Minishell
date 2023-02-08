@@ -6,11 +6,11 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:26:23 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/01 19:21:34 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/02 18:41:57 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 int	check_separator(char c)
 {
@@ -20,30 +20,6 @@ int	check_separator(char c)
 		return (QUOTECODE);
 	else
 		return (-1);
-}
-
-int	check_pipe_lexer(char *lexer, t_data *data)
-{
-	static int	x;
-	int			i;
-
-	x = 0;
-	i = 0;
-	while (lexer[i])
-	{
-		if (lexer[i] == PIPECODE)
-			x++;
-		else
-			x = 0;
-		if (x >= 2)
-		{
-			data->errorlexer = ft_strdup("syntax error \
-			near unexpected token `|'");
-			return (1);
-		}
-		i++;
-	}
-	return (0);
 }
 
 int	check_quote(char *str, t_data *data)
@@ -90,14 +66,21 @@ int	check_redirection(char c)
 
 int	check_lexer_error(char *str, t_data *data)
 {
+	int	error;
+
 	if (!str)
 		return (1);
 	if (ft_str_is_space(str))
 		return (1);
 	else if (check_pipe_lexer(str, data))
-		ft_printf_fd(1, "Erreur: %s\n", data->errorlexer);
+		return (1);
 	else if (check_quote(str, data))
 		ft_printf_fd(1, "Erreur: %s\n", data->errorlexer);
+	error = check_here_doc(str, data);
+	if (error == 1)
+		return (2);
+	else if (error == 2)
+		return (1);
 	if (data->errorlexer)
 		return (1);
 	else

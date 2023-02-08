@@ -6,18 +6,55 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 19:22:16 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/01 14:37:02 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/05 15:42:23 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*find_here_doc(char *str)
+int	check_here_doc(char *str, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == INCODE && str[i + 1] == INCODE)
+		{
+			i = i + 2;
+			while (str[i] && str[i] != PIPECODE)
+			{
+				if (check_token(str[i++], (char) NULL) == TEXT)
+					return (1);
+			}
+			data->status = 258;
+			return (2);
+		}
+		i++;
+	}
+	return (0);
+}
+
+char	*fill_end(char *str, int len, int i)
 {
 	char	*end;
-	int		i;
 	int		x;
 
+	end = malloc(sizeof(char) * (len + 1));
+	end[len] = '\0';
+	x = 0;
+	while (str[i] && !ft_is_space(str[i]))
+		end[x++] = str[i++];
+	return (end);
+}
+
+char	*fill_here_doc(char *str)
+{
+	int		i;
+	int		x;
+	int		len;
+
+	len = 0;
 	i = 0;
 	while (str[i])
 	{
@@ -27,36 +64,49 @@ char	*find_here_doc(char *str)
 			while (ft_is_space(str[i]))
 				i++;
 			x = i;
-			while (!ft_is_space(str[i]))
-			{
-				i++;
-			}
+			while (str[i] && !ft_is_space(str[i++]))
+				len++;
 			i = x;
+			break ;
 		}
 		i++;
 	}
-	str = here_doc(str, fill_here_doc_end(str));
+	return (fill_end(str, len, i));
 }
 
-char	*here_doc(char *str, char *end)
+char	*here_doc_normed(char *res, char *tmp, char *read, char *end)
 {
-	char	*res;
-	char	*tmp;
-
-	while (res != end)
+	while (1)
 	{
-		if (res)
-			free(res);
-		res = readline("> ");
-		if (!str)
-			str = ft_strdup(res);
+		if (read)
+			free(read);
+		read = readline("> ");
+		if (!ft_strcmp(read, end))
+			break ;
+		if (!res)
+			res = ft_strdup(read);
 		else
 		{
 			tmp = ft_strdup(res);
 			free(res);
-			str = ft_strjoin(tmp, res);
+			res = ft_strjoin(tmp, read);
 			free(tmp);
 		}
 	}
-	return (str);
+	return (res);
+}
+
+void	here_doc(char *end, t_data *data)
+{
+	char	*res;
+	char	*tmp;
+	char	*read;
+
+	res = NULL;
+	read = NULL;
+	tmp = NULL;
+	data->in = open("heredoc", O_RDWR | O_CREAT, S_IRUSR + \
+				S_IWUSR + S_IRGRP + S_IROTH);
+	res = here_doc_normed(res, tmp, read, end);
+	write (data->in, res, ft_strlen(res));
 }

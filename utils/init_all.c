@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:16:40 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/06 20:07:51 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/08 22:34:27 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,19 @@
 void	init_data(t_data *data, char **envp)
 {
 	data->envp = envp;
+	data->exp = envp;
 	data->maxindex = 0;
 	data->status = 0;
+	data->input = NULL;
+	data->checkexport = 0;
 	data->out = 0;
 	data->in = 0;
 	data->typeout = 0;
-	data->checkexport = 0;
-	data->export = NULL;
+	data->n = -1;
+	data->stopn = 0;
 	data->errorlexer = NULL;
+	data->null = 0;
 }
-
 void	init_exp(t_data *data)
 {
 	int		i;

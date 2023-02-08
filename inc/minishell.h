@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/02/08 19:56:12 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/08 21:06:11 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <sys/stat.h>
-# include <sys/wait.h>
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/uio.h>
@@ -73,17 +72,17 @@ struct s_lst
 {
 	char	*content;
 	int		index;
-	int		n;
 	int		fdout;
 	int		fdin;
 	int		typeout;
+	int		n;
+	int		null;
 	t_lst	*next;
 	t_lst	*prev;
 };
 
 typedef struct s_data
 {
-	int		dd;
 	int		ex_ind;
 	char	*input;
 	int		sv;
@@ -109,7 +108,15 @@ typedef struct s_data
 	int		typeout;
 	int		checkexport;
 	int		status;
+	char	**errors;
 	int		k;
+	int		n;
+	int		stopn;
+	int		heredoc;
+	int		check;
+	int		hyphen;
+	int		x;
+	int		null;
 	t_lst	*export;
 	t_utils	*u;
 }	t_data;
@@ -121,7 +128,6 @@ typedef struct s_built
 	char	*save;
 }	t_built;
 
-void	sort_node(t_lst **export);
 void	wait_fork(pid_t child_pid);
 void	fork_init(char **str, char **envp);
 void	tiensmax(t_lst *lst, t_data *data);
@@ -131,8 +137,8 @@ int		ft_check_word(char *str);
 int		get_cmd(char *str);
 void	cmd_history(void);
 int		ft_lstsize(t_lst *lst);
-//PIPE
 
+//PIPE
 void	last_pipe_command(t_data *data, t_lst *tmp, int i);
 void	init_pipe(t_lst *lst, t_data *data);
 void	fork_maker(t_lst *lst, t_data *data);
@@ -156,14 +162,14 @@ void	free_lex(t_lexer **lex);
 void	free_data(t_data *data);
 void	free_all(t_data *data, t_lexer **lex, t_lst **lst);
 void	init_data(t_data *data, char **envp);
-void	init_lst(t_lst	**lst);
-void	init_lex(t_lexer	**lex);
+void	init_lst(t_lst **lst);
+void	init_lex(t_lexer **lex);
 void	init_exp(t_data *data);
+void	status_init(t_data *data);
 
 //BUILT IN
 int		builtin_pipe(t_data *data, t_lst *lst);
 int		check_is_builtin(char *str);
-// int		put_tab_in_lst(t_data *data);
 void	add_to_env(t_data *data);
 void	ft_echo(t_data *data, t_lst *lst);
 void	ft_pwd(t_data *data, t_lst *lst);
@@ -185,6 +191,15 @@ int		ft_strlen_without_quote(char *str);
 char	*ft_get_cmd(char *input);
 char	*ft_remove_cmd(char *input, int lencmd);
 char	*ft_get_arg(t_utils *u, char *input, int lencmd);
+void	here_doc(char *end, t_data *data);
+char	*here_doc_normed(char *res, char *tmp, char *read, char *end);
+char	*fill_end(char *str, int len, int i);
+char	*fill_here_doc(char *str);
+char	*fill_hyphen(t_lexer **lex, t_data *data, char *res);
+void	fill_hyphen_norm(t_lexer *tmp, t_data *data);
+char	*fill_hyphen_join(t_lexer **lex, char *res);
+char	*fill_hyphen_normed(t_lexer **lex, t_data *data, char *res);
+int		check_here_doc(char *str, t_data *data);
 
 //LEXER
 void	create_token(t_data *data, t_lst **lst, char *str, int i);
@@ -192,7 +207,8 @@ void	addback(t_lst *node, t_lst **lst);
 t_lst	*create_node(t_data *data, char *str);
 int		check_separator(char c);
 int		check_redirection(char c);
-int		check_pipe_lexer(char *lexer, t_data *data);
+int		check_pipe_lexer(char *str, t_data *data);
+int		check_pipe_lexer_normed(char *str, t_data *data);
 void	fill_data_in(char *str, int i, char last, t_data *data);
 int		check_lexer_error(char *str, t_data *data);
 char	*ft_get_redirection(t_data *data, char *str);

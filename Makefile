@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: muteza <muteza@student.42.fr>              +#+  +:+       +#+         #
+#    By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2023/02/08 05:33:44 by muteza           ###   ########.fr        #
+#    Updated: 2023/02/08 21:08:48 by rperrin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,14 +34,18 @@ SRC=		main.c\
 			parsing/fill.c\
 			parsing/lexer_parse.c\
 			parsing/fill_redirection.c\
+			parsing/here_doc.c\
+			parsing/fill_hyphen.c\
 			lexer/lexer.c\
 			lexer/create_lst_lexer.c\
 			lexer/lexer_utils.c\
-			lexer/lexer_check.c\
+			lexer/check/lexer_check.c\
+			lexer/check/lexer_check_de_check.c\
 			lexer/lexer_len.c\
 			utils/free_all.c\
 			utils/init_all.c\
 			utils/print_lst.c\
+			utils/status_code.c\
 			libft/ft_memcpy.c\
 			libft/ft_isprint.c\
 			libft/ft_lstsize.c\
@@ -71,7 +75,7 @@ CC=			gcc
 
 LFLAGS=		-l readline
 
-CFLAGS	+=	-Wall -Wextra -Werror -g #-fsanitize=address 
+CFLAGS	+=	-Wall -Wextra -Werror -g -fsanitize=address 
 
 do:
 			@make $(NAME)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 17:07:29 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/08 03:21:17 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/08 20:51:44 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_lst	*create_node(t_data *data, char *str)
 	node->fdin = data->in;
 	node->fdout = data->out;
 	node->typeout = data->typeout;
+	node->n = data->n;
+	node->null = data->null;
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);

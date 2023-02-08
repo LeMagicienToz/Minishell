@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 17:08:15 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/08 19:59:13 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/08 21:13:19 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	check_is_builtin(char *str)
 	else if (ft_strncmp(str, "env", 3) == 0)
 		return (0);
 	else if (ft_strncmp(str, "export", 6) == 0)
+		return (0);
+	else if (ft_strncmp(str, "echo", 4) == 0)
 		return (0);
 	else if (ft_strncmp(str, "unset", 5) == 0)
 		return (0);

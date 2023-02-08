@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:51:29 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/02 16:05:48 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/08 20:51:00 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,36 @@ t_lst	*get_parsed(t_lexer	*lexer, t_data *data)
 	t_lst		*lst;
 	char		*res;
 	char		*join;
-	static int	x;
 
-	x = 0;
 	tmp = lexer;
 	res = NULL;
 	lst = NULL;
 	join = NULL;
-	while (tmp && tmp->type == SPACE)
-		tmp = tmp->next;
 	while (tmp)
 	{
+		data->stopn = 0;
 		if (tmp->type == PIPE)
 		{
 			if (tmp->next)
 			{
 				tmp = tmp->next;
-				create_token(data, &lst, res, x++);
+				create_token(data, &lst, res, data->x++);
+				free(res);
 				data->out = 0;
 				data->in = 0;
 				data->typeout = 0;
-				free(res);
+				data->hyphen = 0;
+				data->n = -1;
+				data->stopn = 0;
+				data->null = 0;
 				res = NULL;
 			}
 		}
+		if ((tmp->type == DBQUOTE && tmp->next->type == DBQUOTE) \
+		|| (tmp->type == QUOTE && tmp->next->type == QUOTE))
+			data->null = 1;
+		while (tmp && tmp->type == SPACE && res == NULL)
+			tmp = tmp->next;
 		while (tmp->type == SPACE && tmp->next && tmp->next->type == SPACE)
 			tmp = tmp->next;
 		if (tmp->type == DBQUOTE)
@@ -54,8 +60,13 @@ t_lst	*get_parsed(t_lexer	*lexer, t_data *data)
 			fill_rout(&tmp, data);
 		else if (tmp->type == RIN || tmp->type == DBRIN)
 			fill_rin(&tmp, data);
+		else if (tmp->type == SPACE && tmp->next && tmp->next->type == HYPHEN \
+		&& tmp->next->next && tmp->next->next->type == TEXT)
+			res = fill_hyphen(&tmp, data, res);
 		else if (res && tmp->content)
 		{
+			data->stopn = 1;
+			data->null = 0;
 			join = ft_strdup(res);
 			free(res);
 			res = ft_strjoin(join, tmp->content);
@@ -67,6 +78,24 @@ t_lst	*get_parsed(t_lexer	*lexer, t_data *data)
 			tmp = tmp->next;
 	}
 	if (res)
-		create_token(data, &lst, res, x++);
+		create_token(data, &lst, res, data->x);
 	return (lst);
 }
+
+// char	*if_pipe(t_lexer **lex, t_data *data, char *res)
+// {
+// 	if (tmp->next)
+// 	{
+// 		tmp = tmp->next;
+// 		create_token(data, &lst, res, x++);
+// 		free(res);
+// 		data->out = 0;
+// 		data->in = 0;
+// 		data->typeout = 0;
+// 		data->hyphen = 0;
+// 		data->n = -1;
+// 		data->stopn = 0;
+// 		res = NULL;
+// 	}
+// 	return (res);
+// }
