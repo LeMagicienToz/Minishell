@@ -6,11 +6,42 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:13:30 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/08 20:36:25 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/09 23:50:26 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+int	check_exicting_env(t_data *data, char *str)
+{
+	int		i;
+	t_lst	*tmp;
+	char	*check;
+	char	*noleaks;
+
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	if (i == (int)ft_strlen(str))
+	{
+		noleaks = ft_strdup(str);
+		check = ft_strjoin(noleaks, "=");
+		free(noleaks);
+	}
+	else
+		check = ft_substr(str, 0, i + 1);
+	tmp = data->env;
+	i = 0;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->content, check) == 0)
+			return (i);
+		i++;
+		tmp = tmp->next;
+	}
+	free(check);
+	return (-1);
+}
 
 void	replace_export(t_data *data, int x, char *add)
 {
@@ -38,7 +69,7 @@ void	replace_export(t_data *data, int x, char *add)
 	}
 }
 
-int	check_exicting(t_data *data, char *str)
+int	check_exicting_exp(t_data *data, char *str)
 {
 	int		i;
 	t_lst	*tmp;
@@ -96,9 +127,10 @@ int	add_to_export(t_data *data)
 	int		x;
 
 	i = 0;
+	printf("1ere arg : %s\n", data->str[1]);
 	if (!parcing_export(data))
 		perror("AAAALLLLEEERTTTE\n");
-	x = check_exicting(data, data->str[1]);
+	x = check_exicting_exp(data, data->str[1]);
 	printf("x==%d\n", x);
 	if (parcing_export(data) == 2 && x == -1)
 		add_with_no_egual(data);
@@ -146,10 +178,10 @@ int	check_equal(t_data *data)
 	if (k == 1)
 	{
 		add_to_export(data);
+		add_to_env(data);
 	}
 	else
 	{
-		add_to_env(data);
 		add_to_export(data);
 	}
 	return (i);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+         #
+#    By: muteza <muteza@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2023/02/08 21:08:48 by rperrin          ###   ########.fr        #
+#    Updated: 2023/02/10 00:15:15 by muteza           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,11 @@ SRC=		main.c\
 			pipe/pipe_com.c\
 			pipe/pipe_com_two.c\
 			check_command.c\
+			built-in/add_env.c\
 			built-in/echo.c\
+			built-in/builtin_redir_out.c\
+			built-in/builtin_redir_in.c\
 			built-in/cd.c\
-			built-in/export/get_env.c\
 			built-in/export/export.c\
 			built-in/export/add_to_env.c\
 			built-in/export/add_to_env_two.c\

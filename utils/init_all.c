@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:16:40 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/08 22:34:27 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/09 05:21:37 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ void	init_data(t_data *data, char **envp)
 {
 	data->envp = envp;
 	data->exp = envp;
+	data->err_val = 0;
 	data->maxindex = 0;
 	data->status = 0;
 	data->input = NULL;
+	data->x = 0;
 	data->checkexport = 0;
 	data->out = 0;
 	data->in = 0;
@@ -28,6 +30,31 @@ void	init_data(t_data *data, char **envp)
 	data->errorlexer = NULL;
 	data->null = 0;
 }
+
+void	init_env(t_data *data)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+
+	j = 0;
+	i = 0;
+	while (data->envp[i])
+	{
+		if (data->envp[i][j++] == EQUALCODE)
+		{
+			tmp = ft_substr(data->envp[i], 0, j);
+			create_token(data, &data->env, tmp, 0);
+			free(tmp);
+			tmp = ft_substr(data->envp[i], j, (ft_strlen(data->envp[i]) - j));
+			create_token(data, &data->env, tmp, 0);
+			free(tmp);
+			i++;
+			j = 0;
+		}
+	}
+}
+
 void	init_exp(t_data *data)
 {
 	int		i;
@@ -50,6 +77,7 @@ void	init_exp(t_data *data)
 			j = 0;
 		}
 	}
+	init_env(data);
 }
 
 void	init_lst(t_lst	**lst)

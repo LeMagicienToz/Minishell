@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 17:07:29 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/08 20:51:44 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/08 23:11:40 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	addback(t_lst *node, t_lst **lst)
 	t_lst	*tmp;
 
 	tmp = (*lst);
+	// printf("%s\n", tmp->content);
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = node;
@@ -49,6 +50,7 @@ void	create_token(t_data *data, t_lst **lst, char *str, int x)
 		(*lst) = create_node(data, str);
 	else
 	{
+		// printf("%s\n", lst->content);
 		node = create_node(data, str);
 		addback(node, lst);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/02/08 21:06:11 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/10 00:47:40 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ struct s_lst
 
 typedef struct s_data
 {
+	int		err_val;
 	int		ex_ind;
 	char	*input;
 	int		sv;
@@ -117,6 +118,7 @@ typedef struct s_data
 	int		hyphen;
 	int		x;
 	int		null;
+	t_lst	*env;
 	t_lst	*export;
 	t_utils	*u;
 }	t_data;
@@ -128,6 +130,8 @@ typedef struct s_built
 	char	*save;
 }	t_built;
 
+void sighandler(int signum);
+
 void	wait_fork(pid_t child_pid);
 void	fork_init(char **str, char **envp);
 void	tiensmax(t_lst *lst, t_data *data);
@@ -137,6 +141,15 @@ int		ft_check_word(char *str);
 int		get_cmd(char *str);
 void	cmd_history(void);
 int		ft_lstsize(t_lst *lst);
+
+//REDIRECTION
+int		check_redir(t_data *data, t_lst *lst);
+void	redir_out(t_data *data, t_lst *lst);
+void	redit_in(t_data *data, t_lst *lst);
+void	exp_redir(t_data *data, t_lst *lst);
+void	pwd_redir(t_data *data, t_lst *lst);
+void	env_redir(t_data *data, t_lst *lst);
+void	echo_redir(t_data *data, t_lst *lst);
 
 //PIPE
 void	last_pipe_command(t_data *data, t_lst *tmp, int i);
@@ -148,7 +161,7 @@ char	**check_pipe(t_lst *lst, t_data *data);
 void	pipe_com(t_lst *lst, t_data *data);
 void	pipex_mod(t_data *data, int i, t_lst *lst, int k);
 char	*get_path(char **envp, char *arg);
-void	put_lst_in_tab(t_data *data, int i, t_lst *lst);
+void	put_lst_in_tab(t_data *data, int i, t_lst **lst);
 int		make_pipe(int i, t_data *data);
 
 //UTILS
@@ -168,6 +181,7 @@ void	init_exp(t_data *data);
 void	status_init(t_data *data);
 
 //BUILT IN
+int		check_equal_env(t_data *data);
 int		builtin_pipe(t_data *data, t_lst *lst);
 int		check_is_builtin(char *str);
 void	add_to_env(t_data *data);
@@ -179,7 +193,8 @@ void	ft_export(t_data *data, t_lst *lst);
 void	ft_env(t_data *data, t_lst *lst);
 int		check_builtin(t_data *data, t_lst *lst);
 void	ft_cd(t_data *data);
-int		check_exicting(t_data *data, char *str);
+int		check_exicting_exp(t_data *data, char *str);
+int		check_exicting_env(t_data *data, char *str);
 void	replace_export(t_data *data, int x, char *add);
 void	add_with_no_egual(t_data *data);
 int		parcing_export(t_data *data);

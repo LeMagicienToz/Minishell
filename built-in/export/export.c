@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 11:44:53 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/08 19:41:35 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/10 00:47:10 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	print_export(t_data *data, t_lst *tmp)
 				write(1, tmp->content, ft_strlen(tmp->content) - 1);
 			}
 		}
-		else if(tmp->typeout == 0)
+		else if (tmp->typeout == 0)
 			printf("%c%s%c\n", DBQUOTECODE, tmp->content, DBQUOTECODE);
 		else
 			printf("\n");
@@ -112,12 +112,10 @@ void	print_export(t_data *data, t_lst *tmp)
 
 void	ft_export(t_data *data, t_lst *lst)
 {
-	int		i;
 	int		k;
 	t_lst	*tmp;
 
 	k = 0;
-	i = 0;
 	(void)lst;
 	if (data->str[1])
 	{

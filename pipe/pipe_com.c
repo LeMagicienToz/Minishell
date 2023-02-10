@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 14:16:36 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/07 17:56:13 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/10 00:45:30 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,18 @@ int	init_fork_pipe(t_lst *lst, t_data *data)
 	{
 		if (pipe(data->fd) == -1)
 			perror("pipe blem\n");
-		put_lst_in_tab(data, i, tmp);
+		put_lst_in_tab(data, i, &tmp);
 		if (check_is_builtin(data->str[0]) == 1)
 			more_pipe(data, tmp, i);
 		else
-			builtin_pipe(data, lst);
+			builtin_pipe(data, lst, i);
 		if (data->save != 0)
 			close(data->save);
 		data->save = data->fd[0];
 		close(data->fd[1]);
 		i++;
 		tmp = tmp->next;
+		lst = lst->next;
 	}
 	close(data->fd[0]);
 	close(data->fd[1]);
@@ -44,29 +45,35 @@ int	init_fork_pipe(t_lst *lst, t_data *data)
 		close(data->save);
 	while (waitpid(0, &stat, 0) > 0)
 		;
-	// if (!WIFEXITED(stat))
+	// if (SIGINT)
 	// {
-	// 	data->status = WEXITSTATUS(stat);
-	// 	printf("%d\n", data->status);
-	// 	return (data->status);
+	// 	printf("dwadwadwa\n");
+	// 	exit(0);
+	// }
+	// else
+	// {
+	// 	data->err_val = WEXITSTATUS(stat);
 	// }
 	return (0);
 }
 
-void	put_lst_in_tab(t_data *data, int i, t_lst *tmp)
+void	put_lst_in_tab(t_data *data, int i, t_lst **lst)
 {
 	int		k;
+	t_lst	*tmp;
 
-	k = 0;
+	tmp = (*lst);
+	k = 1;
+	(void)i;
 	if (!tmp)
 		exit(0);
-	while (tmp && (tmp->index != i))
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	// printf("command actuel : %s\n", tmp->content);
 	data->str = ft_split(tmp->content, ' ');
+	while (data->str[k])
+		free(data->str[k++]);
+	if (data->str[1])
+		data->str[1] = ft_substr(tmp->content, ft_strlen(data->str[0]) + 1, ft_strlen(tmp->content));
+	else
+		data->str[1] = NULL;
 }
 
 void	pipe_com(t_lst *lst, t_data *data)

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_env.c                                          :+:      :+:    :+:   */
+/*   add_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:00:05 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/08 21:55:54 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/09 06:35:46 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../inc/minishell.h"
 
 int	parc_export(t_data *data, char *str)
 {
@@ -58,7 +58,7 @@ char	*get_env(t_data *data, char	*str)
 	i = 0;
 	res = NULL;
 	tmp = data->export;
-	x = check_exicting(data, str);
+	x = check_exicting_exp(data, str);
 	while (tmp)
 	{
 		if (i == x)
@@ -67,4 +67,20 @@ char	*get_env(t_data *data, char	*str)
 		i++;
 	}
 	return (res);
+}
+
+int	check_equal_env(t_data *data)
+{
+	int		i;
+	int		k;
+
+	k = 0;
+	i = 0;
+	while (data->str[1][i])
+	{
+		if (data->str[1][i] == '=')
+			k = 1;
+		i++;
+	}
+	return (k);
 }
