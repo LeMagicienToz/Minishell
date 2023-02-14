@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:00:05 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/10 07:27:57 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/14 20:07:29 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ void	normed_add_to_env(t_data *data, char *str)
 		i++;
 	i++;
 	str = ft_substr(data->str[1], 0, i);
-	create_token(data, &data->env, str, 0);
+	create_token(data, &data->env, str);
 	free(str);
 	str = ft_substr(data->str[1], i, (ft_strlen(data->str[1]) - i));
-	create_token(data, &data->env, str, 0);
+	create_token(data, &data->env, str);
 	free(str);
 }

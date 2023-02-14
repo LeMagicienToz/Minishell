@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/02/14 03:31:03 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/14 21:11:58 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/uio.h>
-# include <readline/readline.h>
+# include <sys/ioctl.h>
+# include <termios.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
+# define STDIN_FILENO 0
 # define FTSTDOUT 1
 # define FTSTDIN 0
 # define DBQUOTECODE 34
@@ -99,7 +101,7 @@ typedef struct s_data
 	char	*cmd;
 	char	*settings;
 	char	*args;
-	char	*errorlexer;
+	char	errorlexer;
 	char	**lexer;
 	int		out;
 	int		in;
@@ -123,7 +125,25 @@ typedef struct s_data
 	t_utils	*u;
 }	t_data;
 
-void	clavier_int(int sig_num);
+typedef struct s_global
+{
+	int		heredoc_signal;
+}	t_global;
+
+t_global	g_errors;
+
+//MAIN
+void	launch(t_data *data, t_lst *lst, t_lexer *lexer);
+void	get_error(t_data *data);
+
+//SIGNAUX
+void	signal_other(int signo);
+void 	signal_handler(int signo);
+void 	sig_hnd_other(int sig);
+void	echo_control_seq(int c);
+void	rl_replace_line(const char *text, int clear_undo);
+
+//UTILS 2
 void	wait_fork(pid_t child_pid);
 void	tiensmax(t_lst *lst, t_data *data);
 char	*ft_stripwhite(char *str);
@@ -166,14 +186,13 @@ void	free_lex(t_lexer **lex);
 void	free_data(t_data *data);
 void	free_data_str(char **lol);
 void	free_all(t_data *data, t_lexer **lex, t_lst **lst);
-void	init_data(t_data *data, char **envp);
+int		init_data(t_data *data, char **envp);
 void	init_lst(t_lst **lst);
 void	init_lex(t_lexer **lex);
 void	init_exp(t_data *data);
 void	status_init(t_data *data);
 
 //BUILT IN
-
 void	ft_exit(t_data *data);
 void	normed_add_to_env(t_data *data, char *str);
 void	normed_add_to_export(int i, t_data *data, char *str);
@@ -189,8 +208,9 @@ int		ft_unset(t_data *data);
 int		check_equal(t_data *data);
 void	ft_export(t_data *data, t_lst *lst);
 void	ft_env(t_data *data, t_lst *lst);
-void	get_all_arg_exp(t_data *data);
+int		check_builtin(t_data *data, t_lst *lst);
 int		ft_cd(t_data *data, t_lst *lst);
+int		check_exicting(t_data *data, char *str);
 int		check_exicting_exp(t_data *data, char *str);
 int		check_exicting_env(t_data *data, char *str);
 void	replace_export(t_data *data, int x, char *add);
@@ -216,13 +236,14 @@ char	*fill_hyphen_normed(t_lexer **lex, t_data *data, char *res);
 int		check_here_doc(char *str, t_data *data);
 
 //LEXER
-void	create_token(t_data *data, t_lst **lst, char *str, int i);
+void	create_token(t_data *data, t_lst **lst, char *str);
 void	addback(t_lst *node, t_lst **lst);
 t_lst	*create_node(t_data *data, char *str);
 int		check_separator(char c);
 int		check_redirection(char c);
 int		check_pipe_lexer(char *str, t_data *data);
 int		check_pipe_lexer_normed(char *str, t_data *data);
+int		check_pipe_lexer_normed_normed(char *str, int *i, int x);
 void	fill_data_in(char *str, int i, char last, t_data *data);
 int		check_lexer_error(char *str, t_data *data);
 char	*ft_get_redirection(t_data *data, char *str);
@@ -240,8 +261,15 @@ int		check_token_normed(char c, char d);
 int		check_token(char c, char d);
 void	print_lexer(t_lexer	*lexer);
 t_lst	*get_parsed(t_lexer	*lexer, t_data *data);
+char	*get_parsed_pipe(t_lexer **lex, t_lst *lst, t_data *data, char *res);
+char	*get_parsed_other(t_lexer **lex, t_data *data, char *res);
+char	*get_parsed_other_normed(t_lexer **lex, t_data *data, \
+char *res, char *join);
 char	*fill_quote(t_lexer **lexer, t_data *data, char *res);
 char	*fill_dollar(t_lexer **lexer, t_data *data, char *res);
+char	*fill_dollar_normed(t_lexer **lexer, char *res, char *tmp);
+char	*fill_dolar_normed_lol(t_lexer **lexer, \
+t_data *data, char *res, char *tmp);
 char	*fill_simple_quote(t_lexer **lexer, char *res);
 void	fill_rout(t_lexer **lexer, t_data *data);
 void	fill_rin(t_lexer **lexer, t_data *data);

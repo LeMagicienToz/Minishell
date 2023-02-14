@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 17:08:15 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/13 23:42:00 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/14 20:30:38 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ int	check_is_builtin(char *str)
 		return (0);
 	else if (ft_strcmp(str, "exit") == 0)
 		return (0);
+/*--------- DEBUG ----------*/
+	else if (ft_strcmp(str, "leaks") == 0)
+		return(system("leaks Minishell"), 1);
+/*--------------------------*/
 	else
 		return (1);
 }

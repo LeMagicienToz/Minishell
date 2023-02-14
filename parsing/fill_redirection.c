@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:57:33 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/11 10:41:39 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/10 20:09:35 by raphaelperr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	fill_rin(t_lexer **lexer, t_data *data)
 	tmp = NULL;
 	lex = (*lexer);
 	res = NULL;
+	data->typeout = lex->type;
 	if (lex->next)
 		lex = lex->next;
 	while (lex->type == SPACE && lex->next)
@@ -44,7 +45,12 @@ void	fill_rin(t_lexer **lexer, t_data *data)
 		}
 	}
 	if (res)
-		data->in = open(res, O_RDONLY);
+	{
+		if (data->typeout == 415)
+			here_doc(res, data);
+		else
+			data->in = open(res, O_RDONLY);
+	}
 	(*lexer) = lex;
 }
 
@@ -53,12 +59,11 @@ void	fill_rout(t_lexer **lexer, t_data *data)
 	char	*tmp;
 	t_lexer	*lex;
 	char	*res;
-	int		ok;
 
 	lex = (*lexer);
-	ok = lex->type;
 	tmp = NULL;
 	res = NULL;
+	data->typeout = lex->type;
 	if (lex->next)
 		lex = lex->next;
 	while (lex->type == SPACE && lex->next)
@@ -83,12 +88,17 @@ void	fill_rout(t_lexer **lexer, t_data *data)
 	}
 	if (res)
 	{
-		data->typeout = ok;
 		if (data->typeout == 412)
-			data->out = open(res, O_RDWR | O_CREAT | O_APPEND/*, S_IRUSR + S_IWUSR + S_IRGRP + S_IROTH*/);
+		{
+			data->out = open(res, O_APPEND);
+			if (data->out != -1)
+				remove(res);
+			data->out = open(res, O_RDWR | O_CREAT, S_IRUSR + \
+			S_IWUSR + S_IRGRP + S_IROTH);
+		}
 		else if (data->typeout == 413)
 		{
-			data->out = open(res, O_RDWR | O_CREAT | O_APPEND);
+			data->out = open(res, O_APPEND);
 			if (data->out == -1)
 				data->out = open(res, O_RDWR | O_CREAT, S_IRUSR + \
 				S_IWUSR + S_IRGRP + S_IROTH);

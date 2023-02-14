@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:17:07 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/08 17:10:31 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/09 18:19:20 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	free_data(t_data *data)
 	data->in = 0;
 	data->typeout = 0;
 	data->n = -1;
-	data->x = 0;
 	data->null = 0;
 	free(data->input);
 	data->input = NULL;

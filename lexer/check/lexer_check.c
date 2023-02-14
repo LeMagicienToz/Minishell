@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:26:23 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/02 18:41:57 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/09 21:19:16 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	check_quote(char *str, t_data *data)
 	}
 	if (x == 1)
 	{
-		data->errorlexer = ft_strdup("QUOTE SANS FERMETURE");
+		data->status = 400;
 		return (1);
 	}
 	return (0);
@@ -75,14 +75,11 @@ int	check_lexer_error(char *str, t_data *data)
 	else if (check_pipe_lexer(str, data))
 		return (1);
 	else if (check_quote(str, data))
-		ft_printf_fd(1, "Erreur: %s\n", data->errorlexer);
+		return (1);
 	error = check_here_doc(str, data);
 	if (error == 1)
-		return (2);
+		return (0);
 	else if (error == 2)
 		return (1);
-	if (data->errorlexer)
-		return (1);
-	else
-		return (0);
+	return (0);
 }

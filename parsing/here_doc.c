@@ -6,11 +6,21 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 19:22:16 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/05 15:42:23 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/14 21:40:50 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	signal_handler_heredoc(int signo)
+{
+	if (signo == SIGINT)
+	{
+		g_errors.heredoc_signal = 1;
+	}
+	else
+		printf("[%c]\n", signo);
+}
 
 int	check_here_doc(char *str, t_data *data)
 {
@@ -24,10 +34,10 @@ int	check_here_doc(char *str, t_data *data)
 			i = i + 2;
 			while (str[i] && str[i] != PIPECODE)
 			{
-				if (check_token(str[i++], (char) NULL) == TEXT)
+				if (check_token(str[i++], (char)0) == TEXT)
 					return (1);
 			}
-			data->status = 258;
+			data->status = 403;
 			return (2);
 		}
 		i++;
@@ -35,53 +45,16 @@ int	check_here_doc(char *str, t_data *data)
 	return (0);
 }
 
-char	*fill_end(char *str, int len, int i)
-{
-	char	*end;
-	int		x;
-
-	end = malloc(sizeof(char) * (len + 1));
-	end[len] = '\0';
-	x = 0;
-	while (str[i] && !ft_is_space(str[i]))
-		end[x++] = str[i++];
-	return (end);
-}
-
-char	*fill_here_doc(char *str)
-{
-	int		i;
-	int		x;
-	int		len;
-
-	len = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '<' && str[i + 1] == '<')
-		{
-			i = i + 2;
-			while (ft_is_space(str[i]))
-				i++;
-			x = i;
-			while (str[i] && !ft_is_space(str[i++]))
-				len++;
-			i = x;
-			break ;
-		}
-		i++;
-	}
-	return (fill_end(str, len, i));
-}
-
 char	*here_doc_normed(char *res, char *tmp, char *read, char *end)
 {
 	while (1)
 	{
+		signal(SIGINT, signal_handler_heredoc);
+		signal(SIGQUIT, SIG_IGN);
 		if (read)
 			free(read);
 		read = readline("> ");
-		if (!ft_strcmp(read, end))
+		if (!ft_strcmp(read, end) || !read)
 			break ;
 		if (!res)
 			res = ft_strdup(read);

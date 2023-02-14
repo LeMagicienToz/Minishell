@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:24:52 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/08 20:52:06 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/09 18:22:21 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	print_lst(t_lst *lst)
 	ft_printf_fd(1, "[PRINT-LST]\n");
 	while (tmp)
 	{
-		// printf("%s", tmp->content);
 		printf("null[%d] | n[%d] | out[%d] | in[%d] | [%d] - (%s)\n", tmp->null, tmp->n, tmp->fdout, tmp->fdin, tmp->index, tmp->content);
 		tmp = tmp->next;
 	}

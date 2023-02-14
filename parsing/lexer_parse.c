@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:51:29 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/10 07:05:13 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/10 20:02:58 by raphaelperr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ t_lst	*get_parsed(t_lexer	*lexer, t_data *data)
 			if (tmp->next)
 			{
 				tmp = tmp->next;
-				create_token(data, &lst, res, data->x++);
+				create_token(data, &lst, res);
+				data->maxindex++;
 				free(res);
 				data->out = 0;
 				data->in = 0;
@@ -76,24 +77,29 @@ t_lst	*get_parsed(t_lexer	*lexer, t_data *data)
 			tmp = tmp->next;
 	}
 	if (res)
-		create_token(data, &lst, res, data->x);
+		create_token(data, &lst, res);
 	return (lst);
 }
 
-// char	*if_pipe(t_lexer **lex, t_data *data, char *res)
-// {
-// 	if (tmp->next)
-// 	{
-// 		tmp = tmp->next;
-// 		create_token(data, &lst, res, x++);
-// 		free(res);
-// 		data->out = 0;
-// 		data->in = 0;
-// 		data->typeout = 0;
-// 		data->hyphen = 0;
-// 		data->n = -1;
-// 		data->stopn = 0;
-// 		res = NULL;
-// 	}
-// 	return (res);
-// }
+char	*get_parsed_pipe(t_lexer **lex, t_lst *lst, t_data *data, char *res)
+{
+	t_lexer	*tmp;
+
+	tmp = (*lex);
+	if (tmp->next)
+	{
+		tmp = tmp->next;
+		create_token(data, &lst, res);
+		data->maxindex++;
+		free(res);
+		data->out = 0;
+		data->in = 0;
+		data->typeout = 0;
+		data->hyphen = 0;
+		data->n = -1;
+		data->stopn = 0;
+		res = NULL;
+	}
+	(*lex) = tmp;
+	return (res);
+}

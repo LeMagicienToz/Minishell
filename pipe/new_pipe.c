@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:18:39 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/13 08:21:13 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/14 21:35:30 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	check_redir(t_data *data, t_lst *lst)
 
 void	more_pipe(t_data *data, t_lst *lst)
 {
+	signal(SIGINT, signal_other);
+	signal(SIGQUIT, signal_handler);
 	data->id = fork();
 	if (data->id == 0)
 	{

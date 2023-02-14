@@ -6,7 +6,7 @@
 #    By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2023/02/14 18:42:48 by rperrin          ###   ########.fr        #
+#    Updated: 2023/02/14 20:09:52 by rperrin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,8 @@ SRC=		main.c\
 			pipe/pipe_com_two.c\
 			check_command.c\
 			built-in/echo.c\
+			built-in/ft_exit.c\
 			built-in/cd.c\
-			built-in/export/get_env.c\
 			built-in/export/export.c\
 			built-in/export/add_to_env.c\
 			built-in/export/add_to_env_two.c\
@@ -30,6 +30,8 @@ SRC=		main.c\
 			built-in/env.c\
 			built-in/check_builtin.c\
 			built-in/unset.c\
+			built-in/add_env.c\
+			built-in/builtin_redir_out.c\
 			parsing/create_lst.c\
 			parsing/fill.c\
 			parsing/lexer_parse.c\
@@ -76,7 +78,7 @@ CC=			gcc
 
 LFLAGS=		-Lvendor/readline/lib -lreadline
 
-CFLAGS	+=	-Wall -Wextra -Werror -g -fsanitize=address 
+CFLAGS	+=	-Wall -Wextra -Werror -g #-fsanitize=address 
 
 vendor/readline: vendor
 	@if [ ! -d "vendor/readline" ]; then \
@@ -102,3 +104,4 @@ fclean:			clean
 			rm -f $(NAME)
 
 re:			fclean all
+	

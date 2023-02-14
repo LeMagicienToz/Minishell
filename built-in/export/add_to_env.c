@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_to_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:13:30 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/13 23:35:20 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/14 20:07:40 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ int	parcing_export(t_data *data)
 	i = 0;
 	if (ft_isdigit(data->str[1][0]))
 		return (0);
-	get_all_arg_exp(data);
 	while (data->str[1][i] && data->str[1][i] != '=')
 	{
 		if ((ft_isalpha(data->str[1][i]) || ft_isdigit(data->str[1][i]) || \

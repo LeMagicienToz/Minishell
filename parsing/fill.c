@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:52:04 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/11 10:25:29 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/10 04:12:23 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ char	*fill_quote(t_lexer **lexer, t_data *data, char *res)
 			lex = lex->next;
 	}
 	(*lexer) = lex;
-	printf("%s\n", res);
 	return (res);
 }
 
@@ -74,7 +73,8 @@ char	*fill_dollar(t_lexer **lexer, t_data *data, char *res)
 
 	lex = (*lexer);
 	tmp = NULL;
-	if (lex->next->type == '?')
+	if (lex->next->type == TEXT && \
+	ft_strlen(lex->next->content) == 1 && lex->next->content[0] == '?')
 	{
 		lex = lex->next;
 		if (!res)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 19:13:27 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/10 06:58:23 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/10 20:11:51 by raphaelperr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,8 @@ t_lexer	*create_lexer(t_lexer *lex, char *str)
 	int		i;
 	int		type;
 	char	*ret;
-	int		j;
 
 	i = 0;
-	j = 0;
 	while (str[i])
 	{
 		type = check_token(str[i], str[i + 1]);
@@ -109,6 +107,6 @@ t_lexer	*create_lexer(t_lexer *lex, char *str)
 		create_token_lexer(&lex, ret, type);
 		free(ret);
 	}
-	// print_lexer(lex);
+	print_lexer(lex);
 	return (lex);
 }

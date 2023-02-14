@@ -1,0 +1,72 @@
+
+char	*get_parsed_pipe(t_lexer **lex, t_lst *lst, t_data *data, char *res)
+{
+	t_lexer	*tmp;
+
+	tmp = (*lex);
+	if (tmp->next)
+	{
+		tmp = tmp->next;
+		create_token(data, &lst, res);
+		data->maxindex++;
+		free(res);
+		data->out = 0;
+		data->in = 0;
+		data->typeout = 0;
+		data->hyphen = 0;
+		data->n = -1;
+		data->stopn = 0;
+		data->null = 0;
+		res = NULL;
+	}
+	(*lex) = tmp;
+	return (res);
+}
+
+char	*get_parsed_other(t_lexer **lex, t_data *data, char *res)
+{
+	t_lexer	*tmp;
+
+	tmp = (*lex);
+	if ((tmp->type == DBQUOTE && tmp->next->type == DBQUOTE) \
+		|| (tmp->type == QUOTE && tmp->next->type == QUOTE))
+			data->null = 1;
+	if (tmp->type == DBQUOTE)
+		res = fill_quote(&tmp, data, res);
+	else if (tmp->type == QUOTE)
+		res = fill_simple_quote(&tmp, res);
+	else if (tmp->type == DOLLAR && tmp->next)
+		res = fill_dollar(&tmp, data, res);
+	else if (tmp->type == ROUT || tmp->type == DBROUT)
+		fill_rout(&tmp, data);
+	else if (tmp->type == RIN || tmp->type == DBRIN)
+		fill_rin(&tmp, data);
+	else if (tmp->type == SPACE && tmp->next && tmp->next->type == HYPHEN \
+	&& tmp->next->next && tmp->next->next->type == TEXT)
+		res = fill_hyphen(&tmp, data, res);
+	(*lex) = tmp;
+	return (res);
+}
+
+char	*get_parsed_other_normed(t_lexer **lex, t_data *data, \
+char *res, char *join)
+{
+	t_lexer	*tmp;
+
+	tmp = (*lex);
+	if (res && tmp->content)
+	{
+		data->stopn = 1;
+		data->null = 0;
+		join = ft_strdup(res);
+		free(res);
+		res = ft_strjoin(join, tmp->content);
+		free(join);
+	}
+	else
+		res = ft_strdup(tmp->content);
+	if (tmp)
+		tmp = tmp->next;
+	(*lex) = tmp;
+	return (res);
+}

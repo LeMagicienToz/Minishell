@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_to_env_two.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 03:05:41 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/11 10:21:20 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/14 20:07:53 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	add_with_no_egual(t_data *data)
 	free(data->str[1]);
 	data->str[1] = ft_strjoin(tmp, "=");
 	free(tmp);
-	create_token(data, &data->export, data->str[1], 0);
+	create_token(data, &data->export, data->str[1]);
 	free(data->str[1]);
-	create_token(data, &data->export, ft_strdup("\0"), 0);
+	create_token(data, &data->export, ft_strdup("\0"));
 }
 
 void	normed_add_to_export(int i, t_data *data, char *str)
@@ -34,10 +34,10 @@ void	normed_add_to_export(int i, t_data *data, char *str)
 		i++;
 	i++;
 	str = ft_substr(data->str[1], 0, i);
-	create_token(data, &data->export, str, 0);
+	create_token(data, &data->export, str);
 	free(str);
 	str = ft_substr(data->str[1], i, (ft_strlen(data->str[1]) - i));
-	create_token(data, &data->export, str, 0);
+	create_token(data, &data->export, str);
 	free(str);
 }
 
