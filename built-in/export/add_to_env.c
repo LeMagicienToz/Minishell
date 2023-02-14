@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:13:30 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/09 23:50:26 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/13 23:35:20 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,7 @@ int	check_exicting_env(t_data *data, char *str)
 	else
 		check = ft_substr(str, 0, i + 1);
 	tmp = data->env;
-	i = 0;
-	while (tmp)
-	{
-		if (ft_strcmp(tmp->content, check) == 0)
-			return (i);
-		i++;
-		tmp = tmp->next;
-	}
-	free(check);
-	return (-1);
+	return (check_ex_env(tmp, check));
 }
 
 void	replace_export(t_data *data, int x, char *add)
@@ -88,16 +79,7 @@ int	check_exicting_exp(t_data *data, char *str)
 	else
 		check = ft_substr(str, 0, i + 1);
 	tmp = data->export;
-	i = 0;
-	while (tmp)
-	{
-		if (ft_strcmp(tmp->content, check) == 0)
-			return (i);
-		i++;
-		tmp = tmp->next;
-	}
-	free(check);
-	return (-1);
+	return (check_ex_exp(tmp, check));
 }
 
 int	parcing_export(t_data *data)
@@ -107,6 +89,7 @@ int	parcing_export(t_data *data)
 	i = 0;
 	if (ft_isdigit(data->str[1][0]))
 		return (0);
+	get_all_arg_exp(data);
 	while (data->str[1][i] && data->str[1][i] != '=')
 	{
 		if ((ft_isalpha(data->str[1][i]) || ft_isdigit(data->str[1][i]) || \
@@ -126,27 +109,15 @@ int	add_to_export(t_data *data)
 	int		i;
 	int		x;
 
+	str = NULL;
 	i = 0;
-	printf("1ere arg : %s\n", data->str[1]);
 	if (!parcing_export(data))
-		perror("AAAALLLLEEERTTTE\n");
+		erreur_status(1, "Parcing export goes wrong\n", data, 0);
 	x = check_exicting_exp(data, data->str[1]);
-	printf("x==%d\n", x);
 	if (parcing_export(data) == 2 && x == -1)
 		add_with_no_egual(data);
 	else if (x == -1)
-	{
-		i = 0;
-		while (data->str[1][i] != '=')
-			i++;
-		i++;
-		str = ft_substr(data->str[1], 0, i);
-		create_token(data, &data->export, str, 0);
-		free(str);
-		str = ft_substr(data->str[1], i, (ft_strlen(data->str[1]) - i));
-		create_token(data, &data->export, str, 0);
-		free(str);
-	}
+		normed_add_to_export(i, data, str);
 	else if (x == -2)
 		return (0);
 	else if (parcing_export(data) != 2)
@@ -158,31 +129,4 @@ int	add_to_export(t_data *data)
 		free(str);
 	}
 	return (0);
-}
-
-int	check_equal(t_data *data)
-{
-	int		k;
-	int		i;
-	t_lst	*tmp;
-
-	tmp = data->export;
-	i = 0;
-	k = 0;
-	while (data->str[1][i])
-	{
-		if (data->str[1][i] == '=')
-			k = 1;
-		i++;
-	}
-	if (k == 1)
-	{
-		add_to_export(data);
-		add_to_env(data);
-	}
-	else
-	{
-		add_to_export(data);
-	}
-	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 11:17:12 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/09 06:34:08 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/13 02:22:11 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,10 @@ void	add_to_env(t_data *data)
 	char	*str;
 
 	i = 0;
+	str = NULL;
 	x = check_exicting_env(data, data->str[1]);
 	if (x == -1)
-	{
-		i = 0;
-		while (data->str[1][i] != '=')
-			i++;
-		i++;
-		str = ft_substr(data->str[1], 0, i);
-		create_token(data, &data->env, str, 0);
-		free(str);
-		str = ft_substr(data->str[1], i, (ft_strlen(data->str[1]) - i));
-		create_token(data, &data->env, str, 0);
-		free(str);
-	}
+		normed_add_to_env(data, str);
 	else if (parcing_export(data) != 2)
 	{
 		while (data->str[1][i] && data->str[1][i] != '=')
@@ -132,10 +122,19 @@ void	ft_env(t_data *data, t_lst *lst)
 	}
 	else if (check_equal_env(data))
 	{
-		add_to_env(data);
 		if (lst->next)
+		{
 			print_env_in_pipe(data, tmp);
+			write(data->fd[1], data->str[1], ft_strlen(data->str[1]));
+		}
 		else
+		{
 			print_env(data, tmp);
+			printf("%s\n", data->str[1]);
+		}
+	}
+	else
+	{
+		printf("%s\n", get_path(data->envp, data->str[1], data));
 	}
 }

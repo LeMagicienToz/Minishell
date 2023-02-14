@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 11:44:53 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/10 00:47:10 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/12 21:51:26 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,17 +117,16 @@ void	ft_export(t_data *data, t_lst *lst)
 
 	k = 0;
 	(void)lst;
-	if (data->str[1])
+	if (data->str[1] && data->maxindex == 0)
 	{
-		k = 1;
-		check_equal(data);
+		k = check_equal(data);
 	}
 	tmp = data->export;
 	if (k == 0)
 	{
-		if (lst->next)
+		if (!data->str[1] && lst->next)
 			print_export_in_pipe(data, tmp);
-		else
+		else if (!lst->next)
 			print_export(data, tmp);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:52:04 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/08 21:58:47 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/11 10:25:29 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	*fill_quote(t_lexer **lexer, t_data *data, char *res)
 			lex = lex->next;
 	}
 	(*lexer) = lex;
+	printf("%s\n", res);
 	return (res);
 }
 
@@ -93,7 +94,6 @@ char	*fill_dollar(t_lexer **lexer, t_data *data, char *res)
 			res = get_env(data, lex->content);
 		else if (get_env(data, lex->content))
 		{
-			printf("salut");
 			tmp = ft_strdup(res);
 			free(res);
 			res = ft_strjoin(tmp, get_env(data, lex->content));

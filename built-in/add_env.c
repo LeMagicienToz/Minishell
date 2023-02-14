@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:00:05 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/09 06:35:46 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/10 07:27:57 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,20 @@ int	check_equal_env(t_data *data)
 		i++;
 	}
 	return (k);
+}
+
+void	normed_add_to_env(t_data *data, char *str)
+{
+	int	i;
+
+	i = 0;
+	while (data->str[1][i] != '=')
+		i++;
+	i++;
+	str = ft_substr(data->str[1], 0, i);
+	create_token(data, &data->env, str, 0);
+	free(str);
+	str = ft_substr(data->str[1], i, (ft_strlen(data->str[1]) - i));
+	create_token(data, &data->env, str, 0);
+	free(str);
 }

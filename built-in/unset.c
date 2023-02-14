@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 05:08:10 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/09 01:53:22 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/12 23:45:30 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,20 +77,16 @@ void	unset_export(t_data *data, t_lst **lst, int l, int x)
 	tmp = (*lst);
 	while (tmp)
 	{
-		if (l == 0)
+		if (i == x)
 		{
-			if (i == x)
+			if (l == 0)
 				unset_normed(tmp, next, prev, data);
-			i++;
-			tmp = tmp->next;
-		}
-		else
-		{
-			if (i == x)
+			else
 				unset_normed_env(tmp, next, prev, data);
-			i++;
-			tmp = tmp->next;
+			tmp = (*lst);
 		}
+		i++;
+		tmp = tmp->next;
 	}
 }
 
@@ -105,6 +101,11 @@ int	ft_unset(t_data *data)
 	next = NULL;
 	prev = NULL;
 	i = 0;
+	if (!data->str[1])
+	{
+		printf("ERREUR: unset: Not enought arguments\n");
+		return (0);
+	}
 	x = check_exicting_exp(data, data->str[1]);
 	if (x == -1)
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:51:29 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/08 23:35:26 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/10 07:05:13 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ t_lst	*get_parsed(t_lexer	*lexer, t_data *data)
 		|| (tmp->type == QUOTE && tmp->next->type == QUOTE))
 			data->null = 1;
 		while (tmp && tmp->type == SPACE && res == NULL)
-			tmp = tmp->next;
-		while (tmp->type == SPACE && tmp->next && tmp->next->type == SPACE)
 			tmp = tmp->next;
 		if (tmp->type == DBQUOTE)
 			res = fill_quote(&tmp, data, res);

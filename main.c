@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/02/10 00:32:01 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/14 18:51:32 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	tiensmax(t_lst *lst, t_data *data)
 int	main(__attribute__((unused))int argc, \
 __attribute__((unused))char **argv,	char **envp)
 {
-	t_built	builtin;
 	t_data	data;
 	t_lst	*lst;
 	t_lexer	*lexer;
@@ -52,12 +51,8 @@ __attribute__((unused))char **argv,	char **envp)
 	data.env = NULL;
 	init_data(&data, envp);
 	init_exp(&data);
-	// put_tab_in_lst(&data);
-	builtin.save = "/Users/muteza/Desktop/Minishell";
-	// sigaction(SIGINT, &ctrlc, 0);
 	while (1)
 	{
-		//signal(SIGINT, sighandler);
 		if (!data.input)
 			data.input = readline("8-----> ");
 		add_history(data.input);
@@ -65,7 +60,7 @@ __attribute__((unused))char **argv,	char **envp)
 		if (data.check == 0)
 		{
 			lst = get_parsed(create_lexer(lexer, data.input), &data);
-			// print_lst(lst);
+			print_lst(lst);
 			tiensmax(lst, &data);
 			free_all(&data, &lexer, &lst);
 		}

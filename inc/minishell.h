@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/02/10 00:47:40 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/14 03:31:03 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,17 +123,8 @@ typedef struct s_data
 	t_utils	*u;
 }	t_data;
 
-typedef struct s_built
-{
-	char	**tab_exp;
-	char	**str;
-	char	*save;
-}	t_built;
-
-void sighandler(int signum);
-
+void	clavier_int(int sig_num);
 void	wait_fork(pid_t child_pid);
-void	fork_init(char **str, char **envp);
 void	tiensmax(t_lst *lst, t_data *data);
 char	*ft_stripwhite(char *str);
 int		ft_strlen_white(char *str);
@@ -144,27 +135,27 @@ int		ft_lstsize(t_lst *lst);
 
 //REDIRECTION
 int		check_redir(t_data *data, t_lst *lst);
-void	redir_out(t_data *data, t_lst *lst);
-void	redit_in(t_data *data, t_lst *lst);
 void	exp_redir(t_data *data, t_lst *lst);
 void	pwd_redir(t_data *data, t_lst *lst);
 void	env_redir(t_data *data, t_lst *lst);
 void	echo_redir(t_data *data, t_lst *lst);
 
 //PIPE
+int		add_to_export(t_data *data);
 void	last_pipe_command(t_data *data, t_lst *tmp, int i);
 void	init_pipe(t_lst *lst, t_data *data);
 void	fork_maker(t_lst *lst, t_data *data);
-void	more_pipe(t_data *data, t_lst *lst, int i);
+void	more_pipe(t_data *data, t_lst *lst);
 void	no_more_command(t_data *data, t_lst *lst);
 char	**check_pipe(t_lst *lst, t_data *data);
 void	pipe_com(t_lst *lst, t_data *data);
 void	pipex_mod(t_data *data, int i, t_lst *lst, int k);
-char	*get_path(char **envp, char *arg);
-void	put_lst_in_tab(t_data *data, int i, t_lst **lst);
+char	*get_path(char **envp, char *arg, t_data *data);
+void	put_lst_in_tab(t_data *data, t_lst **lst);
 int		make_pipe(int i, t_data *data);
 
 //UTILS
+void	erreur_status(int status, char *error, t_data *data, int ex);
 void	ft_putnbr_base(int nb, int digit, char *base, int fd);
 void	ft_printf_fd(int fd, char *str, ...);
 int		ft_is_space(char c);
@@ -173,6 +164,7 @@ void	print_lst(t_lst *lst);
 void	free_lst(t_lst **lst);
 void	free_lex(t_lexer **lex);
 void	free_data(t_data *data);
+void	free_data_str(char **lol);
 void	free_all(t_data *data, t_lexer **lex, t_lst **lst);
 void	init_data(t_data *data, char **envp);
 void	init_lst(t_lst **lst);
@@ -181,6 +173,12 @@ void	init_exp(t_data *data);
 void	status_init(t_data *data);
 
 //BUILT IN
+
+void	ft_exit(t_data *data);
+void	normed_add_to_env(t_data *data, char *str);
+void	normed_add_to_export(int i, t_data *data, char *str);
+int		check_ex_env(t_lst *tmp, char *check);
+int		check_ex_exp(t_lst *tmp, char *check);
 int		check_equal_env(t_data *data);
 int		builtin_pipe(t_data *data, t_lst *lst);
 int		check_is_builtin(char *str);
@@ -191,13 +189,14 @@ int		ft_unset(t_data *data);
 int		check_equal(t_data *data);
 void	ft_export(t_data *data, t_lst *lst);
 void	ft_env(t_data *data, t_lst *lst);
-int		check_builtin(t_data *data, t_lst *lst);
-void	ft_cd(t_data *data);
+void	get_all_arg_exp(t_data *data);
+int		ft_cd(t_data *data, t_lst *lst);
 int		check_exicting_exp(t_data *data, char *str);
 int		check_exicting_env(t_data *data, char *str);
 void	replace_export(t_data *data, int x, char *add);
 void	add_with_no_egual(t_data *data);
 int		parcing_export(t_data *data);
+int		builtin_no_pipe(t_data *data, t_lst *lst);
 
 //PARSING
 int		parc_export(t_data *data, char *str);

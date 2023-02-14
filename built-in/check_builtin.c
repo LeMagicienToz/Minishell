@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 17:08:15 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/10 00:47:51 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/13 23:42:00 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,22 @@
 
 int	check_is_builtin(char *str)
 {
-	if (ft_strncmp(str, "cd", 2) == 0)
+	if (ft_strcmp(str, "cd") == 0)
 		return (0);
-	else if (ft_strncmp(str, "pwd", 3) == 0)
+	else if (ft_strcmp(str, "pwd") == 0)
 		return (0);
-	else if (ft_strncmp(str, "env", 3) == 0)
+	else if (ft_strcmp(str, "env") == 0)
 		return (0);
-	else if (ft_strncmp(str, "export", 6) == 0)
+	else if (ft_strcmp(str, "export") == 0)
 		return (0);
-	else if (ft_strncmp(str, "echo", 4) == 0)
+	else if (ft_strcmp(str, "echo") == 0)
 		return (0);
-	else if (ft_strncmp(str, "unset", 5) == 0)
+	else if (ft_strcmp(str, "unset") == 0)
 		return (0);
-	return (1);
+	else if (ft_strcmp(str, "exit") == 0)
+		return (0);
+	else
+		return (1);
 }
 
 int	redir_builtin(t_data *data, t_lst *lst)
@@ -44,39 +47,45 @@ int	redir_builtin(t_data *data, t_lst *lst)
 
 int	builtin_pipe(t_data *data, t_lst *lst)
 {
+	data->id = fork();
+	if (data->id == 0)
+	{
+		data->path = get_path(data->envp, data->str[0], data);
+		data->k = 1;
+		dup2(data->save, 0);
+		if (lst->next)
+			dup2(data->fd[1], 1);
+		if (data->save != 0)
+			close(data->save);
+		close(data->fd[0]);
+		close(data->fd[1]);
+		builtin_no_pipe(data, lst);
+		kill(0, SIGKILL);
+	}
+	return (1);
+}
+
+int	builtin_no_pipe(t_data *data, t_lst *lst)
+{
 	if (check_redir(data, lst) == 1)
 	{
 		if (ft_strcmp(data->str[0], "export") == 0)
 			ft_export(data, lst);
 		else if (ft_strcmp("pwd", data->str[0]) == 0)
 			ft_pwd(data, lst);
+		else if (ft_strcmp(data->str[0], "cd") == 0)
+			ft_cd(data, lst);
 		else if (ft_strcmp(data->str[0], "env") == 0)
 			ft_env(data, lst);
 		else if (ft_strcmp(data->str[0], "echo") == 0)
 			ft_echo(data, lst);
 		else if (ft_strcmp(data->str[0], "unset") == 0)
 			ft_unset(data);
+		else if (ft_strcmp(data->str[0], "exit") == 0)
+			ft_exit(data);
 		return (1);
 	}
 	else
 		redir_builtin(data, lst);
-	return (1);
-}
-
-int	check_builtin(t_data *data, t_lst *lst)
-{
-	(void)lst;
-	if (ft_strncmp(data->str[0], "cd", 2) == 0)
-		ft_cd(data);
-	else if (ft_strncmp(data->str[0], "pwd", 3) == 0)
-		ft_pwd(data, lst);
-	else if (ft_strncmp(data->str[0], "env", 3) == 0)
-		ft_env(data, lst);
-	else if (ft_strncmp(data->str[0], "export", 6) == 0)
-		ft_export(data, lst);
-	else if (ft_strncmp(data->str[0], "unset", 5) == 0)
-		ft_unset(data);
-	else
-		return (0);
 	return (1);
 }

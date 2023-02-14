@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 15:14:06 by uteza             #+#    #+#             */
-/*   Updated: 2023/02/08 23:28:08 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/13 23:37:49 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*parse_path(char *path, char *arg)
 	return (exe);
 }
 
-char	*get_path(char **envp, char *arg)
+char	*get_path(char **envp, char *arg, t_data *data)
 {
 	int		i;
 	char	*path;
@@ -49,9 +49,7 @@ char	*get_path(char **envp, char *arg)
 	while (envp[i] && ft_strncmp("PATH=", envp[i], 5))
 		i++;
 	if (!envp[i])
-	{
-		return (arg);
-	}
+		erreur_status(127, "Can't find the PATH in environement", data, 1);
 	path = envp[i] + 5;
 	while (*path)
 	{
@@ -64,6 +62,7 @@ char	*get_path(char **envp, char *arg)
 		}
 		path++;
 	}
+	erreur_status(127, "Error: can not found the command", data, 1);
 	return (arg);
 }
 
@@ -85,44 +84,13 @@ int	count_pipe(char **str)
 	return (count);
 }
 
-void	fork_init(char **str, char **envp)
+void	erreur_status(int status, char *error, t_data *data, int ex)
 {
-	pid_t		child_pid;
-	int			fd[2];
-	char		*path;
-
-	if (pipe(fd) == -1)
-	{
-		printf("pipe failed\n");
-		return ;
-	}
-	child_pid  = fork();
-	if (child_pid == -1)
-	printf("Fork error\n");
-	else if (child_pid == 0)
-	{
-		//child
-		path = get_path(envp, str[0]);
-		printf("2 path = %s\n", path);
-		printf("%s %s\n", str[0], str[1]);
-		// close(fd[1]);
-		// dup2(fd[0], 0);
-		execve(path, str, envp);
-		//close(fd[0]);
+	printf("%s\n", error);
+	data->status = status;
+	printf("%d\n", data->status);
+	if (ex != 0)
 		exit(0);
-		//cmd_fork(path, str, envp);
-	}
-	else
-	{
-		//parent
-		// path = get_path(envp, str[0]);
-		// printf("1 path = %s\n", path);
-		// close(fd[0]);
-		// dup2(fd[1], 1);
-		// execve(path, str, envp);
-		// close(fd[1]);
-		wait(&child_pid);
-	}
 }
 
 void	wait_fork(pid_t child_pid)
