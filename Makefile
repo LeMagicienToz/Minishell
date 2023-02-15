@@ -82,7 +82,7 @@ CFLAGS	+=	-Wall -Wextra -Werror -g # -fsanitize=address
 
 vendor/readline: vendor
 	@if [ ! -d "vendor/readline" ]; then \
-		curl https://raw.githubusercontent.com/LeMagicienToz/Minishell/main/install_readline.sh | sh; \
+		curl https://raw.githubusercontent.com/LeMagicienToz/Minishell/040e3285ac74983c1d3738633a09f19ab1d28949/install_readline.sh | sh; \
 	fi
 
 vendor:
