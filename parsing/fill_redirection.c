@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphaelperrin <raphaelperrin@student.42    +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:57:33 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/10 20:09:35 by raphaelperr      ###   ########.fr       */
+/*   Updated: 2023/02/15 14:26:34 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,19 +89,12 @@ void	fill_rout(t_lexer **lexer, t_data *data)
 	if (res)
 	{
 		if (data->typeout == 412)
-		{
-			data->out = open(res, O_APPEND);
-			if (data->out != -1)
-				remove(res);
-			data->out = open(res, O_RDWR | O_CREAT, S_IRUSR + \
-			S_IWUSR + S_IRGRP + S_IROTH);
-		}
+			data->out = open(res, O_CREAT | O_WRONLY | O_TRUNC, 0600);
 		else if (data->typeout == 413)
 		{
-			data->out = open(res, O_APPEND);
+			data->out = open(res, O_CREAT | O_WRONLY | O_APPEND, 0600);
 			if (data->out == -1)
-				data->out = open(res, O_RDWR | O_CREAT, S_IRUSR + \
-				S_IWUSR + S_IRGRP + S_IROTH);
+				data->out = open(res, O_CREAT | O_WRONLY | O_APPEND, 0600);
 		}
 	}
 	(*lexer) = lex;

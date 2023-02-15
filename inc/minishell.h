@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/02/14 21:11:58 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/15 01:06:36 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ typedef struct s_data
 	int		hyphen;
 	int		x;
 	int		null;
+	char	*heredocres;
 	t_lst	*env;
 	t_lst	*export;
 	t_utils	*u;
