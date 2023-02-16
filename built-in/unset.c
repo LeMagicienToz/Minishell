@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 05:08:10 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/12 23:45:30 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/15 16:27:20 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,22 @@ void	unset_export(t_data *data, t_lst **lst, int l, int x)
 	}
 }
 
+int	parcing_unset(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	if (!data->str[1])
+		return(0);
+	while (data->str[1][i])
+	{
+		if (data->str[1][i] == '=')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	ft_unset(t_data *data)
 {
 	int		i;
@@ -101,9 +117,9 @@ int	ft_unset(t_data *data)
 	next = NULL;
 	prev = NULL;
 	i = 0;
-	if (!data->str[1])
+	if (parcing_unset(data) == 0)
 	{
-		printf("ERREUR: unset: Not enought arguments\n");
+		printf("ERREUR: unset: parcing goes wrong\n");
 		return (0);
 	}
 	x = check_exicting_exp(data, data->str[1]);

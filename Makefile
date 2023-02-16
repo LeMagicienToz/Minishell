@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+         #
+#    By: muteza <muteza@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2023/02/15 00:00:20 by rperrin          ###   ########.fr        #
+#    Updated: 2023/02/16 15:29:03 by muteza           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,7 @@ CC=			gcc
 
 LFLAGS=		-Lvendor/readline/lib -lreadline
 
-CFLAGS	+=	-Wall -Wextra -Werror -g # -fsanitize=address 
+CFLAGS	+=	-Wall -Wextra -Werror -g #-fsanitize=address 
 
 vendor/readline: vendor
 	@if [ ! -d "vendor/readline" ]; then \

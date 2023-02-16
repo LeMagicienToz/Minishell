@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 15:14:06 by uteza             #+#    #+#             */
-/*   Updated: 2023/02/13 23:37:49 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/16 19:06:42 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ char	*get_path(char **envp, char *arg, t_data *data)
 	path = NULL;
 	while (envp[i] && ft_strncmp("PATH=", envp[i], 5))
 		i++;
-	if (!envp[i])
+	if (!access(data->str[0], X_OK))
+		return (data->str[0]);
+	else if (!envp[i])
 		erreur_status(127, "Can't find the PATH in environement", data, 1);
 	path = envp[i] + 5;
 	while (*path)
@@ -88,7 +90,6 @@ void	erreur_status(int status, char *error, t_data *data, int ex)
 {
 	printf("%s\n", error);
 	data->status = status;
-	printf("%d\n", data->status);
 	if (ex != 0)
 		exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 14:16:36 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/13 23:52:36 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/16 19:07:26 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,11 @@ int	init_fork_pipe(t_lst *lst, t_data *data)
 	close(data->fd[1]);
 	if (data->save != 0)
 		close(data->save);
+	free(data->str);
 	while (waitpid(0, &stat, 0) > 0)
 		;
 	if (WIFEXITED(stat))
-	{
-		int exit_status = WEXITSTATUS(stat);
-		printf("Exit status of the child was %d\n", exit_status);
-	}
+		data->status = WEXITSTATUS(stat);
 	return (0);
 }
 

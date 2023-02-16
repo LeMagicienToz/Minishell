@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/02/15 01:06:36 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/15 16:10:39 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,8 @@ void	get_error(t_data *data);
 
 //SIGNAUX
 void	signal_other(int signo);
-void 	signal_handler(int signo);
-void 	sig_hnd_other(int sig);
+void	signal_handler(int signo);
+void	sig_hnd_other(int sig);
 void	echo_control_seq(int c);
 void	rl_replace_line(const char *text, int clear_undo);
 
@@ -196,7 +196,7 @@ void	status_init(t_data *data);
 //BUILT IN
 void	ft_exit(t_data *data);
 void	normed_add_to_env(t_data *data, char *str);
-void	normed_add_to_export(int i, t_data *data, char *str);
+int		normed_add_to_export(int i, t_data *data, char *str);
 int		check_ex_env(t_lst *tmp, char *check);
 int		check_ex_exp(t_lst *tmp, char *check);
 int		check_equal_env(t_data *data);

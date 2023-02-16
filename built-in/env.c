@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 11:17:12 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/13 02:22:11 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/15 20:15:09 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,16 +122,8 @@ void	ft_env(t_data *data, t_lst *lst)
 	}
 	else if (check_equal_env(data))
 	{
-		if (lst->next)
-		{
-			print_env_in_pipe(data, tmp);
-			write(data->fd[1], data->str[1], ft_strlen(data->str[1]));
-		}
-		else
-		{
-			print_env(data, tmp);
-			printf("%s\n", data->str[1]);
-		}
+		print_env(data, tmp);
+		printf("%s\n", data->str[1]);
 	}
 	else
 	{
