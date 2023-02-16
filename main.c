@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/02/15 14:51:49 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/16 15:22:35 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ __attribute__((unused))char **argv,	char **envp)
 	lst = NULL;
 	data.export = NULL;
 	data.env = NULL;
+	g_errors.heredoc_signal = 0;
 	if (init_data(&data, envp) == 1)
 		return (0);
 	init_exp(&data);
@@ -51,9 +52,9 @@ __attribute__((unused))char **argv,	char **envp)
 	{
 		signal(SIGINT, signal_handler);
 		signal(SIGQUIT, SIG_IGN);
-		if (!data.input)
+		if (data.input == NULL)
 			data.input = readline("8-----> ");
-		if (!data.input)
+		if (data.input == NULL)
 			return (0);
 		if (data.input)
 		{	

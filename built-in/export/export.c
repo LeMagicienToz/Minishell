@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 11:44:53 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/15 19:04:40 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/16 19:42:56 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,13 +110,107 @@ void	print_export(t_data *data, t_lst *tmp)
 	}
 }
 
+char	*fill_quote_export(t_lexer **lexer, char *res)
+{
+	char	*tmp;
+	t_lexer	*lex;
+	int		x;
+
+	tmp = NULL;
+	lex = (*lexer);
+	x = lex->type;
+	lex = lex->next;
+	while (lex && lex->type != x)
+	{
+		if (res && lex->content && lex->type != x)
+		{
+			tmp = ft_strdup(res);
+			free(res);
+			res = ft_strjoin(tmp, lex->content);
+			free(tmp);
+		}
+		else if (lex->type != x)
+		{
+			res = ft_strdup(lex->content);
+		}
+		if (lex)
+			lex = lex->next;
+	}
+	(*lexer) = lex;
+	return (res);
+}
+
+t_lst	*get_parsed_export(t_lexer *lexer, t_data *data)
+{
+	t_lst	*lst;
+	t_lexer	*tmp;
+	char	*res;
+	char	*join;
+
+	res = NULL;
+	lst = NULL;
+	tmp = lexer;
+	data->maxindex = 0;
+	print_lexer(lexer);
+	if (tmp->next)
+		tmp = tmp->next;
+	else
+		return (NULL);
+	while (tmp->type == SPACE)
+		tmp = tmp->next;
+	while (tmp)
+	{
+		if ((tmp->type == DBQUOTE || tmp->type == QUOTE) && tmp->next)
+		{
+			if (res)
+			{
+				create_token(data, &lst, res);
+				free(res);
+				res = NULL;
+				data->maxindex++;
+			}
+			res = fill_quote_export(&tmp, res);
+			create_token(data, &lst, res);
+			data->maxindex++;
+			free(res);
+			res = NULL;
+		}
+		else if (tmp->type == SPACE)
+		{
+			if (res)
+			{
+				create_token(data, &lst, res);
+				data->maxindex++;
+				free(res);
+				res = NULL;
+			}
+		}
+		else if (res && tmp->content && tmp->type != QUOTE && tmp->type != DBQUOTE)
+		{
+			join = ft_strdup(res);
+			free(res);
+			res = ft_strjoin(join, tmp->content);
+			free(join);
+		}
+		else if (tmp->type != DBQUOTE || tmp->type != QUOTE)
+			res = ft_strdup(tmp->content);
+		if (tmp)
+			tmp = tmp->next;
+	}
+	if (res)
+		create_token(data, &lst, res);
+	print_lst(lst);
+	return (lst);
+}
+
 void	ft_export(t_data *data, t_lst *lst)
 {
 	int		k;
 	t_lst	*tmp;
+	t_lst	*lol;
 
 	k = 0;
-	(void)lst;
+	lol = get_parsed_export(data->lexer, data);
 	if (data->str[1] && data->maxindex == 0)
 	{
 		k = check_equal(data);

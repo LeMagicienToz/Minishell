@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_com.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 14:16:36 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/16 19:07:26 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/16 19:51:07 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	la_magie_opere(t_data *data, t_lst *tmp, t_lst *lst)
 	if (pipe(data->fd) == -1)
 		perror("pipe blem\n");
 	put_lst_in_tab(data, &tmp);
+	printf("%s\n %s\n",data->str[0], data->str[1]);
 	if (check_is_builtin(data->str[0]) == 1)
 		more_pipe(data, tmp);
 	else

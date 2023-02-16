@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/02/15 16:10:39 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/16 19:41:51 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ typedef struct s_data
 	char	*settings;
 	char	*args;
 	char	errorlexer;
-	char	**lexer;
 	int		out;
 	int		in;
 	int		maxindex;
@@ -121,14 +120,18 @@ typedef struct s_data
 	int		x;
 	int		null;
 	char	*heredocres;
+	int		heredocpid;
 	t_lst	*env;
 	t_lst	*export;
+	t_lexer	*lexer;
 	t_utils	*u;
 }	t_data;
 
 typedef struct s_global
 {
 	int		heredoc_signal;
+	int		heredoc_stop;
+	int		heredocpid;
 }	t_global;
 
 t_global	g_errors;
@@ -139,8 +142,8 @@ void	get_error(t_data *data);
 
 //SIGNAUX
 void	signal_other(int signo);
-void	signal_handler(int signo);
-void	sig_hnd_other(int sig);
+void 	signal_handler(int signo);
+void 	sig_hnd_other(int sig);
 void	echo_control_seq(int c);
 void	rl_replace_line(const char *text, int clear_undo);
 
@@ -227,7 +230,7 @@ char	*ft_get_cmd(char *input);
 char	*ft_remove_cmd(char *input, int lencmd);
 char	*ft_get_arg(t_utils *u, char *input, int lencmd);
 void	here_doc(char *end, t_data *data);
-char	*here_doc_normed(char *res, char *tmp, char *read, char *end);
+char	*here_doc_normed(t_data *data, char *tmp, char *read, char *end);
 char	*fill_end(char *str, int len, int i);
 char	*fill_here_doc(char *str);
 char	*fill_hyphen(t_lexer **lex, t_data *data, char *res);

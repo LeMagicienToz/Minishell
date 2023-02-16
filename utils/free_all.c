@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:17:07 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/09 18:19:20 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/16 19:20:29 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,10 @@ void	free_data(t_data *data)
 	data->out = 0;
 	data->in = 0;
 	data->typeout = 0;
+	data->stopn = 0;
 	data->n = -1;
 	data->null = 0;
+	// free_lex(&data->lexer);
 	free(data->input);
 	data->input = NULL;
 }

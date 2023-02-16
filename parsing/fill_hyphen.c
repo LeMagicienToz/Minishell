@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 17:45:40 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/07 22:38:18 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/16 19:58:17 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ void	fill_hyphen_norm(t_lexer *tmp, t_data *data)
 		if (data->hyphen == 1 && data->n == -1)
 			data->n = 1;
 		else if (data->hyphen == 0 && data->n == -1)
+		{
+			data->stopn = 1;
 			data->n = 0;
+		}
 		else if (data->hyphen == 0)
 			data->stopn = 1;
 	}
@@ -71,11 +74,17 @@ char	*fill_hyphen_normed(t_lexer **lex, t_data *data, char *res)
 {
 	t_lexer	*tmp;
 
+	printf("start [stopn %d] [hyphen %d]\n", data->stopn, data->hyphen);
 	tmp = (*lex);
 	if (data->stopn == 1 || data->hyphen != 1)
+	{
+		printf("add [stopn %d] [hyphen %d]\n", data->stopn, data->hyphen);
 		res = fill_hyphen_join(lex, res);
+		data->stopn = 1;
+	}
 	else
 	{
+		printf("skip [stopn %d] [hyphen %d] (%s)\n", data->stopn, data->hyphen, tmp->content);
 		tmp = tmp->next->next;
 		(*lex) = tmp;
 	}

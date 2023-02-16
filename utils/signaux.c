@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 04:12:47 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/14 19:46:45 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/16 15:15:10 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	signal_handler(int signo)
 {
-	if (signo == 2)
+	if (signo == 2 && g_errors.heredoc_signal == 0)
 	{
 		printf("\n");
 		rl_replace_line("", 0);
@@ -28,12 +28,10 @@ void	signal_handler(int signo)
 	// printf("[%d]\n", signo);
 }
 
-
 void	signal_other(int signo)
 {
 	(void) signo;
 	printf("\n");
-
 }
 
 void	echo_control_seq(int c)

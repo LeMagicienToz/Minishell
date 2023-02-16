@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: muteza <muteza@student.42.fr>              +#+  +:+       +#+         #
+#    By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2023/02/16 15:29:03 by muteza           ###   ########.fr        #
+#    Updated: 2023/02/16 15:29:47 by rperrin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,7 @@ CFLAGS	+=	-Wall -Wextra -Werror -g #-fsanitize=address
 
 vendor/readline: vendor
 	@if [ ! -d "vendor/readline" ]; then \
-		curl https://raw.githubusercontent.com/LeMagicienToz/Minishell/040e3285ac74983c1d3738633a09f19ab1d28949/install_readline.sh | sh; \
+		curl https://raw.githubusercontent.com/LeMagicienToz/Minishell/main/install_readline.sh | sh; \
 	fi
 
 vendor:

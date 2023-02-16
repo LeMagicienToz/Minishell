@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:31:58 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/14 23:51:51 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/16 18:46:00 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,22 @@
 
 void	launch(t_data *data, t_lst *lst, t_lexer *lexer)
 {
-	lst = get_parsed(create_lexer(lexer, data->input), data);
-	print_lst(lst);
-	tiensmax(lst, data);
-	free_all(data, &lexer, &lst);
+	lexer = create_lexer(lexer, data->input);
+	lst = get_parsed(lexer, data);
+	data->lexer = lexer;
+	if (lst)
+	{
+		print_lst(lst);
+		tiensmax(lst, data);
+		free_all(data, &lexer, &lst);
+	}
+	else if (data->input)
+	{
+		free_lex(&lexer);
+		data->in = 0;
+		free(data->input);
+		data->input = NULL;
+	}
 }
 
 void	get_error(t_data *data)

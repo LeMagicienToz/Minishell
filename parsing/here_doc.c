@@ -6,26 +6,26 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 19:22:16 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/15 14:53:49 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/16 19:55:49 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+void	kill_heredoc()
+{
+
+}
+
 void	signal_handler_heredoc(int signo)
 {
 	if (signo == SIGINT)
 	{
-		// g_errors.heredoc_signal = 1;
-		// exit(0);
-		printf("\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
+		g_errors.heredoc_stop = 1;
+		exit(0);
 	}
-	else
-		printf("[%c]\n", signo);
 }
+
 
 int	check_here_doc(char *str, t_data *data)
 {
@@ -50,7 +50,7 @@ int	check_here_doc(char *str, t_data *data)
 	return (0);
 }
 
-char	*here_doc_normed(char *res, char *tmp, char *read, char *end)
+char	*here_doc_normed(t_data *data, char *tmp, char *read, char *end)
 {
 	while (1)
 	{
@@ -59,49 +59,55 @@ char	*here_doc_normed(char *res, char *tmp, char *read, char *end)
 		read = readline("> ");
 		if (!read)
 		{
-			printf("CTRL +D\n");
-			break;
-		}
-		if (!ft_strcmp(read, end) || !read)
+			g_errors.heredoc_stop = 1;
+			if (data->heredocres)
+				free(data->heredocres);
 			break ;
-		if (!res)
-		{
-			res = ft_strdup(read);
 		}
+		if (!ft_strcmp(read, end))
+			break ;
+		if (!data->heredocres)
+			data->heredocres = ft_strdup(read);
 		else
 		{
-			tmp = ft_strdup(res);
-			free(res);
-			res = ft_strjoin(tmp, read);
+			tmp = ft_strdup(data->heredocres);
+			free(data->heredocres);
+			data->heredocres = ft_strjoin(tmp, read);
 			free(tmp);
 		}
 	}
-	return (res);
+	return (data->heredocres);
 }
 
 void	here_doc(char *end, t_data *data)
 {
-	char	*res;
 	char	*tmp;
 	char	*read;
 	int		vv;
 	int		id;
+	// int		fd[2];
 
-	res = NULL;
 	read = NULL;
 	tmp = NULL;
-	data->in = open("heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0600);
-	signal(SIGINT, signal_handler_heredoc);
-	signal(SIGQUIT, SIG_IGN);
+	g_errors.heredoc_signal = 1;
+	g_errors.heredoc_stop = 0;
+	data->heredocres = NULL;
 	id = fork();
+	data->in = open("heredoc", O_CREAT | O_RDWR | O_TRUNC, 0600);
 	if (id == 0)
 	{
-		res = here_doc_normed(res, tmp, read, end);
-		// data->heredocres = ft_strdup(res);
-		printf("(%s)\n", res);
-		waitpid(id, &vv, 0);
-		if (res)
-			write (data->in, res, ft_strlen(res));
+		signal(SIGINT, signal_handler_heredoc);
+		signal(SIGQUIT, SIG_IGN);
+		here_doc_normed(data, tmp, read, end);
+		if (g_errors.heredoc_stop == 1)
+			exit(1);
+		if (data->heredocres)
+		{
+			write (data->in, data->heredocres, ft_strlen(data->heredocres));
+			free(data->heredocres);
+		}
 		exit (1);
 	}
+	waitpid(id, &vv, 0);
+	g_errors.heredoc_signal = 0;
 }
