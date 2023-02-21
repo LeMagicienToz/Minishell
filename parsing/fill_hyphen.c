@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 17:45:40 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/21 13:09:33 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/22 00:13:50 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ char	*fill_hyphen(t_lexer **lex, t_data *data, char *res)
 			break ;
 		}
 	}
+	if (tmp->next && tmp->next->type == HYPHEN && data->stopn != 1)
+	{
+		(*lex) = (*lex)->prev;
+		data->stopn = 1;
+		return (res);
+	}
 	fill_hyphen_norm(tmp, data);
 	return (fill_hyphen_normed(lex, data, res));
 }
@@ -43,8 +49,8 @@ void	fill_hyphen_norm(t_lexer *tmp, t_data *data)
 			data->n = 1;
 		else if (data->hyphen == 0 && data->n == -1)
 		{
-			data->stopn = 1;
 			data->n = 0;
+			data->stopn = 1;
 		}
 		else if (data->hyphen == 0)
 			data->stopn = 1;

@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:18:39 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/21 16:42:23 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/21 18:58:18 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	more_pipe(t_data *data, t_lst *lst)
 	if (data->id == 0)
 	{
 		data->path = get_path(data->envi, data->str[0], data);
-		printf("dwakodpwa\n");
 		if (!data->path)
 			exit(127);
 		data->k = 1;

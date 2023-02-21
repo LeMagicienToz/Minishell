@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/02/21 17:23:18 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/21 21:19:27 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ typedef struct s_data
 	char	*heredocres;
 	int		heredocpid;
 	char	**envi;
+	char	*dollartoken;
 	t_lst	*env;
 	t_lst	*export;
 	t_lexer	*lexer;
@@ -257,6 +258,9 @@ void	fill_hyphen_norm(t_lexer *tmp, t_data *data);
 char	*fill_hyphen_join(t_lexer **lex, char *res);
 char	*fill_hyphen_normed(t_lexer **lex, t_data *data, char *res);
 int		check_here_doc(char *str, t_data *data);
+char	*ft_dollar_token(char *str, t_data *data);
+char	*fill_dollar_normdeouf(t_data *data, char *leaks, char *res);
+char	*get_parsed_normed_norm(t_lexer **lex, t_data *data, char *res);
 
 //LEXER
 void	create_token(t_data *data, t_lst **lst, char *str);

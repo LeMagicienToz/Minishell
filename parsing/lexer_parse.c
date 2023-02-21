@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:51:29 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/21 15:01:36 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/21 19:27:22 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ char	*get_parsed_normed_norm(t_lexer **lex, t_data *data, char *res)
 	join = NULL;
 	tmp = (*lex);
 	data->stopn = 1;
-	data->n = 0;
 	data->null = 0;
 	join = ft_strdup(res);
 	free(res);
