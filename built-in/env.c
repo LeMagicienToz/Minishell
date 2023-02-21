@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 11:17:12 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/15 20:15:09 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/20 16:40:35 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,5 @@ void	ft_env(t_data *data, t_lst *lst)
 		printf("%s\n", data->str[1]);
 	}
 	else
-	{
-		printf("%s\n", get_path(data->envp, data->str[1], data));
-	}
+		erreur_status(127, "Error: env: No such file or directory", data, 0);
 }

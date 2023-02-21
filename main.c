@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/02/16 15:22:35 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/21 01:40:52 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ __attribute__((unused))char **argv,	char **envp)
 				return (0);
 		}
 		add_history(data.input);
+		make_first_envi(&data);
 		data.check = check_lexer_error(data.input, &data);
 		if (data.check == 0)
 			launch(&data, lst, lexer);

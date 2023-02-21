@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:51:29 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/16 19:58:27 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/17 16:34:58 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,7 @@ t_lst	*get_parsed(t_lexer	*lexer, t_data *data)
 		|| (tmp->type == QUOTE && tmp->next->type == QUOTE))
 			data->null = 1;
 		while (tmp && tmp->type == SPACE && res == NULL)
-		{
-			printf("COUCOU\n");
 			tmp = tmp->next;
-		}
 		if (tmp->type == DBQUOTE)
 			res = fill_quote(&tmp, data, res);
 		else if (tmp->type == QUOTE)

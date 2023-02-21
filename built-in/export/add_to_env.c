@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:13:30 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/15 19:59:15 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/18 16:39:37 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,39 +129,3 @@ int	add_to_export(t_data *data)
 	}
 	return (0);
 }
-
-// get_parsed(t_lexer	*lexer, t_data *data)
-// {
-// 	t_lexer		*tmp;
-// 	t_lst		*lst;
-// 	char		*res;
-// 	char		*join;
-
-// 	tmp = lexer;
-// 	res = NULL;
-// 	lst = NULL;
-// 	join = NULL;
-// 	while (tmp)
-// 	{
-// 		if ()
-// 		data->stopn = 0;
-// 		if (tmp->type == PIPE)
-// 		{
-// 			x++;
-// 			if (x == id)
-// 			{
-// 				while (tmp->type != PIPE)
-// 				{
-// 					if (tmp->type == QUOTE)
-// 					{
-						
-// 					}
-// 					tmp = tmp->next;
-// 				}
-// 			}
-// 		}
-// 		if (tmp)
-// 			tmp = tmp->next;
-// 	}
-// 	return (lst);
-// }

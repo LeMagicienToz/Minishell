@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_len.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:29:55 by rperrin           #+#    #+#             */
-/*   Updated: 2023/01/30 18:07:07 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/21 01:25:31 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ int	get_len_token_lexer_normed(char *str, int i, int type, int len)
 		{
 			i++;
 			len++;
-			type = check_token(str[i], str[i + 1]);
+			if (str[i])
+				type = check_token(str[i], str[i + 1]);
+			else
+				type = check_token(str[i], (char)0);
 		}
 		return (len);
 	}

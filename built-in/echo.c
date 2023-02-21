@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 13:29:24 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/02/10 09:22:53 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/21 00:40:40 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	ft_echo(t_data *data, t_lst *lst)
 	int		i;
 
 	i = 1;
-	// printf("ECHOOOO\n");
 	printf("(%s)\n", data->str[1]);
 	if (data->str[1] && lst->next)
 		print_echo_pipe(data, lst);

@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 17:08:15 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/16 17:06:48 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/21 00:40:32 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	builtin_pipe(t_data *data, t_lst *lst)
 	data->id = fork();
 	if (data->id == 0)
 	{
-		data->path = get_path(data->envp, data->str[0], data);
+		data->path = get_path(data->envi, data->str[0], data);
 		data->k = 1;
 		dup2(data->save, 0);
 		if (lst->next)
@@ -81,8 +81,6 @@ int	builtin_no_pipe(t_data *data, t_lst *lst)
 			ft_echo(data, lst);
 		else if (ft_strcmp(data->str[0], "unset") == 0)
 			ft_unset(data);
-		else if (ft_strcmp(data->str[0], "exit") == 0)
-			ft_exit(data);
 		return (1);
 	}
 	else

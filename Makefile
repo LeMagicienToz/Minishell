@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+         #
+#    By: muteza <muteza@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2023/02/16 15:29:47 by rperrin          ###   ########.fr        #
+#    Updated: 2023/02/21 01:21:29 by muteza           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,9 @@ SRC=		main.c\
 			built-in/echo.c\
 			built-in/ft_exit.c\
 			built-in/cd.c\
+			built-in/export/envi_repalce.c\
+			built-in/export/export_two.c\
+			built-in/export/export_third.c\
 			built-in/export/export.c\
 			built-in/export/add_to_env.c\
 			built-in/export/add_to_env_two.c\
@@ -78,11 +81,11 @@ CC=			gcc
 
 LFLAGS=		-Lvendor/readline/lib -lreadline
 
-CFLAGS	+=	-Wall -Wextra -Werror -g #-fsanitize=address 
+CFLAGS	+=	-Wall -Wextra -Werror -g -fsanitize=address 
 
 vendor/readline: vendor
 	@if [ ! -d "vendor/readline" ]; then \
-		curl https://raw.githubusercontent.com/LeMagicienToz/Minishell/main/install_readline.sh | sh; \
+		curl https://raw.githubusercontent.com/LeMagicienToz/Minishell/main/lol.sh | sh; \
 	fi
 
 vendor:

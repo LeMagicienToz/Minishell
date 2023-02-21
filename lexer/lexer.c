@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 19:13:27 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/14 23:57:49 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/21 01:27:16 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,10 @@ char	*fill_token_lexer_normed(char *str, int *i, int type, char *ret)
 		while (str[*i] && type == TEXT)
 		{
 			ret[j++] = str[(*i)++];
-			type = check_token(str[*i], str[*i + 1]);
+			if (str[*i])
+				type = check_token(str[*i], str[*i + 1]);
+			else
+				type = check_token(str[*i], (char)0);
 		}
 	}
 	return (ret);

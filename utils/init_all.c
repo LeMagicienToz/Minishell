@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:16:40 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/14 21:59:55 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/21 02:27:45 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	init_data(t_data *data, char **envp)
 		data->envp = envp;
 		data->exp = envp;
 	}
+	data->save_builtin = 0;
 	data->maxindex = 0;
 	data->status = 0;
 	data->input = NULL;

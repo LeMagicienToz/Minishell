@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 20:25:05 by raphaelperr       #+#    #+#             */
-/*   Updated: 2022/12/19 13:58:16 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/21 00:45:39 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	get_cmd(char *str)
 		cmd_history();
 		return (-1);
 	}
-	else if (!ft_strncmp(str, "debug leaks", ft_strlen(str))) //Pour voir les leaks de notre minishello
+	else if (!ft_strncmp(str, "debug leaks", ft_strlen(str)))
 	{
 		system("leaks Minishell | grep leaks | tail -1");
 		return (-1);

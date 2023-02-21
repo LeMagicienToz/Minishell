@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/02/16 19:41:51 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/21 01:36:15 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,14 @@ struct s_lst
 	t_lst	*prev;
 };
 
+typedef struct s_exp
+{
+	t_lst	*lst;
+	t_lexer	*tmp;
+	char	*res;
+	char	*join;
+}t_exp;
+
 typedef struct s_data
 {
 	int		err_val;
@@ -121,6 +129,7 @@ typedef struct s_data
 	int		null;
 	char	*heredocres;
 	int		heredocpid;
+	char	**envi;
 	t_lst	*env;
 	t_lst	*export;
 	t_lexer	*lexer;
@@ -142,8 +151,8 @@ void	get_error(t_data *data);
 
 //SIGNAUX
 void	signal_other(int signo);
-void 	signal_handler(int signo);
-void 	sig_hnd_other(int sig);
+void	signal_handler(int signo);
+void	sig_hnd_other(int sig);
 void	echo_control_seq(int c);
 void	rl_replace_line(const char *text, int clear_undo);
 
@@ -165,6 +174,7 @@ void	env_redir(t_data *data, t_lst *lst);
 void	echo_redir(t_data *data, t_lst *lst);
 
 //PIPE
+void	put_lst_in_tab_normed(t_data *data, t_lst *tmp, char *noleaks);
 int		add_to_export(t_data *data);
 void	last_pipe_command(t_data *data, t_lst *tmp, int i);
 void	init_pipe(t_lst *lst, t_data *data);
@@ -175,10 +185,13 @@ char	**check_pipe(t_lst *lst, t_data *data);
 void	pipe_com(t_lst *lst, t_data *data);
 void	pipex_mod(t_data *data, int i, t_lst *lst, int k);
 char	*get_path(char **envp, char *arg, t_data *data);
-void	put_lst_in_tab(t_data *data, t_lst **lst);
+int		put_lst_in_tab(t_data *data, t_lst **lst);
 int		make_pipe(int i, t_data *data);
 
 //UTILS
+char	*fill_quote_export(t_lexer **lexer, char *res);
+int		make_first_envi(t_data *data);
+void	remake_envi(t_data *data);
 void	erreur_status(int status, char *error, t_data *data, int ex);
 void	ft_putnbr_base(int nb, int digit, char *base, int fd);
 void	ft_printf_fd(int fd, char *str, ...);
@@ -188,7 +201,7 @@ void	print_lst(t_lst *lst);
 void	free_lst(t_lst **lst);
 void	free_lex(t_lexer **lex);
 void	free_data(t_data *data);
-void	free_data_str(char **lol);
+void	free_data_str(char ***lol);
 void	free_all(t_data *data, t_lexer **lex, t_lst **lst);
 int		init_data(t_data *data, char **envp);
 void	init_lst(t_lst **lst);
@@ -197,7 +210,13 @@ void	init_exp(t_data *data);
 void	status_init(t_data *data);
 
 //BUILT IN
-void	ft_exit(t_data *data);
+
+void	get_parsed_export_two_normed(t_data *data, t_exp *exp);
+void	get_parsed_export_normed(t_data *data, t_lexer *lexer, t_exp *exp);
+void	get_parsed_export_one_normed(t_lexer *lexer, t_data *data, t_exp *exp);
+void	print_export_in_pipe(t_data *data, t_lst *tmp);
+void	print_export(t_data *data, t_lst *tmp);
+int		ft_exit(t_data *data);
 void	normed_add_to_env(t_data *data, char *str);
 int		normed_add_to_export(int i, t_data *data, char *str);
 int		check_ex_env(t_lst *tmp, char *check);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_com.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 14:16:36 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/16 19:51:07 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/21 01:37:58 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	la_magie_opere(t_data *data, t_lst *tmp, t_lst *lst)
 	if (pipe(data->fd) == -1)
 		perror("pipe blem\n");
 	put_lst_in_tab(data, &tmp);
-	printf("%s\n %s\n",data->str[0], data->str[1]);
 	if (check_is_builtin(data->str[0]) == 1)
 		more_pipe(data, tmp);
 	else
@@ -32,13 +31,16 @@ int	init_fork_pipe(t_lst *lst, t_data *data)
 {
 	t_lst	*tmp;
 	int		stat;
+	int		i;
 
+	i = 0;
 	data->status = 0;
 	tmp = lst;
 	data->save = dup(0);
 	while (tmp)
 	{
 		la_magie_opere(data, tmp, lst);
+		free_data_str(&data->str);
 		tmp = tmp->next;
 		lst = lst->next;
 	}
@@ -46,7 +48,6 @@ int	init_fork_pipe(t_lst *lst, t_data *data)
 	close(data->fd[1]);
 	if (data->save != 0)
 		close(data->save);
-	free(data->str);
 	while (waitpid(0, &stat, 0) > 0)
 		;
 	if (WIFEXITED(stat))
@@ -54,7 +55,7 @@ int	init_fork_pipe(t_lst *lst, t_data *data)
 	return (0);
 }
 
-void	put_lst_in_tab(t_data *data, t_lst **lst)
+int	put_lst_in_tab(t_data *data, t_lst **lst)
 {
 	t_lst	*tmp;
 	char	*noleaks;
@@ -63,36 +64,41 @@ void	put_lst_in_tab(t_data *data, t_lst **lst)
 	if (!tmp)
 		exit(0);
 	data->str = ft_split(tmp->content, ' ');
-	if (data->str[1] && ft_strcmp(data->str[0], "echo") == 0)
+	if (ft_strcmp("exit", data->str[0]) == 0)
+		return (ft_exit(data));
+	if (!data->str[1])
 	{
 		noleaks = ft_strdup(data->str[0]);
-		free_data_str(data->str);
-		data->str = malloc(sizeof(char *) * 3);
-		data->str[0] = ft_strdup(noleaks);
-		data->str[1] = ft_substr(tmp->content, (int)ft_strlen(noleaks) + 1, \
-		ft_strlen(tmp->content));
-		data->str[2] = NULL;
-		free(noleaks);
-	}
-	else if (!data->str[1] && check_is_builtin(data->str[0]) == 0)
-	{
-		noleaks = ft_strdup(data->str[0]);
-		free_data_str(data->str);
-		data->str = malloc(sizeof(char *) * 3);
+		free_data_str(&data->str);
+		data->str = malloc(sizeof(char *) * 2);
 		data->str[0] = ft_strdup(noleaks);
 		data->str[1] = NULL;
 		free(noleaks);
 	}
+	else if (ft_strcmp(data->str[0], "echo") == 0)
+	{
+		noleaks = ft_strdup(data->str[0]);
+		put_lst_in_tab_normed(data, tmp, noleaks);
+	}
+	return (0);
 }
 
-void	free_data_str(char **lol)
+void	free_data_str(char ***lol)
 {
 	int	i;
 
 	i = 0;
-	while (lol[i])
-		free(lol[i++]);
-	free(lol);
+	if (*lol)
+	{
+		while ((*lol)[i])
+		{
+			free((*lol)[i]);
+			(*lol)[i] = NULL;
+			i++;
+		}
+		free(*lol);
+	}
+	*lol = NULL;
 }
 
 void	pipe_com(t_lst *lst, t_data *data)

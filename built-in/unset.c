@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 05:08:10 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/15 16:27:20 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/18 15:43:50 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	unset_export(t_data *data, t_lst **lst, int l, int x)
 		i++;
 		tmp = tmp->next;
 	}
+	remake_envi(data);
 }
 
 int	parcing_unset(t_data *data)
@@ -96,7 +97,7 @@ int	parcing_unset(t_data *data)
 
 	i = 0;
 	if (!data->str[1])
-		return(0);
+		return (0);
 	while (data->str[1][i])
 	{
 		if (data->str[1][i] == '=')

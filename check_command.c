@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 15:14:06 by uteza             #+#    #+#             */
-/*   Updated: 2023/02/16 19:06:42 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/21 00:45:05 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ char	*get_path(char **envp, char *arg, t_data *data)
 	char	*exe;
 
 	i = 0;
-	path = NULL;
 	while (envp[i] && ft_strncmp("PATH=", envp[i], 5))
 		i++;
 	if (!access(data->str[0], X_OK))
