@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:31:58 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/21 19:35:00 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/21 16:37:47 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	launch(t_data *data, t_lst *lst, t_lexer *lexer)
 {
 	lexer = create_lexer(lexer, data->input);
 	lst = get_parsed(lexer, data);
-	print_lexer(lexer);
-	print_lst(lst);
 	data->lexer = lexer;
 	if (lst && check_lst_launch(lst))
 	{

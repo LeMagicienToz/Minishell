@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 16:22:26 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/21 19:15:24 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/21 17:30:32 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,20 +65,11 @@ char	*ft_cd_token(char *str, t_data *data)
 			free(save);
 			free(join);
 		}
+		i++;
 	}
 	if (!res)
 		res = ft_strdup(str);
 	return (res);
-}
-
-int	check_nb_str(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (data->str[i] != NULL)
-		i++;
-	return (i);
 }
 
 int	ft_cd(t_data *data, t_lst *lst)
@@ -91,8 +82,6 @@ int	ft_cd(t_data *data, t_lst *lst)
 
 	(void)lst;
 	i = 0;
-	if (check_nb_str(data) == 3)
-		return (erreur_status(1, "ERROR: Too many arguments", data, 0), 0);
 	if (!getcwd(cwd, sizeof(cwd)))
 		return (chdir(data->str[1]));
 	str = ft_strdup(getcwd(cwd, sizeof(cwd)));

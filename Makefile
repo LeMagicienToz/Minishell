@@ -6,7 +6,7 @@
 #    By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2023/02/21 18:48:46 by rperrin          ###   ########.fr        #
+#    Updated: 2023/02/21 15:44:27 by rperrin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,6 @@ SRC=		main.c\
 			parsing/fill_redirection_normed.c\
 			parsing/here_doc.c\
 			parsing/fill_hyphen.c\
-			parsing/fill_dollar.c\
 			lexer/lexer.c\
 			lexer/create_lst_lexer.c\
 			lexer/lexer_utils.c\
@@ -84,7 +83,7 @@ CC=			gcc
 
 LFLAGS=		-Lvendor/readline/lib -lreadline
 
-CFLAGS	+=	-Wall -Wextra -Werror -g -fsanitize=address 
+CFLAGS	+=	-Wall -Wextra -Werror -g #-fsanitize=address 
 
 vendor/readline: vendor
 	@if [ ! -d "vendor/readline" ]; then \
