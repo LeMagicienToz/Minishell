@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 08:48:17 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/21 00:36:53 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/21 13:37:14 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,7 @@ void	ft_export(t_data *data, t_lst *lst)
 
 	(void)lst;
 	if (data->str[1] && data->maxindex == 0)
-	{
 		ft_export_normed(data);
-	}
 	else
 	{
 		tmp = data->export;

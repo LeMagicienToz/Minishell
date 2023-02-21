@@ -6,7 +6,7 @@
 /*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 14:16:36 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/21 01:37:58 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/21 13:38:17 by muteza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	init_fork_pipe(t_lst *lst, t_data *data)
 	while (tmp)
 	{
 		la_magie_opere(data, tmp, lst);
-		free_data_str(&data->str);
+		// free_data_str(&data->str);
 		tmp = tmp->next;
 		lst = lst->next;
 	}
