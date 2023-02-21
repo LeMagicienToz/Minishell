@@ -36,5 +36,12 @@ void	signal_other(int signo)
 
 void	echo_control_seq(int c)
 {
-	(void)c;
+	struct termios	conf;
+
+	ioctl(ttyslot(), TIOCGETA, &conf);
+	if (c == 1)
+		conf.c_lflag |= ECHOCTL;
+	else if (c == 0)
+		conf.c_lflag &= ~(ECHOCTL);
+	ioctl(ttyslot(), TIOCSETA, &conf);
 }

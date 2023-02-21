@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:22:44 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/02/21 02:38:08 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/21 17:26:35 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,7 @@ void	tiensmax(t_lst *lst, t_data *data)
 	while (tmp)
 	{
 		if (tmp->index == last + 1)
-		{
-			printf("nouvelle commande\n");
 			last = tmp->index;
-		}
-		printf("[%d] - %s\n", tmp->index, tmp->content);
 		tmp = tmp->next;
 	}
 	check_pipe(lst, data);
@@ -57,7 +53,7 @@ __attribute__((unused))char **argv,	char **envp)
 		if (data.input == NULL)
 			return (0);
 		if (data.input)
-		{	
+		{
 			if (ft_strcmp(data.input, "exit") == 0)
 				return (0);
 		}

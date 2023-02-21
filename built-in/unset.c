@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 05:08:10 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/18 15:43:50 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/21 16:23:25 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,15 +94,21 @@ void	unset_export(t_data *data, t_lst **lst, int l, int x)
 int	parcing_unset(t_data *data)
 {
 	int	i;
+	int	j;
 
+	j = 1;
 	i = 0;
 	if (!data->str[1])
 		return (0);
-	while (data->str[1][i])
+	while (data->str[j])
 	{
-		if (data->str[1][i] == '=')
-			return (0);
-		i++;
+		while (data->str[j][i])
+		{
+			if (data->str[j][i] == '=')
+				return (0);
+			i++;
+		}
+		j++;
 	}
 	return (1);
 }
@@ -117,19 +123,19 @@ int	ft_unset(t_data *data)
 
 	next = NULL;
 	prev = NULL;
-	i = 0;
+	i = 1;
 	if (parcing_unset(data) == 0)
+		return (erreur_status(1, "Erreur: Parcing unset", data, 0), 0);
+	while (data->str[i])
 	{
-		printf("ERREUR: unset: parcing goes wrong\n");
-		return (0);
+		x = check_exicting_exp(data, data->str[i]);
+		if (x == -1)
+			return (0);
+		unset_export(data, &data->export, 0, x);
+		k = check_exicting_env(data, data->str[i++]);
+		if (k == -1)
+			return (0);
+		unset_export(data, &data->env, 1, k);
 	}
-	x = check_exicting_exp(data, data->str[1]);
-	if (x == -1)
-		return (0);
-	unset_export(data, &data->export, 0, x);
-	k = check_exicting_env(data, data->str[1]);
-	if (k == -1)
-		return (0);
-	unset_export(data, &data->env, 1, k);
 	return (0);
 }

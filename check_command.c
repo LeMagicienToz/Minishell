@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 15:14:06 by uteza             #+#    #+#             */
-/*   Updated: 2023/02/21 00:45:05 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/21 16:37:58 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*get_path(char **envp, char *arg, t_data *data)
 	if (!access(data->str[0], X_OK))
 		return (data->str[0]);
 	else if (!envp[i])
-		erreur_status(127, "Can't find the PATH in environement", data, 1);
+		return (erreur_status(127, "Erreur: pas de PATH", data, 0), NULL);
 	path = envp[i] + 5;
 	while (*path)
 	{
@@ -63,8 +63,8 @@ char	*get_path(char **envp, char *arg, t_data *data)
 		}
 		path++;
 	}
-	erreur_status(127, "Error: can not found the command", data, 1);
-	return (arg);
+	erreur_status(127, "Erreur: Commande introuvable <3", data, 0);
+	return (NULL);
 }
 
 int	count_pipe(char **str)

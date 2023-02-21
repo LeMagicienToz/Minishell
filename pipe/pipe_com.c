@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_com.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 14:16:36 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/21 13:38:17 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/21 16:43:55 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,12 @@ int	init_fork_pipe(t_lst *lst, t_data *data)
 	int		i;
 
 	i = 0;
-	data->status = 0;
 	tmp = lst;
 	data->save = dup(0);
 	while (tmp)
 	{
 		la_magie_opere(data, tmp, lst);
-		// free_data_str(&data->str);
+		free_data_str(&data->str);
 		tmp = tmp->next;
 		lst = lst->next;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 19:13:27 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/21 01:27:16 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/21 15:43:06 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,5 @@ t_lexer	*create_lexer(t_lexer *lex, char *str)
 		create_token_lexer(&lex, ret, type);
 		free(ret);
 	}
-	// print_lexer(lex);
 	return (lex);
 }

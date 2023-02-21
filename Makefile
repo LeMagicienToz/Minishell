@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: muteza <muteza@student.42.fr>              +#+  +:+       +#+         #
+#    By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2023/02/21 01:21:29 by muteza           ###   ########.fr        #
+#    Updated: 2023/02/21 18:48:46 by rperrin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,13 +39,16 @@ SRC=		main.c\
 			parsing/fill.c\
 			parsing/lexer_parse.c\
 			parsing/fill_redirection.c\
+			parsing/fill_redirection_normed.c\
 			parsing/here_doc.c\
 			parsing/fill_hyphen.c\
+			parsing/fill_dollar.c\
 			lexer/lexer.c\
 			lexer/create_lst_lexer.c\
 			lexer/lexer_utils.c\
 			lexer/check/lexer_check.c\
 			lexer/check/lexer_check_de_check.c\
+			lexer/check/lexer_check_redirection.c\
 			lexer/lexer_len.c\
 			utils/free_all.c\
 			utils/init_all.c\
@@ -85,7 +88,7 @@ CFLAGS	+=	-Wall -Wextra -Werror -g -fsanitize=address
 
 vendor/readline: vendor
 	@if [ ! -d "vendor/readline" ]; then \
-		curl https://raw.githubusercontent.com/LeMagicienToz/Minishell/main/lol.sh | sh; \
+		curl https://raw.githubusercontent.com/LeMagicienToz/Minishell/040e3285ac74983c1d3738633a09f19ab1d28949/install_readline.sh | sh; \
 	fi
 
 vendor:

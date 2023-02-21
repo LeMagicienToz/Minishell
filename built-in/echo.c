@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 13:29:24 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/02/21 00:40:40 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/21 19:29:35 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	ft_echo(t_data *data, t_lst *lst)
 	int		i;
 
 	i = 1;
-	printf("(%s)\n", data->str[1]);
 	if (data->str[1] && lst->next)
 		print_echo_pipe(data, lst);
 	else if (data->str[1])
@@ -51,4 +50,5 @@ void	ft_echo(t_data *data, t_lst *lst)
 	}
 	else if (lst->n != 1)
 		printf("\n");
+	data->status = 0;
 }

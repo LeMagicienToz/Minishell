@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:16:40 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/21 02:27:45 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/21 15:30:51 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	init_data(t_data *data, char **envp)
 		data->envp = envp;
 		data->exp = envp;
 	}
-	data->save_builtin = 0;
 	data->maxindex = 0;
 	data->status = 0;
 	data->input = NULL;
@@ -37,6 +36,7 @@ int	init_data(t_data *data, char **envp)
 	data->stopn = 0;
 	data->null = 0;
 	data->export = NULL;
+	data->env = NULL;
 	return (0);
 }
 
@@ -88,21 +88,3 @@ void	init_exp(t_data *data)
 	}
 	init_env(data);
 }
-
-// void	init_lst(t_lst	**lst)
-// {
-// 	t_lst	*tmp;
-
-// 	printf("%s:%d\n", __FILE__, __LINE__);
-// 	tmp = (*lst);
-// 	tmp = NULL;
-// }
-
-// void	init_lex(t_lexer	**lex)
-// {
-// 	t_lexer	*tmp;
-
-// 	printf("%s:%d\n", __FILE__, __LINE__);
-// 	tmp = (*lex);
-// 	tmp = NULL;
-// }

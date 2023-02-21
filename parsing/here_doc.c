@@ -6,16 +6,11 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 19:22:16 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/16 19:55:49 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/21 13:09:09 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	kill_heredoc()
-{
-
-}
 
 void	signal_handler_heredoc(int signo)
 {
@@ -25,7 +20,6 @@ void	signal_handler_heredoc(int signo)
 		exit(0);
 	}
 }
-
 
 int	check_here_doc(char *str, t_data *data)
 {
@@ -79,13 +73,18 @@ char	*here_doc_normed(t_data *data, char *tmp, char *read, char *end)
 	return (data->heredocres);
 }
 
+void	here_doc_norm(t_data *data)
+{
+	write(data->in, data->heredocres, ft_strlen(data->heredocres));
+	free(data->heredocres);
+}
+
 void	here_doc(char *end, t_data *data)
 {
 	char	*tmp;
 	char	*read;
 	int		vv;
 	int		id;
-	// int		fd[2];
 
 	read = NULL;
 	tmp = NULL;
@@ -102,10 +101,7 @@ void	here_doc(char *end, t_data *data)
 		if (g_errors.heredoc_stop == 1)
 			exit(1);
 		if (data->heredocres)
-		{
-			write (data->in, data->heredocres, ft_strlen(data->heredocres));
-			free(data->heredocres);
-		}
+			here_doc_norm(data);
 		exit (1);
 	}
 	waitpid(id, &vv, 0);

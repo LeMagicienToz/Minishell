@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 12:05:32 by raphaelperr       #+#    #+#             */
-/*   Updated: 2023/02/21 01:36:15 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/21 18:54:03 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ typedef struct s_data
 	char	*heredocres;
 	int		heredocpid;
 	char	**envi;
+	char	*dollartoken;
 	t_lst	*env;
 	t_lst	*export;
 	t_lexer	*lexer;
@@ -208,9 +209,9 @@ void	init_lst(t_lst **lst);
 void	init_lex(t_lexer **lex);
 void	init_exp(t_data *data);
 void	status_init(t_data *data);
+char	*go_to_home(t_data *data);
 
 //BUILT IN
-
 void	get_parsed_export_two_normed(t_data *data, t_exp *exp);
 void	get_parsed_export_normed(t_data *data, t_lexer *lexer, t_exp *exp);
 void	get_parsed_export_one_normed(t_lexer *lexer, t_data *data, t_exp *exp);
@@ -257,16 +258,18 @@ void	fill_hyphen_norm(t_lexer *tmp, t_data *data);
 char	*fill_hyphen_join(t_lexer **lex, char *res);
 char	*fill_hyphen_normed(t_lexer **lex, t_data *data, char *res);
 int		check_here_doc(char *str, t_data *data);
+char	*ft_dollar_token(char *str, t_data *data);
+char	*fill_dollar_normdeouf(t_data *data, char *leaks, char *res);
 
 //LEXER
 void	create_token(t_data *data, t_lst **lst, char *str);
 void	addback(t_lst *node, t_lst **lst);
 t_lst	*create_node(t_data *data, char *str);
 int		check_separator(char c);
-int		check_redirection(char c);
+int		redirection_check(char *str, t_data *data);
 int		check_pipe_lexer(char *str, t_data *data);
-int		check_pipe_lexer_normed(char *str, t_data *data);
-int		check_pipe_lexer_normed_normed(char *str, int *i, int x);
+int		check_pipe_lexer_normed(char *str, t_data *data, int g);
+int		check_pipe_lexer_normed_normed(char *str, int i, int x);
 void	fill_data_in(char *str, int i, char last, t_data *data);
 int		check_lexer_error(char *str, t_data *data);
 char	*ft_get_redirection(t_data *data, char *str);
@@ -284,15 +287,8 @@ int		check_token_normed(char c, char d);
 int		check_token(char c, char d);
 void	print_lexer(t_lexer	*lexer);
 t_lst	*get_parsed(t_lexer	*lexer, t_data *data);
-char	*get_parsed_pipe(t_lexer **lex, t_lst *lst, t_data *data, char *res);
-char	*get_parsed_other(t_lexer **lex, t_data *data, char *res);
-char	*get_parsed_other_normed(t_lexer **lex, t_data *data, \
-char *res, char *join);
 char	*fill_quote(t_lexer **lexer, t_data *data, char *res);
 char	*fill_dollar(t_lexer **lexer, t_data *data, char *res);
-char	*fill_dollar_normed(t_lexer **lexer, char *res, char *tmp);
-char	*fill_dolar_normed_lol(t_lexer **lexer, \
-t_data *data, char *res, char *tmp);
 char	*fill_simple_quote(t_lexer **lexer, char *res);
 void	fill_rout(t_lexer **lexer, t_data *data);
 void	fill_rin(t_lexer **lexer, t_data *data);
