@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 03:05:41 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/22 00:01:06 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/22 02:46:38 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ int	normed_add_to_export(int i, t_data *data, char *str)
 	return (1);
 }
 
-int	check_ex_env(t_lst *tmp, char *check)
+int	check_ex_env(t_lst *tmp, char **check)
 {
 	int	i;
 
 	i = 0;
 	while (tmp)
 	{
-		if (ft_strcmp(tmp->content, check) == 0)
+		if (ft_strcmp(tmp->content, *check) == 0)
 			return (i);
 		i++;
 		tmp = tmp->next;
@@ -59,14 +59,14 @@ int	check_ex_env(t_lst *tmp, char *check)
 	return (-1);
 }
 
-int	check_ex_exp(t_lst *tmp, char *check)
+int	check_ex_exp(t_lst *tmp, char **check)
 {
 	int	i;
 
 	i = 0;
 	while (tmp)
 	{
-		if (ft_strcmp(tmp->content, check) == 0)
+		if (ft_strcmp(tmp->content, *check) == 0)
 			return (i);
 		i++;
 		tmp = tmp->next;

@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 17:45:40 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/22 00:13:50 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/22 00:32:47 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,11 @@ void	fill_hyphen_norm(t_lexer *tmp, t_data *data)
 	if (!tmp->next || tmp->next->type == SPACE)
 	{
 		if (data->hyphen == 1 && data->n == -1)
+		{
 			data->n = 1;
+		}
 		else if (data->hyphen == 0 && data->n == -1)
 		{
-			data->n = 0;
 			data->stopn = 1;
 		}
 		else if (data->hyphen == 0)

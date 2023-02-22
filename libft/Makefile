@@ -6,7 +6,7 @@
 #    By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/19 15:49:30 by rperrin           #+#    #+#              #
-#    Updated: 2023/01/27 16:05:30 by rperrin          ###   ########.fr        #
+#    Updated: 2023/02/22 01:31:36 by rperrin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ ft_strtrim.c \
 ft_substr.c \
 ft_tolower.c \
 ft_toupper.c \
+ft_strcmp.c \
 
 BONUS	= ft_lstadd_back.c \
 ft_lstadd_front.c \
@@ -69,13 +70,14 @@ ifdef SUNOB
 	OBJS = ${SRCS:.c=.o} ${BONUS:.c=.o}
 endif
 
-%.o: %.c
-			${CC} -c ${CFLAGS} -o $@ $<
-
 all: $(NAME)
 
 $(NAME):	$(OBJS)
 			$(AR) $@ $^
+			
+%.o:%.c
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@printf $$'\033[1mcompiling: \033[0m $<                                                \r'
 
 bonus:
 	make SUNOB=1 all

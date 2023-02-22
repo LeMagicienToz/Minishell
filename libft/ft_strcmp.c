@@ -6,11 +6,11 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 19:08:50 by muteza            #+#    #+#             */
-/*   Updated: 2023/01/27 16:04:26 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/22 01:13:22 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "libft.h"
 
 int	ft_strcmp(char *s1, char *s2)
 {

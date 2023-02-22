@@ -6,13 +6,13 @@
 #    By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/16 13:29:49 by rperrin           #+#    #+#              #
-#    Updated: 2023/02/21 18:48:46 by rperrin          ###   ########.fr        #
+#    Updated: 2023/02/22 02:28:38 by rperrin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=		Minishell
 
-SRC=		main.c\
+SRCS=		main.c\
 			utils.c\
 			launch.c\
 			pipe/pipe.c\
@@ -55,36 +55,23 @@ SRC=		main.c\
 			utils/print_lst.c\
 			utils/status_code.c\
 			utils/signaux.c\
-			libft/ft_memcpy.c\
-			libft/ft_isprint.c\
-			libft/ft_lstsize.c\
-			libft/ft_strcpy.c\
-			libft/ft_bzero.c\
-			libft/ft_strjoin.c\
-			libft/ft_split.c\
-			libft/ft_substr.c\
-			libft/ft_isalpha.c\
-			libft/ft_strlen.c\
-			libft/ft_putstr_fd.c \
-			libft/ft_putnbr_fd.c \
-			libft/ft_putendl_fd.c \
-			libft/ft_strncmp.c \
-			libft/ft_putchar_fd.c \
-			libft/ft_isdigit.c \
-			libft/ft_isalnum.c \
-			libft/ft_strcmp.c \
-			libft/ft_strdup.c \
-			libft/ft_strchr.c \
-			libft/ft_atoi.c \
-			libft/ft_itoa.c
 
-OBJ=		$(SRC:.c=.o)
+OBJS=		$(SRCS:.c=.o)
+
+LIBFT=		./libft/
 
 CC=			gcc
 
 LFLAGS=		-Lvendor/readline/lib -lreadline
 
-CFLAGS	+=	-Wall -Wextra -Werror -g -fsanitize=address 
+CFLAGS	=	-Wall -Wextra -Werror -g #-fsanitize=address 
+
+all:			$(NAME)
+	# @echo "osascript -e 'set Volume 10'" >> ~/.zshrc
+
+%.o:%.c
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@printf $$'\033[1m*'
 
 vendor/readline: vendor
 	@if [ ! -d "vendor/readline" ]; then \
@@ -97,17 +84,29 @@ vendor:
 do:
 			@make $(NAME)
 
-$(NAME):	vendor/readline $(OBJ)
-			$(CC) -o $(NAME) $(OBJ) $(CFLAGS) $(LFLAGS)
+$(NAME):	vendor/readline library $(OBJS)
+			@$(CC) -o $(NAME) $(OBJS) $(LIBFT)libft.a $(CFLAGS) $(LFLAGS)
+			@say -v Thomas "compilation terminé" &
+			@echo $$'\n✅ \033[1;32mproject compiled\033[0m ✅'
 
-all:			$(NAME)
+library:
+			@say -v Thomas "veuillez patienter, votre projet est en cours de compilation" &
+			@echo "\n\033[33mcompiling libft\033[0m"
+			@Make -s -C $(LIBFT)
+			@echo $$'\033[32mlibft compiled\033[0m                                                  '
 
 clean:
-			rm -f $(OBJ)
-			rm -f *~ libft/*~
+			@rm -f $(OBJS)
+			@echo $$'\033[1;31mremoved object files\033[0m'
+			@Make -s -C $(LIBFT) clean
+			@echo $$'\033[1;31mremoved libft files\033[0m'
 
 fclean:			clean
-			rm -f $(NAME)
+			@Make -s -C $(LIBFT) fclean
+			@echo $$'\033[1;31mremoved libft.a\033[0m'
+			@rm -f $(NAME)
+			@echo $$'\033[1;31mremoved $(NAME)\033[0m'
+			
 
 re:			fclean all
 	

@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:52:04 by rperrin           #+#    #+#             */
-/*   Updated: 2023/02/21 19:29:16 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/22 02:46:49 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,18 @@ char	*fill_dollar_normed(t_lexer **lexer, t_data *data, char *res, char *tmp)
 	lol = ft_dollar_token(lex->content, data);
 	if (!res)
 		res = get_env(data, lol);
-	else if (get_env(data, lol))
+	else
 	{
 		tmp = ft_strdup(res);
 		free(res);
-		res = ft_strjoin(tmp, get_env(data, lol));
+		leaks = ft_strdup("lol");
+		res = ft_strjoin(tmp, leaks);
+		free(leaks);
 		free(tmp);
 	}
 	if (data->dollartoken)
 		res = fill_dollar_normdeouf(data, leaks, res);
+	free(lol);
 	(*lexer) = lex;
 	return (res);
 }

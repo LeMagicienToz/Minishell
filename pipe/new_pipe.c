@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:18:39 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/21 18:58:18 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/22 02:00:15 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	more_pipe(t_data *data, t_lst *lst)
 	if (data->id == 0)
 	{
 		data->path = get_path(data->envi, data->str[0], data);
-		if (!data->path)
-			exit(127);
 		data->k = 1;
 		dup2(data->save, 0);
 		if (lst->fdout != 0)
@@ -46,5 +44,6 @@ void	more_pipe(t_data *data, t_lst *lst)
 		close(data->fd[0]);
 		close(data->fd[1]);
 		execve(data->path, data->str, data->envp);
+		erreur_status(126, "ERREUR: Ne Peut pas exec la cmd", data, 1);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_to_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muteza <muteza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:13:30 by muteza            #+#    #+#             */
-/*   Updated: 2023/02/18 16:39:37 by muteza           ###   ########.fr       */
+/*   Updated: 2023/02/22 02:50:39 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ int	check_exicting_env(t_data *data, char *str)
 	else
 		check = ft_substr(str, 0, i + 1);
 	tmp = data->env;
-	return (check_ex_env(tmp, check));
+	i = check_ex_env(tmp, check);
+	free(check);
+	return (i);
 }
 
 void	replace_export(t_data *data, int x, char *add)
@@ -79,7 +81,9 @@ int	check_exicting_exp(t_data *data, char *str)
 	else
 		check = ft_substr(str, 0, i + 1);
 	tmp = data->export;
-	return (check_ex_exp(tmp, check));
+	i = check_ex_exp(tmp, check);
+	free(check);
+	return (i);
 }
 
 int	parcing_export(t_data *data)

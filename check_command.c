@@ -6,7 +6,7 @@
 /*   By: rperrin <rperrin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 15:14:06 by uteza             #+#    #+#             */
-/*   Updated: 2023/02/21 16:37:58 by rperrin          ###   ########.fr       */
+/*   Updated: 2023/02/22 01:59:15 by rperrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*get_path(char **envp, char *arg, t_data *data)
 	if (!access(data->str[0], X_OK))
 		return (data->str[0]);
 	else if (!envp[i])
-		return (erreur_status(127, "Erreur: pas de PATH", data, 0), NULL);
+		return (erreur_status(127, "Erreur: pas de PATH", data, 1), NULL);
 	path = envp[i] + 5;
 	while (*path)
 	{
@@ -63,7 +63,7 @@ char	*get_path(char **envp, char *arg, t_data *data)
 		}
 		path++;
 	}
-	erreur_status(127, "Erreur: Commande introuvable <3", data, 0);
+	erreur_status(127, "Erreur: Commande introuvable <3", data, 1);
 	return (NULL);
 }
 
@@ -90,7 +90,7 @@ void	erreur_status(int status, char *error, t_data *data, int ex)
 	printf("%s\n", error);
 	data->status = status;
 	if (ex != 0)
-		exit(0);
+		exit(data->status);
 }
 
 void	wait_fork(pid_t child_pid)
